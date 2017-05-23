@@ -20,5 +20,5 @@ UML| JDeveloper 12c
 
 Item     | Ferramenta
 -------- | ---
-Framework Server-Side| Vraptor 4
+API RESTful | JAX-RS
 ORM| JPA (Hibernate)
