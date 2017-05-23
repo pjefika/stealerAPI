@@ -5,8 +5,9 @@
  */
 package controller;
 
+import com.google.gson.Gson;
 import dao.ClienteDAO;
-import javax.inject.Inject;
+import javax.ejb.Stateless;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -17,17 +18,25 @@ import model.Cliente;
  * @author G0041775
  */
 @Path("/getCliente")
+@Stateless
 public class ClienteController {
 
-    @Inject
-    private ClienteDAO dao;
+    private ClienteDAO dao = new ClienteDAO();
 
     @GET 
 //    @Produces("application/json")
     @Produces("text/plain")
     public String getCliente(){
-        Cliente c = new Cliente();
-        c.setDesignador("oi");
-        return c.getDesignador();
+        String instancia = "4133335556";
+//        Cliente c = new Cliente();
+//        c.setDesignador("oi");
+//        return c.getDesignador();
+        Gson g = new Gson();
+        try {
+            return g.toJson(dao.getCliente(instancia), Cliente.class);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return "NDEU";
+        }
     }
 }

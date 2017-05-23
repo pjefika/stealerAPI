@@ -21,9 +21,11 @@ public class Cliente implements Serializable {
     @Id
     private Long ID;
 
-    private Integer slot, porta, olt, logica, rin, vlanVoip, vlanVod, vlanMulticast, velDown, velUp;
+    private Long velDown, velUp;
 
-    private String ipDslam, designador;
+    private Integer slot, porta, sequencial, logica, rin, vlanVoip, vlanVod, vlanMulticast;
+
+    private String ipDslam, designador, instancia;
 
     private Boolean isSip, isHib;
 
@@ -36,6 +38,14 @@ public class Cliente implements Serializable {
 
     public void setID(Long ID) {
         this.ID = ID;
+    }
+
+    public String getInstancia() {
+        return instancia;
+    }
+
+    public void setInstancia(String instancia) {
+        this.instancia = instancia;
     }
 
     public Integer getSlot() {
@@ -54,12 +64,12 @@ public class Cliente implements Serializable {
         this.porta = porta;
     }
 
-    public Integer getOlt() {
-        return olt;
+    public Integer getSequencial() {
+        return sequencial;
     }
 
-    public void setOlt(Integer olt) {
-        this.olt = olt;
+    public void setSequencial(Integer sequencial) {
+        this.sequencial = sequencial;
     }
 
     public Integer getLogica() {
@@ -102,19 +112,19 @@ public class Cliente implements Serializable {
         this.vlanMulticast = vlanMulticast;
     }
 
-    public Integer getVelDown() {
+    public Long getVelDown() {
         return velDown;
     }
 
-    public void setVelDown(Integer velDown) {
+    public void setVelDown(Long velDown) {
         this.velDown = velDown;
     }
 
-    public Integer getVelUp() {
+    public Long getVelUp() {
         return velUp;
     }
 
-    public void setVelUp(Integer velUp) {
+    public void setVelUp(Long velUp) {
         this.velUp = velUp;
     }
 
