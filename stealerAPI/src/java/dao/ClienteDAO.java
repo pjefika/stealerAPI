@@ -7,8 +7,8 @@ package dao;
 
 import bean.ossturbonet.oss.gvt.com.GetInfoOut;
 import com.gvt.www.ws.eai.oss.ossturbonet.OSSTurbonetProxy;
-import dao.util.TratativaDesignadores;
 import model.Cliente;
+import model.util.TratativaDesignadores;
 
 /**
  *
@@ -25,21 +25,23 @@ public class ClienteDAO {
 
     public Cliente getCliente(String designador) throws Exception {
         Cliente c = new Cliente();
-        ProdutosDAO prod = new ProdutosDAO(designador);
-        c.setDesignador(getDesignador(designador));
+        c.setDesignador(designador);
+        ServicosDAO prod = new ServicosDAO(designador, service, port);
         GetInfoOut leCadastro = getInfo(designador);
-        c.setIpDslam(leCadastro.getInfoTBS().getIpDSLAM());
-        c.setLogica(new Integer(leCadastro.getInfoTBS().getPortAddrSequence().toString()));
-        c.setSequencial(new Integer(leCadastro.getInfoTBS().getPortAddrSeq().toString()));
-        c.setPorta(new Integer(leCadastro.getInfoTBS().getPortNumber().toString()));
-        c.setRin(new Integer(leCadastro.getInfoTBS().getRin()));
-        c.setSlot(new Integer(leCadastro.getInfoTBS().getSlot().toString()));
-        c.setVlanMulticast(leCadastro.getInfoTBS().getVlanMcast());
-        c.setVlanVod(leCadastro.getInfoTBS().getVlanVoD());
-        c.setVlanVoip(leCadastro.getInfoTBS().getVlanVoIP());
-        
         c = getAssociatedDesignators(c);
-        c = prod.getProdCliente(c);
+        c.getRede().setIpDslam(leCadastro.getInfoTBS().getIpDslam());
+        c.getRede().setLogica(new Integer(leCadastro.getInfoTBS().getPortAddrSequence().toString()));
+        c.getRede().setSequencial(new Integer(leCadastro.getInfoTBS().getPortAddrSeq().toString()));
+        c.getRede().setPorta(new Integer(leCadastro.getInfoTBS().getPortNumber().toString()));
+        c.getRede().setRin(new Integer(leCadastro.getInfoTBS().getRin()));
+        c.getRede().setSlot(new Integer(leCadastro.getInfoTBS().getSlot().toString()));
+        c.getRede().setVlanMulticast(leCadastro.getInfoTBS().getVlanMcast());
+        c.getRede().setVlanVod(leCadastro.getInfoTBS().getVlanVoD());
+        c.getRede().setVlanVoip(leCadastro.getInfoTBS().getVlanVoIP());
+        
+        
+        c.setServicos(prod.getProdCliente());
+        
         
         return c;
     }

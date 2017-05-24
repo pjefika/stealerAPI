@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dao.util;
+package model.util;
 
 import com.gvt.ws.eai.oss.inventory.api.Designator;
 import com.gvt.ws.eai.oss.inventory.api.InventoryDesignatorsResponse;
@@ -32,7 +32,12 @@ public class TratativaDesignadores {
 
     protected void tratativa() {
         for (Designator designator : r.getDesignator()) {
-
+            
+            // Designador de Acesso
+            if (designator.getDesignatorType().getValue().equals(1)) {
+                c.setDesignadorAcesso(designator.getValue());
+            }
+            
             // Instancia
             if (designator.getDesignatorType().getValue().equals(2)) {
                 c.setInstancia(designator.getValue());

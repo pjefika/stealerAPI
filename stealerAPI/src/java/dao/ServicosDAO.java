@@ -5,21 +5,23 @@
  */
 package dao;
 
-import model.Cliente;
+import model.InventarioServico;
 
 /**
  *
  * @author G0041775
  */
-public class ProdutosDAO {
+public class ServicosDAO {
 
-    private br.com.gvt.oss.inventory.service.impl.InventoryService service = new br.com.gvt.oss.inventory.service.impl.InventoryService();
-    private br.com.gvt.oss.inventory.service.impl.InventoryImpl port = service.getInventoryImplPort();
+    private br.com.gvt.oss.inventory.service.impl.InventoryService service;
+    private br.com.gvt.oss.inventory.service.impl.InventoryImpl port;
     private com.gvt.ws.eai.oss.inventory.api.InventoryAccountResponse result;
     private String designator, velDown, velUp, linha, tv;
 
-    public ProdutosDAO(String designator) {
+    public ServicosDAO(String designator, br.com.gvt.oss.inventory.service.impl.InventoryService srv, br.com.gvt.oss.inventory.service.impl.InventoryImpl prt) {
         this.designator = designator;
+        this.service = srv;
+        this.port = prt;
     }
 
     public void getAccountItems() {
@@ -94,18 +96,20 @@ public class ProdutosDAO {
         }
     }
 
-    public Cliente getProdCliente(Cliente c) {
+    public InventarioServico getProdCliente() {
 
+        InventarioServico serv = new InventarioServico();
+        
         this.getBanda();
         this.getLinha();
         this.getTv();
         
-        c.setVelDown(new Long(velDown));
-        c.setVelUp(new Long(velUp));
-        c.setIsSip(linha.contains("SIP"));
-        c.setIsHib(tv.contains("brid"));
-
-        return c;
+        serv.setIsHib(tv.contains("brid"));
+        serv.setIsSip(linha.contains("SIP"));
+        serv.setVelDown(new Long(velDown));
+        serv.setVelUp(new Long(velUp));
+        
+        return serv;
     }
 
 }

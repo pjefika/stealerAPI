@@ -10,6 +10,7 @@ import dao.ClienteDAO;
 import javax.ejb.Stateless;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import model.Cliente;
 
@@ -17,26 +18,24 @@ import model.Cliente;
  *
  * @author G0041775
  */
-@Path("/getCliente")
+@Path("/getCliente/{instancia}")
 @Stateless
 public class ClienteController {
 
     private ClienteDAO dao = new ClienteDAO();
 
-    @GET 
-//    @Produces("application/json")
+    @GET
     @Produces("text/plain")
-    public String getCliente(){
-        String instancia = "4133335556";
+    public String getCliente(@PathParam("instancia") String instancia) {
 //        Cliente c = new Cliente();
 //        c.setDesignador("oi");
 //        return c.getDesignador();
         Gson g = new Gson();
         try {
-            return g.toJson(dao.getCliente(instancia), Cliente.class);
+            return "{cliente: "+g.toJson(dao.getCliente(instancia), Cliente.class)+"}";
         } catch (Exception ex) {
             ex.printStackTrace();
-            return "NDEU";
+            return "{exception: "+ex.getMessage()+"}";
         }
     }
 }
