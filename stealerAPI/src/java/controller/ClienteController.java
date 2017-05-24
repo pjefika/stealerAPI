@@ -34,8 +34,7 @@ public class ClienteController {
         try {
             return "{cliente: "+g.toJson(dao.getCliente(instancia), Cliente.class)+"}";
         } catch (Exception ex) {
-            ex.printStackTrace();
-            return "{exception: "+ex.getMessage()+"}";
+            return "{exception: "+ g.toJson(ex, Exception.class)+"}";
         }
     }
 }
