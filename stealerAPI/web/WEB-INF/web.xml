@@ -5,7 +5,7 @@
 		 xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" 
 		 id="WebApp_ID" 
 		 version="2.5">
-  <display-name>TesteWS</display-name> <!-- Como default o nome do meu projeto, esse nome irá aparecer na URL -->
+  <display-name>StealerAPI</display-name> <!-- Como default o nome do meu projeto, esse nome irá aparecer na URL -->
   <servlet> 
     <servlet-name>Jersey RESTful</servlet-name>
     <servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
@@ -17,7 +17,7 @@
 
 
     </init-param> 
-    <load-on-startup>1</load-on-startup>
+    <load-on-startup>2</load-on-startup>
   </servlet>
   <servlet-mapping>
     <servlet-name>Jersey RESTful</servlet-name>

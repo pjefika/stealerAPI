@@ -51,7 +51,7 @@ public class ClienteDAOTest {
         InterfaceDAO<Cliente> instance = FactoryDAO.createClienteDAO();
         try {
             Cliente result = instance.consultar(designador);
-            assertTrue(!result.getRede().getIpDslam().isEmpty());
+            assertTrue(!result.getRede().get(0).getIpDslam().isEmpty());
         } catch (Exception e) {
             e.printStackTrace();
             fail();

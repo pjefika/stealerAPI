@@ -5,7 +5,10 @@
  */
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -19,15 +22,15 @@ public class Cliente extends AbstractEntity {
 
     private String designador, instancia, designadorAcesso;
 
-    @OneToMany
-    private InventarioRede rede;
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<InventarioRede> rede;
 
-    @OneToMany
-    private InventarioServico servicos;
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<InventarioServico> servicos;
 
     public Cliente() {
-        rede = new InventarioRede();
-        servicos = new InventarioServico();
+        rede = new ArrayList<>();
+        servicos = new ArrayList<>();
     }
 
     public String getDesignadorAcesso() {
@@ -54,19 +57,19 @@ public class Cliente extends AbstractEntity {
         this.instancia = instancia;
     }
 
-    public InventarioRede getRede() {
+    public List<InventarioRede> getRede() {
         return rede;
     }
 
-    public void setRede(InventarioRede rede) {
+    public void setRede(List<InventarioRede> rede) {
         this.rede = rede;
     }
 
-    public InventarioServico getServicos() {
+    public List<InventarioServico> getServicos() {
         return servicos;
     }
 
-    public void setServicos(InventarioServico servicos) {
+    public void setServicos(List<InventarioServico> servicos) {
         this.servicos = servicos;
     }
 

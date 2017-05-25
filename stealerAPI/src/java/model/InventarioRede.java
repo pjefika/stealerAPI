@@ -19,6 +19,7 @@ public class InventarioRede extends AbstractEntity {
 
     private String ipDslam;
     private Integer slot, porta, sequencial, logica, rin, vlanVoip, vlanVod, vlanMulticast;
+    private Cliente c;
 
     public InventarioRede() {
     }

@@ -19,6 +19,8 @@ public class InventarioServico extends AbstractEntity {
     private Long velDown, velUp;
 
     private Boolean isSip, isHib;
+    
+    private Cliente c;
 
     public InventarioServico() {
     }
