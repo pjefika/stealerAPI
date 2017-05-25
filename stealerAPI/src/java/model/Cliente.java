@@ -11,6 +11,8 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
+import org.codehaus.jackson.map.annotate.JsonRootName;
 
 /**
  *
@@ -18,6 +20,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "STEALERAPI_CLIENTE")
+@XmlRootElement(name = "cliente")
 public class Cliente extends AbstractEntity {
 
     private String designador, instancia, designadorAcesso;

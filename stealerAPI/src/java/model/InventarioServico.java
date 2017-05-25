@@ -6,6 +6,7 @@
 package model;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -20,6 +21,7 @@ public class InventarioServico extends AbstractEntity {
 
     private Boolean isSip, isHib;
     
+    @ManyToOne
     private Cliente c;
 
     public InventarioServico() {
