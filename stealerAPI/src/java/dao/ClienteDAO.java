@@ -7,10 +7,9 @@ package dao;
 
 import bean.ossturbonet.oss.gvt.com.GetInfoOut;
 import com.gvt.www.ws.eai.oss.ossturbonet.OSSTurbonetProxy;
-import java.util.ArrayList;
-import java.util.List;
 import javax.persistence.EntityManager;
 import model.Cliente;
+import model.InventarioRede;
 import model.InventarioServico;
 import model.util.TratativaDesignadores;
 
@@ -33,19 +32,21 @@ public class ClienteDAO implements InterfaceDAO<Cliente> {
         ServicosDAO prod = new ServicosDAO(designador, service, port);
         GetInfoOut leCadastro = getInfo(designador);
         c = getAssociatedDesignators(c);
-        c.getRede().get(0).setIpDslam(leCadastro.getInfoTBS().getIpDslam());
-        c.getRede().get(0).setLogica(new Integer(leCadastro.getInfoTBS().getPortAddrSequence().toString()));
-        c.getRede().get(0).setSequencial(new Integer(leCadastro.getInfoTBS().getPortAddrSeq().toString()));
-        c.getRede().get(0).setPorta(new Integer(leCadastro.getInfoTBS().getPortNumber().toString()));
-        c.getRede().get(0).setRin(new Integer(leCadastro.getInfoTBS().getRin()));
-        c.getRede().get(0).setSlot(new Integer(leCadastro.getInfoTBS().getSlot().toString()));
-        c.getRede().get(0).setVlanMulticast(leCadastro.getInfoTBS().getVlanMcast());
-        c.getRede().get(0).setVlanVod(leCadastro.getInfoTBS().getVlanVoD());
-        c.getRede().get(0).setVlanVoip(leCadastro.getInfoTBS().getVlanVoIP());
+        InventarioRede r = new InventarioRede();
+        r.setIpDslam(leCadastro.getInfoTBS().getIpDslam());
+        r.setLogica(new Integer(leCadastro.getInfoTBS().getPortAddrSequence().toString()));
+        r.setSequencial(new Integer(leCadastro.getInfoTBS().getPortAddrSeq().toString()));
+        r.setPorta(new Integer(leCadastro.getInfoTBS().getPortNumber().toString()));
+        r.setRin(new Integer(leCadastro.getInfoTBS().getRin()));
+        r.setSlot(new Integer(leCadastro.getInfoTBS().getSlot().toString()));
+        r.setVlanMulticast(leCadastro.getInfoTBS().getVlanMcast());
+        r.setVlanVod(leCadastro.getInfoTBS().getVlanVoD());
+        r.setVlanVoip(leCadastro.getInfoTBS().getVlanVoIP());
 
-        List<InventarioServico> l = new ArrayList<>();
-        l.set(0, prod.consultar());
-        c.setServicos(l);
+        InventarioServico s = prod.consultar();
+        
+        c.getRede().add(r);
+        c.getServicos().add(s);
 
         return c;
     }
