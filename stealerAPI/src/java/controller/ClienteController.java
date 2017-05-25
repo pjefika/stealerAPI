@@ -7,9 +7,6 @@ package controller;
 
 import dao.FactoryDAO;
 import dao.InterfaceDAO;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.ejb.Stateless;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -22,7 +19,6 @@ import model.Cliente;
  * @author G0041775
  */
 @Path("/cliente")
-@Stateless
 public class ClienteController {
 
     private InterfaceDAO<Cliente> dao = FactoryDAO.createClienteDAO();
@@ -35,7 +31,8 @@ public class ClienteController {
         try {
             return dao.consultar(instancia);
         } catch (Exception ex) {
-            Logger.getLogger(ClienteController.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getCause());
+            ex.printStackTrace();
             return null;
         }
     }

@@ -5,6 +5,8 @@
  */
 package dao;
 
+import com.gvt.ws.eai.oss.inventory.api.Account;
+import com.gvt.ws.eai.oss.inventory.api.Item;
 import model.InventarioServico;
 
 /**
@@ -33,11 +35,11 @@ public class ServicosDAO implements InterfaceDAO<InventarioServico> {
         }
     }
 
-    public void getBanda() {
+    private void getBanda(InventarioServico i) {
         this.getAccountItems();
-        for (com.gvt.ws.eai.oss.inventory.api.Account acc : result.getAccounts()) {
-            for (com.gvt.ws.eai.oss.inventory.api.Address adr : acc.getAddress()) {
-                for (com.gvt.ws.eai.oss.inventory.api.Item item : adr.getItems()) {
+        result.getAccounts().forEach((acc) -> {
+            acc.getAddress().forEach((adr) -> {
+                adr.getItems().forEach((item) -> {
                     for (com.gvt.ws.eai.oss.inventory.api.Item itn : item.getItems()) {
                         if (itn.getStatusName().equals("ACTIVE") || itn.getStatusName().equals("PENDING")) {
                             for (com.gvt.ws.eai.oss.inventory.api.Param param : itn.getParam()) {
@@ -50,14 +52,17 @@ public class ServicosDAO implements InterfaceDAO<InventarioServico> {
                             }
                         }
                     }
-                }
-            }
-        }
+                });
+            });
+        });
+
+        i.setVelDown(new Long(velDown));
+        i.setVelUp(new Long(velUp));
     }
 
-    public void getLinha() {
+    private void getLinha(InventarioServico i) {
         this.getAccountItems();
-        for (com.gvt.ws.eai.oss.inventory.api.Account acc : result.getAccounts()) {
+        result.getAccounts().forEach((Account acc) -> {
             for (com.gvt.ws.eai.oss.inventory.api.Address adr : acc.getAddress()) {
                 for (com.gvt.ws.eai.oss.inventory.api.Item item : adr.getItems()) {
                     for (com.gvt.ws.eai.oss.inventory.api.Item itn : item.getItems()) {
@@ -69,48 +74,47 @@ public class ServicosDAO implements InterfaceDAO<InventarioServico> {
                     }
                 }
             }
-        }
+        });
         if (linha == null) {
             linha = "SIP";
         }
-//        if (linha.getTipo() == null) {
-//            linha.setTipo("SIP ACESSO");
-//        }
 
+        i.setIsSip(linha.contains("SIP"));
     }
 
-    public void getTv() {
+    private void getTv(InventarioServico i) {
         this.getAccountItems();
-        for (com.gvt.ws.eai.oss.inventory.api.Account acc : result.getAccounts()) {
-            for (com.gvt.ws.eai.oss.inventory.api.Address adr : acc.getAddress()) {
-                for (com.gvt.ws.eai.oss.inventory.api.Item item : adr.getItems()) {
-                    for (com.gvt.ws.eai.oss.inventory.api.Item itn : item.getItems()) {
+        result.getAccounts().forEach((acc) -> {
+            acc.getAddress().forEach((adr) -> {
+                adr.getItems().forEach((Item item) -> {
+                    item.getItems().forEach((Item itn) -> {
                         for (com.gvt.ws.eai.oss.inventory.api.Param param : itn.getParam()) {
-                            if (param.getName().equals("TecnologiaTV")) {
-                                tv = param.getValue();
+                            if (param.getName().equalsIgnoreCase("TecnologiaTV")) {
+                                if (param.getValue() != null) {
+                                    if (param.getValue().contains("brid")) {
+                                        i.setIsHib(true);
+                                    }
+                                }
                             }
                         }
-                    }
-                }
-            }
+                    });
+                });
+            });
+        });
+
+        if (i.getIsHib() == null) {
+            i.setIsHib(Boolean.TRUE);
         }
-        if (tv == null) {
-            tv = "";
-        }
+
     }
 
     public InventarioServico consultar() throws Exception {
 
         InventarioServico serv = new InventarioServico();
 
-        this.getBanda();
-        this.getLinha();
-        this.getTv();
-
-        serv.setIsHib(tv.contains("brid"));
-        serv.setIsSip(linha.contains("SIP"));
-        serv.setVelDown(new Long(velDown));
-        serv.setVelUp(new Long(velUp));
+        this.getBanda(serv);
+        this.getLinha(serv);
+        this.getTv(serv);
 
         return serv;
     }
