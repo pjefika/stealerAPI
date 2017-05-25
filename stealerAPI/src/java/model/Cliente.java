@@ -6,6 +6,7 @@
 package model;
 
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -18,11 +19,15 @@ public class Cliente extends AbstractEntity {
 
     private String designador, instancia, designadorAcesso;
 
-    private InventarioRede rede = new InventarioRede();
+    @OneToMany
+    private InventarioRede rede;
 
-    private InventarioServico servicos = new InventarioServico();
+    @OneToMany
+    private InventarioServico servicos;
 
     public Cliente() {
+        rede = new InventarioRede();
+        servicos = new InventarioServico();
     }
 
     public String getDesignadorAcesso() {

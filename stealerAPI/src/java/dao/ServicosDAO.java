@@ -11,12 +11,15 @@ import model.InventarioServico;
  *
  * @author G0041775
  */
-public class ServicosDAO {
+public class ServicosDAO implements InterfaceDAO<InventarioServico> {
 
     private br.com.gvt.oss.inventory.service.impl.InventoryService service;
     private br.com.gvt.oss.inventory.service.impl.InventoryImpl port;
     private com.gvt.ws.eai.oss.inventory.api.InventoryAccountResponse result;
     private String designator, velDown, velUp, linha, tv;
+
+    public ServicosDAO() {
+    }
 
     public ServicosDAO(String designator, br.com.gvt.oss.inventory.service.impl.InventoryService srv, br.com.gvt.oss.inventory.service.impl.InventoryImpl prt) {
         this.designator = designator;
@@ -67,7 +70,7 @@ public class ServicosDAO {
                 }
             }
         }
-        if(linha == null){
+        if (linha == null) {
             linha = "SIP";
         }
 //        if (linha.getTipo() == null) {
@@ -84,32 +87,42 @@ public class ServicosDAO {
                     for (com.gvt.ws.eai.oss.inventory.api.Item itn : item.getItems()) {
                         for (com.gvt.ws.eai.oss.inventory.api.Param param : itn.getParam()) {
                             if (param.getName().equals("TecnologiaTV")) {
-                                tv =  param.getValue();
+                                tv = param.getValue();
                             }
                         }
                     }
                 }
             }
         }
-        if(tv == null){
+        if (tv == null) {
             tv = "";
         }
     }
 
-    public InventarioServico getProdCliente() {
+    public InventarioServico consultar() throws Exception {
 
         InventarioServico serv = new InventarioServico();
-        
+
         this.getBanda();
         this.getLinha();
         this.getTv();
-        
+
         serv.setIsHib(tv.contains("brid"));
         serv.setIsSip(linha.contains("SIP"));
         serv.setVelDown(new Long(velDown));
         serv.setVelUp(new Long(velUp));
-        
+
         return serv;
+    }
+
+    @Override
+    public InventarioServico consultar(String param1) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void cadastrar(InventarioServico obj) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

@@ -7,6 +7,8 @@ package controller;
 
 import com.google.gson.Gson;
 import dao.ClienteDAO;
+import dao.FactoryDAO;
+import dao.InterfaceDAO;
 import javax.ejb.Stateless;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -22,7 +24,7 @@ import model.Cliente;
 @Stateless
 public class ClienteController {
 
-    private ClienteDAO dao = new ClienteDAO();
+    private InterfaceDAO<Cliente> dao = FactoryDAO.createClienteDAO();
 
     @GET
     @Produces("text/plain")
@@ -32,9 +34,9 @@ public class ClienteController {
 //        return c.getDesignador();
         Gson g = new Gson();
         try {
-            return "{cliente: "+g.toJson(dao.getCliente(instancia), Cliente.class)+"}";
+            return "{cliente: " + g.toJson(dao.consultar(instancia), Cliente.class) + "}";
         } catch (Exception ex) {
-            return "{exception: "+ g.toJson(ex, Exception.class)+"}";
+            return "{exception: " + g.toJson(ex, Exception.class) + "}";
         }
     }
 }

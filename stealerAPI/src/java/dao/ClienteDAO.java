@@ -7,6 +7,7 @@ package dao;
 
 import bean.ossturbonet.oss.gvt.com.GetInfoOut;
 import com.gvt.www.ws.eai.oss.ossturbonet.OSSTurbonetProxy;
+import javax.persistence.EntityManager;
 import model.Cliente;
 import model.util.TratativaDesignadores;
 
@@ -14,7 +15,7 @@ import model.util.TratativaDesignadores;
  *
  * @author G0041775
  */
-public class ClienteDAO {
+public class ClienteDAO implements InterfaceDAO<Cliente> {
 
     private OSSTurbonetProxy ws = new OSSTurbonetProxy();
     private br.com.gvt.oss.inventory.service.impl.InventoryService service = new br.com.gvt.oss.inventory.service.impl.InventoryService();
@@ -23,7 +24,7 @@ public class ClienteDAO {
     public ClienteDAO() {
     }
 
-    public Cliente getCliente(String designador) throws Exception {
+    public Cliente consultar(String designador) throws Exception {
         Cliente c = new Cliente();
         c.setDesignador(designador);
         ServicosDAO prod = new ServicosDAO(designador, service, port);
@@ -38,11 +39,9 @@ public class ClienteDAO {
         c.getRede().setVlanMulticast(leCadastro.getInfoTBS().getVlanMcast());
         c.getRede().setVlanVod(leCadastro.getInfoTBS().getVlanVoD());
         c.getRede().setVlanVoip(leCadastro.getInfoTBS().getVlanVoIP());
-        
-        
-        c.setServicos(prod.getProdCliente());
-        
-        
+
+        c.setServicos(prod.consultar());
+
         return c;
     }
 
@@ -64,6 +63,14 @@ public class ClienteDAO {
 
     public String getAccessDesignator(String designador) throws Exception {
         return ws.getAccessDesignator(designador);
+    }
+
+    @Override
+    public void cadastrar(Cliente obj) throws Exception {
+        EntityManager em = FactoryEntityManager.getInstance();
+        em.getTransaction();
+        em.persist(obj);
+        em.getTransaction().commit();
     }
 
 }
