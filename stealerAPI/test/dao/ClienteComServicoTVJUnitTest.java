@@ -5,7 +5,8 @@
  */
 package dao;
 
-import model.Cliente;
+import input.TestValues;
+import model.entity.Cliente;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -17,9 +18,9 @@ import static org.junit.Assert.*;
  *
  * @author G0042204
  */
-public class ClienteHibridoJUnitTest {
+public class ClienteComServicoTVJUnitTest {
 
-    public ClienteHibridoJUnitTest() {
+    public ClienteComServicoTVJUnitTest() {
     }
 
     @BeforeClass
@@ -39,16 +40,24 @@ public class ClienteHibridoJUnitTest {
     }
 
     @Test
-    public void clienteHibrido() {
-
-        InterfaceDAO<Cliente> dao = FactoryDAO.createClienteDAO();
-
+    public void hibrido() {
+        ClienteInterfaceDAO<Cliente> dao = FactoryDAO.createClienteDAO();
         try {
-            Cliente c = dao.consultar("4130222839");
+            Cliente c = dao.consultarCliente(TestValues.HIBRIDO);
             assertEquals(true, c.getServicos().get(0).getIsHib());
         } catch (Exception e) {
-            e.printStackTrace();
+            fail(e.getMessage());
         }
+    }
 
+    @Test
+    public void dth() {
+        ClienteInterfaceDAO<Cliente> dao = FactoryDAO.createClienteDAO();
+        try {
+            Cliente c = dao.consultarCliente(TestValues.DTH);
+            assertEquals(false, c.getServicos().get(0).getIsHib());
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
     }
 }

@@ -7,7 +7,7 @@ package model.util;
 
 import com.gvt.ws.eai.oss.inventory.api.Designator;
 import com.gvt.ws.eai.oss.inventory.api.InventoryDesignatorsResponse;
-import model.Cliente;
+import model.entity.Cliente;
 
 
 /**

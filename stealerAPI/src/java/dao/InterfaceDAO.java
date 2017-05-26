@@ -8,12 +8,7 @@ package dao;
 /**
  *
  * @author G0042204
- * @param <T>
  */
-public interface InterfaceDAO<T> {
-
-    public T consultar(String param1) throws Exception;
-    
-    public void cadastrar(T obj) throws Exception;
-
+public interface InterfaceDAO <T>{
+    public void cadastrar(T t) throws Exception;
 }

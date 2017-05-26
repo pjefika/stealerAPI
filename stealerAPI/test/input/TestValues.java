@@ -3,18 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dao;
-
-import model.entity.Cliente;
+package input;
 
 /**
  *
  * @author G0042204
  */
-public class FactoryDAO{
+public class TestValues {
 
-    public static ClienteInterfaceDAO<Cliente> createClienteDAO() {
-        return new ClienteDAO();
-    }
+    public static String HIBRIDO = "4130222839";
+    public static String DTH = "4130886762";
+
+    public static String TDM = HIBRIDO;
+    public static String SIP = "1630140007";
 
 }

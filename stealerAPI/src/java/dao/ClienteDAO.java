@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -6,64 +7,74 @@
 package dao;
 
 import bean.ossturbonet.oss.gvt.com.GetInfoOut;
+import com.gvt.ws.eai.oss.inventory.api.Account;
+import com.gvt.ws.eai.oss.inventory.api.InventoryAccountResponse;
+import com.gvt.ws.eai.oss.inventory.api.Item;
 import com.gvt.www.ws.eai.oss.ossturbonet.OSSTurbonetProxy;
 import javax.persistence.EntityManager;
-import model.Cliente;
-import model.InventarioRede;
-import model.InventarioServico;
+import model.entity.Cliente;
+import model.entity.FactoryService;
+import model.entity.InventarioRede;
+import model.entity.InventarioServico;
+import model.util.InventarioRedeAdapter;
 import model.util.TratativaDesignadores;
 
 /**
  *
  * @author G0041775
  */
-public class ClienteDAO implements InterfaceDAO<Cliente> {
+public class ClienteDAO extends AbstractOssDAO implements ClienteInterfaceDAO<Cliente>, InterfaceDAO <Cliente>{
 
-    private OSSTurbonetProxy ws = new OSSTurbonetProxy();
-    private br.com.gvt.oss.inventory.service.impl.InventoryService service = new br.com.gvt.oss.inventory.service.impl.InventoryService();
-    private br.com.gvt.oss.inventory.service.impl.InventoryImpl port = service.getInventoryImplPort();
+    private ClienteInterfaceDAO<InventarioServico> sv;
+
+    private InventoryAccountResponse result;
 
     public ClienteDAO() {
+        ws = new OSSTurbonetProxy();
     }
 
-    public Cliente consultar(String designador) throws Exception {
-        Cliente c = new Cliente();
-        c.setDesignador(designador);
-        ServicosDAO prod = new ServicosDAO(designador, service, port);
-        GetInfoOut leCadastro = getInfo(designador);
-        c = getAssociatedDesignators(c);
-        InventarioRede r = new InventarioRede();
-        r.setIpDslam(leCadastro.getInfoTBS().getIpDslam());
-        r.setLogica(new Integer(leCadastro.getInfoTBS().getPortAddrSequence().toString()));
-        r.setSequencial(new Integer(leCadastro.getInfoTBS().getPortAddrSeq().toString()));
-        r.setPorta(new Integer(leCadastro.getInfoTBS().getPortNumber().toString()));
-        r.setRin(new Integer(leCadastro.getInfoTBS().getRin()));
-        r.setSlot(new Integer(leCadastro.getInfoTBS().getSlot().toString()));
-        r.setVlanMulticast(leCadastro.getInfoTBS().getVlanMcast());
-        r.setVlanVod(leCadastro.getInfoTBS().getVlanVoD());
-        r.setVlanVoip(leCadastro.getInfoTBS().getVlanVoIP());
-
-        InventarioServico s = prod.consultar();
-        
-        c.getRede().add(r);
-        c.getServicos().add(s);
+    /**
+     * Consulta aos Serviços de IT - Cadastro - Designador - Serviços
+     *
+     * @param designador
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public Cliente consultarCliente(String designador) throws Exception {
+        Cliente c = new Cliente(designador);
+        getAssociatedDesignators(c);
+        c.adicionar(consultarInventarioRede(c.getDesignador()));
+        c.adicionar(consultarInventarioServico(c.getDesignador()));
 
         return c;
+    }
+
+    @Override
+    public InventarioServico consultarInventarioServico(String instancia) throws Exception {
+
+        InventarioServico serv = new InventarioServico();
+
+        this.getAccountItems(instancia);
+        this.getBanda(serv);
+        this.getLinha(serv);
+        this.getTv(serv);
+
+        return serv;
     }
 
     public String getDesignador(String instancia) throws Exception {
         return ws.getDesignatorByAccessDesignator(instancia);
     }
 
-    public Cliente getAssociatedDesignators(Cliente c) {
-        com.gvt.ws.eai.oss.inventory.api.InventoryDesignatorsResponse result = port.getAssociatedDesignators(c.getDesignador(), null);
-        return new TratativaDesignadores(result, c).getC();
+    public void getAssociatedDesignators(Cliente c) {
+        port = FactoryService.create().getInventoryImplPort();
+        new TratativaDesignadores(port.getAssociatedDesignators(c.getDesignador(), null), c).getC();
     }
 
     public GetInfoOut getInfo(String designador) throws Exception {
         String designator = this.getDesignador(designador);
         String accessDesignator = this.getAccessDesignator(designator);
-//        GetInfoOut leInfo = new GetInfoOut();
         return ws.getInfo(designator, accessDesignator, "wise", "wise", designator, "wise", "0", "0");
     }
 
@@ -78,5 +89,94 @@ public class ClienteDAO implements InterfaceDAO<Cliente> {
         em.persist(obj);
         em.getTransaction().commit();
     }
+
+    private void getAccountItems(String designator) {
+        if (this.result == null) {
+            this.result = port.getAccountItems(null, null, designator, null, false);
+        }
+    }
+
+    private void getBanda(InventarioServico i) {
+        result.getAccounts().forEach((acc) -> {
+            acc.getAddress().forEach((adr) -> {
+                adr.getItems().forEach((item) -> {
+                    item.getItems().stream().filter((itn) -> (itn.getStatusName().equals("ACTIVE") || itn.getStatusName().equals("PENDING"))).forEachOrdered((itn) -> {
+                        for (com.gvt.ws.eai.oss.inventory.api.Param param : itn.getParam()) {
+                            if (param.getName().equals("Downstream")) {
+                                i.setVelDown(new Long(param.getValue()));
+                            }
+                            if (param.getName().equals("Upstream")) {
+                                i.setVelUp(new Long(param.getValue()));
+                            }
+                        }
+                    });
+                });
+            });
+        });
+    }
+
+    private void getLinha(InventarioServico i) {
+        result.getAccounts().forEach((Account acc) -> {
+            acc.getAddress().forEach((adr) -> {
+                adr.getItems().forEach((item) -> {
+                    item.getItems().forEach((itn) -> {
+                        for (com.gvt.ws.eai.oss.inventory.api.Param param : itn.getParam()) {
+                            if (param.getName().equals("TecnologiaVoz")) {
+                                if (param.getValue().contains("SIP")) {
+                                    i.setIsSip(Boolean.TRUE);
+                                }
+                                if (param.getValue().contains("TDM")) {
+                                    i.setIsSip(Boolean.FALSE);
+                                }
+                            }
+                        }
+                    });
+                });
+            });
+        });
+
+        if (i.getIsSip() == null || i.getIsSip()) {
+            i.setIsSip(Boolean.TRUE);
+        } else {
+            i.setIsSip(Boolean.FALSE);
+        }
+
+    }
+
+    private void getTv(InventarioServico i) {
+        result.getAccounts().forEach((acc) -> {
+            acc.getAddress().forEach((adr) -> {
+                adr.getItems().forEach((Item item) -> {
+                    item.getItems().forEach((Item itn) -> {
+                        for (com.gvt.ws.eai.oss.inventory.api.Param param : itn.getParam()) {
+                            if (param.getName().equalsIgnoreCase("TecnologiaTV")) {
+                                if (param.getValue() != null) {
+                                    if (param.getValue().contains("brid")) {
+                                        i.setIsHib(true);
+                                        return;
+                                    }
+                                    if (param.getValue().contains("DTH")) {
+                                        i.setIsHib(false);
+                                        return;
+                                    }
+                                }
+                            }
+                        }
+                    });
+                });
+            });
+        });
+
+        if (i.getIsHib() == null) {
+            i.setIsHib(Boolean.TRUE);
+        }
+
+    }
+
+    @Override
+    public InventarioRede consultarInventarioRede(String param1) throws Exception {
+        return InventarioRedeAdapter.adapter(getInfo(param1));
+    }
+
 
 }

@@ -6,7 +6,7 @@
 package dao;
 
 import bean.ossturbonet.oss.gvt.com.GetInfoOut;
-import model.Cliente;
+import model.entity.Cliente;
 import org.junit.After;
 import org.junit.AfterClass;
 import static org.junit.Assert.assertEquals;
@@ -48,12 +48,11 @@ public class ClienteDAOTest {
     public void testGetCliente() {
         System.out.println("getCliente");
         String designador = "1630140007";
-        InterfaceDAO<Cliente> instance = FactoryDAO.createClienteDAO();
+        ClienteInterfaceDAO<Cliente> instance = FactoryDAO.createClienteDAO();
         try {
-            Cliente result = instance.consultar(designador);
+            Cliente result = instance.consultarCliente(designador);
             assertTrue(!result.getRede().get(0).getIpDslam().isEmpty());
         } catch (Exception e) {
-            e.printStackTrace();
             fail();
         }
 
@@ -71,7 +70,6 @@ public class ClienteDAOTest {
             String result = instance.getDesignador(instancia);
             assertTrue(!result.isEmpty());
         } catch (Exception e) {
-            e.printStackTrace();
             fail();
         }
 
@@ -86,8 +84,8 @@ public class ClienteDAOTest {
         Cliente c = new Cliente();
         c.setDesignador("1630140007");
         ClienteDAO instance = new ClienteDAO();
-        Cliente result = instance.getAssociatedDesignators(c);
-        assertTrue(!result.getInstancia().isEmpty());
+        instance.getAssociatedDesignators(c);
+        assertTrue(!c.getInstancia().isEmpty());
 
     }
 
@@ -103,7 +101,6 @@ public class ClienteDAOTest {
             GetInfoOut result = instance.getInfo(designador);
             assertTrue(!result.getTechnology().isEmpty());
         } catch (Exception e) {
-            e.printStackTrace();
             fail();
         }
 
@@ -122,7 +119,6 @@ public class ClienteDAOTest {
             String result = instance.getAccessDesignator(designador);
             assertEquals(expResult, result);
         } catch (Exception e) {
-            e.printStackTrace();
             fail();
         }
 

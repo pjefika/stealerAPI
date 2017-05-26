@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model;
+package model.entity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +33,20 @@ public class Cliente extends AbstractEntity {
     public Cliente() {
         rede = new ArrayList<>();
         servicos = new ArrayList<>();
+    }
+
+    public Cliente(String designador) {
+        this.designador = designador;
+        rede = new ArrayList<>();
+        servicos = new ArrayList<>();
+    }
+
+    public void adicionar(InventarioRede r) {
+        this.rede.add(r);
+    }
+
+    public void adicionar(InventarioServico s) {
+        this.servicos.add(s);
     }
 
     public String getDesignadorAcesso() {

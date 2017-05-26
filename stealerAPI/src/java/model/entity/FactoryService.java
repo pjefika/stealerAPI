@@ -3,18 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dao;
+package model.entity;
 
-import model.entity.Cliente;
+import br.com.gvt.oss.inventory.service.impl.*;
 
 /**
  *
  * @author G0042204
  */
-public class FactoryDAO{
+public class FactoryService {
 
-    public static ClienteInterfaceDAO<Cliente> createClienteDAO() {
-        return new ClienteDAO();
+    public static InventoryService create() {
+        return new InventoryService();
     }
 
 }

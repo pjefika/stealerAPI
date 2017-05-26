@@ -6,13 +6,13 @@
 package controller;
 
 import dao.FactoryDAO;
-import dao.InterfaceDAO;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import model.Cliente;
+import model.entity.Cliente;
+import dao.ClienteInterfaceDAO;
 
 /**
  *
@@ -21,19 +21,17 @@ import model.Cliente;
 @Path("/cliente")
 public class ClienteController {
 
-    private InterfaceDAO<Cliente> dao = FactoryDAO.createClienteDAO();
+    private ClienteInterfaceDAO<Cliente> dao = FactoryDAO.createClienteDAO();
 
     @GET
     @Path("/{instancia}")
     @Produces(MediaType.APPLICATION_JSON)
     public Cliente getCliente(@PathParam("instancia") String instancia) {
-
         try {
-            return dao.consultar(instancia);
+            return dao.consultarCliente(instancia);
         } catch (Exception ex) {
-            System.out.println(ex.getCause());
             ex.printStackTrace();
-            return null;
+            return new Cliente(instancia);
         }
     }
 

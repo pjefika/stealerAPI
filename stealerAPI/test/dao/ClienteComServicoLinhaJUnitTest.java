@@ -5,22 +5,22 @@
  */
 package dao;
 
+import input.TestValues;
 import model.entity.Cliente;
 import org.junit.After;
 import org.junit.AfterClass;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
  *
- * @author G0041775
+ * @author G0042204
  */
-public class CadastrarClienteDAOTest {
+public class ClienteComServicoLinhaJUnitTest {
 
-    public CadastrarClienteDAOTest() {
+    public ClienteComServicoLinhaJUnitTest() {
     }
 
     @BeforeClass
@@ -39,23 +39,25 @@ public class CadastrarClienteDAOTest {
     public void tearDown() {
     }
 
-    /**
-     * Test of getCliente method, of class ClienteDAO.
-     */
     @Test
-    public void cadastrar() {
-        System.out.println("Cadastrar Cliente");
-        String designador = "1630140007";
+    public void sip() {
         ClienteInterfaceDAO<Cliente> dao = FactoryDAO.createClienteDAO();
-//        InterfaceDAO<Cliente> dao2 = FactoryDAO.createClienteDAO();
         try {
-            Cliente c = dao.consultarCliente(designador);
-//            dao2.cadastrar(c);
-            assertTrue(c.getId() != null);
+            Cliente c = dao.consultarCliente(TestValues.SIP);
+            assertEquals(true, c.getServicos().get(0).getIsSip());
         } catch (Exception e) {
-            e.printStackTrace();
-            fail();
+            fail(e.getMessage());
         }
     }
 
+    @Test
+    public void tdm() {
+        ClienteInterfaceDAO<Cliente> dao = FactoryDAO.createClienteDAO();
+        try {
+            Cliente c = dao.consultarCliente(TestValues.TDM);
+            assertEquals(false, c.getServicos().get(0).getIsSip());
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+    }
 }

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model;
+package model.entity;
 
 import bean.ossturbonet.oss.gvt.com.GetInfoOut;
 import javax.persistence.Entity;
