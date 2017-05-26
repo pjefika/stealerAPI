@@ -65,10 +65,12 @@ public class ClienteDAOTest {
     public void testGetDesignador() {
         System.out.println("getDesignador");
         String instancia = "1630140007";
-        ClienteDAO instance = new ClienteDAO();
+        ClienteInterfaceDAO<Cliente> instance = FactoryDAO.createClienteDAO();
         try {
-            String result = instance.getDesignador(instancia);
-            assertTrue(!result.isEmpty());
+            Cliente result = instance.consultarCliente(instancia);
+            assertTrue(!result.getDesignador().isEmpty());
+            assertTrue(!result.getDesignadorAcesso().isEmpty());
+            assertTrue(!result.getDesignador().isEmpty());
         } catch (Exception e) {
             fail();
         }
@@ -83,7 +85,7 @@ public class ClienteDAOTest {
         System.out.println("getAssociatedDesignators");
         Cliente c = new Cliente();
         c.setDesignador("1630140007");
-        ClienteDAO instance = new ClienteDAO();
+        ClienteITDAO instance = new ClienteITDAO();
         instance.getAssociatedDesignators(c);
         assertTrue(!c.getInstancia().isEmpty());
 
@@ -96,7 +98,7 @@ public class ClienteDAOTest {
     public void testGetInfo() {
         System.out.println("getInfo");
         String designador = "1630140007";
-        ClienteDAO instance = new ClienteDAO();
+        ClienteITDAO instance = new ClienteITDAO();
         try {
             GetInfoOut result = instance.getInfo(designador);
             assertTrue(!result.getTechnology().isEmpty());
@@ -113,7 +115,7 @@ public class ClienteDAOTest {
     public void testGetAccessDesignator() {
         System.out.println("getAccessDesignator");
         String designador = "1630140007";
-        ClienteDAO instance = new ClienteDAO();
+        ClienteITDAO instance = new ClienteITDAO();
         String expResult = "ARQ-02051851-069";
         try {
             String result = instance.getAccessDesignator(designador);

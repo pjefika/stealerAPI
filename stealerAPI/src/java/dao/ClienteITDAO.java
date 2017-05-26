@@ -23,13 +23,13 @@ import model.util.TratativaDesignadores;
  *
  * @author G0041775
  */
-public class ClienteDAO extends AbstractOssDAO implements ClienteInterfaceDAO<Cliente>, InterfaceDAO <Cliente>{
+public class ClienteITDAO extends AbstractOssDAO implements ClienteInterfaceDAO<Cliente>, InterfaceDAO <Cliente>{
 
     private ClienteInterfaceDAO<InventarioServico> sv;
 
     private InventoryAccountResponse result;
 
-    public ClienteDAO() {
+    public ClienteITDAO() {
         ws = new OSSTurbonetProxy();
     }
 
@@ -63,8 +63,8 @@ public class ClienteDAO extends AbstractOssDAO implements ClienteInterfaceDAO<Cl
         return serv;
     }
 
-    public String getDesignador(String instancia) throws Exception {
-        return ws.getDesignatorByAccessDesignator(instancia);
+    protected String getDesignador(String s) throws Exception {
+        return ws.getDesignatorByAccessDesignator(s);
     }
 
     public void getAssociatedDesignators(Cliente c) {

@@ -14,7 +14,7 @@ import model.entity.Cliente;
 public class FactoryDAO{
 
     public static ClienteInterfaceDAO<Cliente> createClienteDAO() {
-        return new ClienteDAO();
+        return new ClienteITDAO();
     }
 
 }
