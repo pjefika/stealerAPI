@@ -175,7 +175,7 @@ public class ClienteITDAO extends AbstractOssDAO implements ClienteInterfaceDAO<
         });
 
         if (i.getIsHib() == null) {
-            i.setIsHib(Boolean.TRUE);
+            i.setIsHib(Boolean.FALSE);
         }
 
     }
