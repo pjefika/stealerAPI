@@ -17,6 +17,8 @@ public class InventarioRedeAdapter {
     public static InventarioRede adapter(GetInfoOut out) {
 
         InventarioRede r = new InventarioRede();
+        r.setVendorDslam(out.getInfoTBS().getDslamModel());
+        r.setModeloDslam(out.getInfoTBS().getDslamVendor());
         r.setIpDslam(out.getInfoTBS().getIpDslam());
         r.setLogica(new Integer(out.getInfoTBS().getPortAddrSequence().toString()));
         r.setSequencial(new Integer(out.getInfoTBS().getPortAddrSeq().toString()));

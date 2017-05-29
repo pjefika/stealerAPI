@@ -17,7 +17,7 @@ import javax.persistence.Table;
 @Table(name = "STEALERAPI_INVENTARIO_REDE")
 public class InventarioRede extends AbstractEntity {
 
-    private String ipDslam;
+    private String ipDslam, vendorDslam, modeloDslam;
     private Integer slot, porta, sequencial, logica, rin, vlanVoip, vlanVod, vlanMulticast;
 
     public InventarioRede() {
@@ -27,6 +27,23 @@ public class InventarioRede extends AbstractEntity {
 
     }
 
+    public String getVendorDslam() {
+        return vendorDslam;
+    }
+
+    public void setVendorDslam(String vendorDslam) {
+        this.vendorDslam = vendorDslam;
+    }
+
+    public String getModeloDslam() {
+        return modeloDslam;
+    }
+
+    public void setModeloDslam(String modeloDslam) {
+        this.modeloDslam = modeloDslam;
+    }
+
+    
     public String getIpDslam() {
         return ipDslam;
     }

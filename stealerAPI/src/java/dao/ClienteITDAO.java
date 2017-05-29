@@ -23,7 +23,7 @@ import model.util.TratativaDesignadores;
  *
  * @author G0041775
  */
-public class ClienteITDAO extends AbstractOssDAO implements ClienteInterfaceDAO<Cliente>, InterfaceDAO <Cliente>{
+public class ClienteITDAO extends AbstractOssDAO implements ClienteInterfaceDAO<Cliente>, InterfaceDAO<Cliente> {
 
     private ClienteInterfaceDAO<InventarioServico> sv;
 
@@ -44,8 +44,15 @@ public class ClienteITDAO extends AbstractOssDAO implements ClienteInterfaceDAO<
     public Cliente consultarCliente(String designador) throws Exception {
         Cliente c = new Cliente(designador);
         getAssociatedDesignators(c);
-        c.adicionar(consultarInventarioRede(c.getDesignador()));
-        c.adicionar(consultarInventarioServico(c.getDesignador()));
+    //bloco de try adicionado para que retorne cliente apenas com servicos ou apenas rede ao invés de extourar exception
+        try {
+            c.adicionar(consultarInventarioRede(c.getDesignador()));
+        } catch (Exception e) {
+        }
+        try {
+            c.adicionar(consultarInventarioServico(c.getDesignador()));
+        } catch (Exception e) {
+        }
 
         return c;
     }
@@ -177,6 +184,5 @@ public class ClienteITDAO extends AbstractOssDAO implements ClienteInterfaceDAO<
     public InventarioRede consultarInventarioRede(String param1) throws Exception {
         return InventarioRedeAdapter.adapter(getInfo(param1));
     }
-
 
 }
