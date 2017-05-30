@@ -5,6 +5,7 @@
  */
 package controller;
 
+import dao.ClienteInterfaceDAO;
 import dao.FactoryDAO;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -12,13 +13,12 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import model.entity.Cliente;
-import dao.ClienteInterfaceDAO;
 
 /**
  *
  * @author G0041775
  */
-@Path("/cliente")
+@Path("/oss")
 public class ClienteController {
 
     private ClienteInterfaceDAO<Cliente> dao = FactoryDAO.createClienteDAO();
