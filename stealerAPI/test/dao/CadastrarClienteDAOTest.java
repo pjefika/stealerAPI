@@ -47,10 +47,10 @@ public class CadastrarClienteDAOTest {
         System.out.println("Cadastrar Cliente");
         String designador = "1630140007";
         ClienteInterfaceDAO<Cliente> dao = FactoryDAO.createClienteDAO();
-//        InterfaceDAO<Cliente> dao2 = FactoryDAO.createClienteDAO();
+        InterfaceDAO<Cliente> dao2 = (InterfaceDAO<Cliente>) FactoryDAO.createClienteDAO();
         try {
             Cliente c = dao.consultarCliente(designador);
-//            dao2.cadastrar(c);
+            dao2.cadastrar(c);
             assertTrue(c.getId() != null);
         } catch (Exception e) {
             e.printStackTrace();

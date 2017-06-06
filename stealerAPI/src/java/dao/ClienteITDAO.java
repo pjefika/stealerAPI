@@ -53,6 +53,8 @@ public class ClienteITDAO extends AbstractOssDAO implements ClienteInterfaceDAO<
             c.adicionar(consultarInventarioServico(c.getDesignador()));
         } catch (Exception e) {
         }
+        
+//        cadastrar(c);
 
         return c;
     }

@@ -5,14 +5,35 @@
  */
 package controller;
 
-import javax.ws.rs.ApplicationPath;
+import java.util.HashSet;
+import java.util.Set;
 import javax.ws.rs.core.Application;
 
 /**
  *
  * @author G0041775
  */
-@ApplicationPath("/cliente")
-public class ClienteApplication extends Application{
-    
+public class ClienteApplication extends Application {
+
+    private Set<Object> singletons = new HashSet<Object>();
+
+    private Set<Class<?>> empty = new HashSet<Class<?>>();
+
+    public ClienteApplication() {
+
+        singletons.add(new ClienteController());
+
+    }
+
+    public Set<Object> getSingletons() {
+
+        return singletons;
+
+    }
+
+    public Set<Class<?>> getEmpty() {
+
+        return empty;
+
+    }
 }
