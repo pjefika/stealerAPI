@@ -13,7 +13,7 @@ import com.gvt.ws.eai.oss.inventory.api.Item;
 import com.gvt.www.ws.eai.oss.ossturbonet.OSSTurbonetProxy;
 import javax.persistence.EntityManager;
 import model.entity.Cliente;
-import model.entity.FactoryService;
+import model.FactoryService;
 import model.entity.InventarioRede;
 import model.entity.InventarioServico;
 import model.util.InventarioRedeAdapter;
