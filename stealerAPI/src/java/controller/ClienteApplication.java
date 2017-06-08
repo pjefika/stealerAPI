@@ -20,9 +20,7 @@ public class ClienteApplication extends Application {
     private Set<Class<?>> empty = new HashSet<Class<?>>();
 
     public ClienteApplication() {
-
         singletons.add(new ClienteController());
-
     }
 
     public Set<Object> getSingletons() {
