@@ -131,10 +131,10 @@ public class ClienteITDAO extends AbstractOssDAO implements ClienteInterfaceDAO<
                     item.getItems().forEach((itn) -> {
                         for (com.gvt.ws.eai.oss.inventory.api.Param param : itn.getParam()) {
                             if (param.getName().equals("TecnologiaVoz")) {
-                                if (param.getValue().contains("SIP")) {
+                                if (param.getValue().toUpperCase().contains("SIP")) {
                                     i.setIsSip(Boolean.TRUE);
                                 }
-                                if (param.getValue().contains("TDM")) {
+                                if (param.getValue().toUpperCase().contains("TDM")) {
                                     i.setIsSip(Boolean.FALSE);
                                 }
                             }
@@ -160,11 +160,11 @@ public class ClienteITDAO extends AbstractOssDAO implements ClienteInterfaceDAO<
                         for (com.gvt.ws.eai.oss.inventory.api.Param param : itn.getParam()) {
                             if (param.getName().equalsIgnoreCase("TecnologiaTV")) {
                                 if (param.getValue() != null) {
-                                    if (param.getValue().contains("brid")) {
+                                    if (param.getValue().toUpperCase().contains("BRID")) {
                                         i.setIsHib(true);
                                         return;
                                     }
-                                    if (param.getValue().contains("DTH")) {
+                                    if (param.getValue().toUpperCase().contains("DTH")) {
                                         i.setIsHib(false);
                                         return;
                                     }
