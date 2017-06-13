@@ -5,16 +5,25 @@
  */
 package dao;
 
-import model.entity.Cliente;
+import model.domain.EfikaCustomerDTO;
+import model.entity.Log;
 
 /**
  *
  * @author G0042204
  */
-public class FactoryDAO{
+public class FactoryDAO {
 
-    public static ClienteInterfaceDAO<Cliente> createClienteDAO() {
+    public static EfikaCustomerInterface createClienteDAO() {
         return new ClienteITDAO();
+    }
+
+    public static InterfaceDAO<EfikaCustomerDTO> createInterfaceClienteDAO() {
+        return null;
+    }
+    
+    public static InterfaceDAO<Log> createLogDAO(){
+        return new LogDAO();
     }
 
 }

@@ -5,33 +5,33 @@
  */
 package controller;
 
-import dao.ClienteInterfaceDAO;
+import dao.EfikaCustomerInterface;
 import dao.FactoryDAO;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import model.entity.Cliente;
+import model.domain.EfikaCustomerDTO;
 
 /**
  *
  * @author G0041775
  */
 @Path("/oss")
-public class ClienteController {
+public class ClienteController implements EfikaCustomerRestInter{
 
-    private ClienteInterfaceDAO<Cliente> dao = FactoryDAO.createClienteDAO();
+    private EfikaCustomerInterface dao = FactoryDAO.createClienteDAO();
 
     @GET
     @Path("/{instancia}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Cliente getCliente(@PathParam("instancia") String instancia) {
+    @Override
+    public EfikaCustomerDTO getCliente(@PathParam("instancia") String instancia) {
         try {
             return dao.consultarCliente(instancia);
         } catch (Exception ex) {
-            ex.printStackTrace();
-            return new Cliente(instancia);
+            return new EfikaCustomerDTO(instancia);
         }
     }
 

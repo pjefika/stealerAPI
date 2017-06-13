@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model.util;
+package model.domain;
 
 import bean.ossturbonet.oss.gvt.com.GetInfoOut;
-import model.entity.InventarioRede;
+import br.net.gvt.efika.customer.InventarioRede;
 
 /**
  *

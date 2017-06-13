@@ -6,7 +6,6 @@
 package dao;
 
 import input.TestValues;
-import model.entity.Cliente;
 import org.junit.After;
 import org.junit.AfterClass;
 import static org.junit.Assert.*;
@@ -19,6 +18,8 @@ import org.junit.Test;
  * @author G0042204
  */
 public class ClienteComServicoTVJUnitTest {
+
+    private final EfikaCustomerInterface dao = FactoryDAO.createClienteDAO();
 
     public ClienteComServicoTVJUnitTest() {
     }
@@ -41,10 +42,8 @@ public class ClienteComServicoTVJUnitTest {
 
     @Test
     public void hibrido() {
-        ClienteInterfaceDAO<Cliente> dao = FactoryDAO.createClienteDAO();
         try {
-            Cliente c = dao.consultarCliente(TestValues.HIBRIDO);
-            assertEquals(true, c.getServicos().get(0).getIsHib());
+            assertEquals(true, dao.consultarCliente(TestValues.HIBRIDO).getServicos().getIsHib());
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -52,10 +51,8 @@ public class ClienteComServicoTVJUnitTest {
 
     @Test
     public void dth() {
-        ClienteInterfaceDAO<Cliente> dao = FactoryDAO.createClienteDAO();
         try {
-            Cliente c = dao.consultarCliente(TestValues.DTH);
-            assertEquals(false, c.getServicos().get(0).getIsHib());
+            assertEquals(false, dao.consultarCliente(TestValues.DTH).getServicos().getIsHib());
         } catch (Exception e) {
             fail(e.getMessage());
         }

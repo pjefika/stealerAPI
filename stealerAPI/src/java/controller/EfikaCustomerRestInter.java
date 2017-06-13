@@ -3,12 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model.entity;
+package controller;
+
+import model.domain.EfikaCustomerDTO;
 
 /**
  *
  * @author G0042204
  */
-public class Cliente {
+public interface EfikaCustomerRestInter {
+    
+    public EfikaCustomerDTO getCliente(String instancia);
     
 }

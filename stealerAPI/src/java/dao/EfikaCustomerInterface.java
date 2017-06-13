@@ -5,21 +5,21 @@
  */
 package dao;
 
-import model.entity.Cliente;
-import model.entity.InventarioRede;
-import model.entity.InventarioServico;
+import br.net.gvt.efika.customer.InventarioRede;
+import br.net.gvt.efika.customer.InventarioServico;
+import model.domain.EfikaCustomerDTO;
+
 
 /**
  *
  * @author G0042204
- * @param <T>
  */
-public interface ClienteInterfaceDAO<T> {
+public interface EfikaCustomerInterface {
 
     public InventarioRede consultarInventarioRede(String param1) throws Exception;
 
     public InventarioServico consultarInventarioServico(String param1) throws Exception;
 
-    public Cliente consultarCliente(String param1) throws Exception;
+    public EfikaCustomerDTO consultarCliente(String param1) throws Exception;
 
 }

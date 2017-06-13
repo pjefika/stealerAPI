@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model.util;
+package util;
 
 import com.gvt.ws.eai.oss.inventory.api.Designator;
 import com.gvt.ws.eai.oss.inventory.api.InventoryDesignatorsResponse;
-import model.entity.Cliente;
+import model.domain.EfikaCustomerDTO;
 
 
 /**
@@ -18,14 +18,14 @@ public class TratativaDesignadores {
 
     private InventoryDesignatorsResponse r;
 
-    private Cliente c;
+    private EfikaCustomerDTO c;
 
-    public TratativaDesignadores(InventoryDesignatorsResponse r, Cliente c) {
+    public TratativaDesignadores(InventoryDesignatorsResponse r, EfikaCustomerDTO c) {
         this.r = r;
         this.c = c;
     }
 
-    public Cliente getC() {
+    public EfikaCustomerDTO getC() {
         this.tratativa();
         return c;
     }

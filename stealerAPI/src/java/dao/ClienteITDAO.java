@@ -7,25 +7,22 @@
 package dao;
 
 import bean.ossturbonet.oss.gvt.com.GetInfoOut;
+import br.net.gvt.efika.customer.InventarioRede;
+import br.net.gvt.efika.customer.InventarioServico;
 import com.gvt.ws.eai.oss.inventory.api.Account;
 import com.gvt.ws.eai.oss.inventory.api.InventoryAccountResponse;
 import com.gvt.ws.eai.oss.inventory.api.Item;
 import com.gvt.www.ws.eai.oss.ossturbonet.OSSTurbonetProxy;
-import javax.persistence.EntityManager;
 import model.FactoryService;
-import model.entity.Cliente;
-import model.entity.InventarioRede;
-import model.entity.InventarioServico;
-import model.util.InventarioRedeAdapter;
-import model.util.TratativaDesignadores;
+import model.domain.EfikaCustomerDTO;
+import model.domain.InventarioRedeAdapter;
+import util.TratativaDesignadores;
 
 /**
  *
  * @author G0041775
  */
-public class ClienteITDAO extends AbstractOssDAO implements ClienteInterfaceDAO<Cliente>, InterfaceDAO<Cliente> {
-
-    private ClienteInterfaceDAO<InventarioServico> sv;
+public class ClienteITDAO extends AbstractOssDAO implements EfikaCustomerInterface {
 
     private InventoryAccountResponse result;
 
@@ -41,16 +38,16 @@ public class ClienteITDAO extends AbstractOssDAO implements ClienteInterfaceDAO<
      * @throws Exception
      */
     @Override
-    public Cliente consultarCliente(String designador) throws Exception {
-        Cliente c = new Cliente(designador);
+    public EfikaCustomerDTO consultarCliente(String designador) throws Exception {
+        EfikaCustomerDTO c = new EfikaCustomerDTO(designador);
         getAssociatedDesignators(c);
         //bloco de try adicionado para que retorne cliente apenas com servicos ou apenas rede ao invés de extourar exception
         try {
-            c.adicionar(consultarInventarioRede(c.getDesignador()));
+            c.setRede(consultarInventarioRede(c.getDesignador()));
         } catch (Exception e) {
         }
         try {
-            c.adicionar(consultarInventarioServico(c.getDesignador()));
+            c.setServicos(consultarInventarioServico(c.getDesignador()));
         } catch (Exception e) {
         }
 
@@ -75,7 +72,7 @@ public class ClienteITDAO extends AbstractOssDAO implements ClienteInterfaceDAO<
         return ws.getDesignatorByAccessDesignator(s);
     }
 
-    public void getAssociatedDesignators(Cliente c) {
+    public void getAssociatedDesignators(EfikaCustomerDTO c) {
         port = FactoryService.create().getInventoryImplPort();
         new TratativaDesignadores(port.getAssociatedDesignators(c.getDesignador(), null), c).getC();
     }
@@ -88,15 +85,6 @@ public class ClienteITDAO extends AbstractOssDAO implements ClienteInterfaceDAO<
 
     public String getAccessDesignator(String designador) throws Exception {
         return ws.getAccessDesignator(designador);
-    }
-
-//    @Transactional
-    @Override
-    public void cadastrar(Cliente obj) throws Exception {
-        EntityManager em = FactoryEntityManager.getInstance();
-        em.getTransaction();
-        em.persist(obj);
-        em.getTransaction().commit();
     }
 
     private void getAccountItems(String designator) {
