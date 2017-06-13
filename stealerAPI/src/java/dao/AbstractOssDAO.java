@@ -7,7 +7,6 @@ package dao;
 
 import br.com.gvt.oss.inventory.service.impl.InventoryImpl;
 import com.gvt.www.ws.eai.oss.ossturbonet.OSSTurbonetProxy;
-import model.entity.InventarioServico;
 
 /**
  *

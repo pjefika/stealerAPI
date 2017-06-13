@@ -12,8 +12,8 @@ import com.gvt.ws.eai.oss.inventory.api.InventoryAccountResponse;
 import com.gvt.ws.eai.oss.inventory.api.Item;
 import com.gvt.www.ws.eai.oss.ossturbonet.OSSTurbonetProxy;
 import javax.persistence.EntityManager;
-import model.entity.Cliente;
 import model.FactoryService;
+import model.entity.Cliente;
 import model.entity.InventarioRede;
 import model.entity.InventarioServico;
 import model.util.InventarioRedeAdapter;
@@ -44,7 +44,7 @@ public class ClienteITDAO extends AbstractOssDAO implements ClienteInterfaceDAO<
     public Cliente consultarCliente(String designador) throws Exception {
         Cliente c = new Cliente(designador);
         getAssociatedDesignators(c);
-    //bloco de try adicionado para que retorne cliente apenas com servicos ou apenas rede ao invés de extourar exception
+        //bloco de try adicionado para que retorne cliente apenas com servicos ou apenas rede ao invés de extourar exception
         try {
             c.adicionar(consultarInventarioRede(c.getDesignador()));
         } catch (Exception e) {
@@ -53,9 +53,8 @@ public class ClienteITDAO extends AbstractOssDAO implements ClienteInterfaceDAO<
             c.adicionar(consultarInventarioServico(c.getDesignador()));
         } catch (Exception e) {
         }
-        
-//        cadastrar(c);
 
+//        cadastrar(c);
         return c;
     }
 
@@ -91,6 +90,7 @@ public class ClienteITDAO extends AbstractOssDAO implements ClienteInterfaceDAO<
         return ws.getAccessDesignator(designador);
     }
 
+//    @Transactional
     @Override
     public void cadastrar(Cliente obj) throws Exception {
         EntityManager em = FactoryEntityManager.getInstance();
