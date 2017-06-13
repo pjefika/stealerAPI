@@ -109,12 +109,12 @@ public class ClienteITDAO extends AbstractOssDAO implements ClienteInterfaceDAO<
         result.getAccounts().forEach((acc) -> {
             acc.getAddress().forEach((adr) -> {
                 adr.getItems().forEach((item) -> {
-                    item.getItems().stream().filter((itn) -> (itn.getStatusName().equals("ACTIVE") || itn.getStatusName().equals("PENDING"))).forEachOrdered((itn) -> {
+                    item.getItems().stream().filter((itn) -> (itn.getStatusName().equalsIgnoreCase("ACTIVE") || itn.getStatusName().equalsIgnoreCase("PENDING"))).forEachOrdered((itn) -> {
                         for (com.gvt.ws.eai.oss.inventory.api.Param param : itn.getParam()) {
-                            if (param.getName().equals("Downstream")) {
+                            if (param.getName().equalsIgnoreCase("Downstream")) {
                                 i.setVelDown(new Long(param.getValue()));
                             }
-                            if (param.getName().equals("Upstream")) {
+                            if (param.getName().equalsIgnoreCase("Upstream")) {
                                 i.setVelUp(new Long(param.getValue()));
                             }
                         }
@@ -130,7 +130,7 @@ public class ClienteITDAO extends AbstractOssDAO implements ClienteInterfaceDAO<
                 adr.getItems().forEach((item) -> {
                     item.getItems().forEach((itn) -> {
                         for (com.gvt.ws.eai.oss.inventory.api.Param param : itn.getParam()) {
-                            if (param.getName().equals("TecnologiaVoz")) {
+                            if (param.getName().equalsIgnoreCase("TecnologiaVoz")) {
                                 if (param.getValue().toUpperCase().contains("SIP")) {
                                     i.setIsSip(Boolean.TRUE);
                                 }
