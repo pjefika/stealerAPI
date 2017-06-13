@@ -6,9 +6,10 @@
 package model.entity;
 
 import java.util.Calendar;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Lob;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -24,11 +25,13 @@ public class Log extends AbstractEntity {
 
     private String input;
 
-    private String ouput;
+    @Lob
+    @Column(length = 255555)
+    private String output;
 
     public Log(String action) {
-        action = action;
-        data = Calendar.getInstance();
+        this.action = action;
+        this.data = Calendar.getInstance();
     }
 
     public String getAction() {
@@ -56,11 +59,11 @@ public class Log extends AbstractEntity {
     }
 
     public String getOuput() {
-        return ouput;
+        return output;
     }
 
     public void setOuput(String ouput) {
-        this.ouput = ouput;
+        this.output = ouput;
     }
 
 }

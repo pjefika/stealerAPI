@@ -7,21 +7,26 @@ package controller;
 
 import dao.EfikaCustomerInterface;
 import dao.FactoryDAO;
+import dao.InterfaceDAO;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import model.domain.EfikaCustomerDTO;
+import model.entity.Log;
+import util.GsonUtil;
 
 /**
  *
  * @author G0041775
  */
 @Path("/oss")
-public class ClienteController implements EfikaCustomerRestInter{
+public class ClienteController implements EfikaCustomerRestInter {
 
     private EfikaCustomerInterface dao = FactoryDAO.createClienteDAO();
+
+    private InterfaceDAO<Log> ldao = FactoryDAO.createLogDAO();
 
     @GET
     @Path("/{instancia}")
@@ -29,7 +34,16 @@ public class ClienteController implements EfikaCustomerRestInter{
     @Override
     public EfikaCustomerDTO getCliente(@PathParam("instancia") String instancia) {
         try {
-            return dao.consultarCliente(instancia);
+            EfikaCustomerDTO out = dao.consultarCliente(instancia);
+            try {
+                Log l = new Log("ClienteController.getCliente");
+                l.setInput(instancia);
+                l.setOuput(GsonUtil.serialize(out));
+                ldao.cadastrar(l);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return out;
         } catch (Exception ex) {
             return new EfikaCustomerDTO(instancia);
         }
