@@ -89,7 +89,7 @@ public class ClienteITDAO extends AbstractOssDAO implements EfikaCustomerInterfa
 
     private void getAccountItems(String designator) {
         if (this.result == null) {
-            this.result = port.getAccountItems(null, null, designator, null, false);
+            this.result = port.getAccountItems(null, null, designator, null, true);
         }
     }
 

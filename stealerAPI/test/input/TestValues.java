@@ -17,4 +17,6 @@ public class TestValues {
     public static String TDM = "4130222839";
     public static String SIP = "1630140007";
 
+    public static String VEL_51200_25600 = "BET-8119ZQFLBJ-013";
+
 }
