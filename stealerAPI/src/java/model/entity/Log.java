@@ -13,7 +13,7 @@ import javax.persistence.Table;
 
 /**
  *
- * @author G0041775
+    * @author G0042204
  */
 @Entity
 @Table(name = "STEALERAPI_LOG")
