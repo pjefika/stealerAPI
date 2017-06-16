@@ -105,6 +105,9 @@ public class ClienteITDAO extends AbstractOssDAO implements EfikaCustomerInterfa
                             if (param.getName().equalsIgnoreCase("Upstream")) {
                                 i.setVelUp(new Long(param.getValue()));
                             }
+                            if(i.getVelDown()!= null && i.getVelUp()!=null){
+                                break;
+                            }
                         }
                     });
                 });
@@ -116,7 +119,7 @@ public class ClienteITDAO extends AbstractOssDAO implements EfikaCustomerInterfa
         result.getAccounts().forEach((Account acc) -> {
             acc.getAddress().forEach((adr) -> {
                 adr.getItems().forEach((item) -> {
-                    item.getItems().forEach((itn) -> {
+                    item.getItems().stream().filter((itn) -> (itn.getStatusName().equalsIgnoreCase("ACTIVE") || itn.getStatusName().equalsIgnoreCase("PENDING"))).forEachOrdered((itn) -> {
                         for (com.gvt.ws.eai.oss.inventory.api.Param param : itn.getParam()) {
                             if (param.getName().equalsIgnoreCase("TecnologiaVoz")) {
                                 if (param.getValue().toUpperCase().contains("SIP")) {
@@ -144,7 +147,7 @@ public class ClienteITDAO extends AbstractOssDAO implements EfikaCustomerInterfa
         result.getAccounts().forEach((acc) -> {
             acc.getAddress().forEach((adr) -> {
                 adr.getItems().forEach((Item item) -> {
-                    item.getItems().forEach((Item itn) -> {
+                    item.getItems().stream().filter((itn) -> (itn.getStatusName().equalsIgnoreCase("ACTIVE") || itn.getStatusName().equalsIgnoreCase("PENDING"))).forEachOrdered((itn) -> {
                         for (com.gvt.ws.eai.oss.inventory.api.Param param : itn.getParam()) {
                             if (param.getName().equalsIgnoreCase("TecnologiaTV")) {
                                 if (param.getValue() != null) {

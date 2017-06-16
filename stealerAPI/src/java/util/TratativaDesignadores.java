@@ -9,7 +9,6 @@ import com.gvt.ws.eai.oss.inventory.api.Designator;
 import com.gvt.ws.eai.oss.inventory.api.InventoryDesignatorsResponse;
 import model.domain.EfikaCustomerDTO;
 
-
 /**
  *
  * @author G0042204
@@ -32,15 +31,18 @@ public class TratativaDesignadores {
 
     protected void tratativa() {
         for (Designator designator : r.getDesignator()) {
-            
+
             // Designador de Acesso
             if (designator.getDesignatorType().getValue().equals(1)) {
                 c.setDesignadorAcesso(designator.getValue());
             }
-            
+
             // Instancia
             if (designator.getDesignatorType().getValue().equals(2)) {
-                c.setInstancia(designator.getValue());
+                if (c.getInstancia() == null) {
+                    c.setInstancia(designator.getValue());
+                }
+
             }
 
             // Designador de Banda
