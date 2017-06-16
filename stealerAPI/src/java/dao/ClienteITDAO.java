@@ -128,6 +128,9 @@ public class ClienteITDAO extends AbstractOssDAO implements EfikaCustomerInterfa
                                 if (param.getValue().toUpperCase().contains("TDM")) {
                                     i.setIsSip(Boolean.FALSE);
                                 }
+                                if(i.getIsSip() != null){
+                                    break;
+                                }
                             }
                         }
                     });
@@ -158,6 +161,9 @@ public class ClienteITDAO extends AbstractOssDAO implements EfikaCustomerInterfa
                                     if (param.getValue().toUpperCase().contains("DTH")) {
                                         i.setIsHib(false);
                                         return;
+                                    }
+                                    if(i.getIsHib()!=null){
+                                        break;
                                     }
                                 }
                             }
