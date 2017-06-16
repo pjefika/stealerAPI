@@ -28,6 +28,7 @@ public class InventarioRedeAdapter {
         r.setVlanMulticast(out.getInfoTBS().getVlanMcast());
         r.setVlanVod(out.getInfoTBS().getVlanVoD());
         r.setVlanVoip(out.getInfoTBS().getVlanVoIP());
+        r.setCvLan(out.getInfoTBS().getCvlan());
 
         return r;
     }
