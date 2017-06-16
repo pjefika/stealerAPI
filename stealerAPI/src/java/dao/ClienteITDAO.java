@@ -105,6 +105,9 @@ public class ClienteITDAO extends AbstractOssDAO implements EfikaCustomerInterfa
                             if (param.getName().equalsIgnoreCase("Upstream")) {
                                 i.setVelUp(new Long(param.getValue()));
                             }
+                            if(i.getVelDown()!= null && i.getVelUp()!=null){
+                                break;
+                            }
                         }
                     });
                 });
