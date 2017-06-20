@@ -11,8 +11,11 @@ import br.net.gvt.efika.customer.InventarioRede;
 import br.net.gvt.efika.customer.InventarioServico;
 import com.gvt.ws.eai.oss.inventory.api.Account;
 import com.gvt.ws.eai.oss.inventory.api.InventoryAccountResponse;
+import com.gvt.ws.eai.oss.inventory.api.InventoryDesignatorsResponse;
 import com.gvt.ws.eai.oss.inventory.api.Item;
 import com.gvt.www.ws.eai.oss.ossturbonet.OSSTurbonetProxy;
+import dao.exception.FalhaInputException;
+import exception.ossturbonet.oss.gvt.com.OSSTurbonetException;
 import model.FactoryService;
 import model.domain.EfikaCustomerDTO;
 import model.domain.InventarioRedeAdapter;
@@ -44,11 +47,13 @@ public class ClienteITDAO extends AbstractOssDAO implements EfikaCustomerInterfa
         //bloco de try adicionado para que retorne cliente apenas com servicos ou apenas rede ao invés de extourar exception
         try {
             c.setRede(consultarInventarioRede(c.getDesignador()));
-        } catch (Exception e) {
+        } catch (OSSTurbonetException e) {
+            throw new FalhaInputException();
         }
         try {
             c.setServicos(consultarInventarioServico(c.getDesignador()));
         } catch (Exception e) {
+            e.printStackTrace();
         }
 
 //        cadastrar(c);
@@ -60,7 +65,7 @@ public class ClienteITDAO extends AbstractOssDAO implements EfikaCustomerInterfa
 
         InventarioServico serv = new InventarioServico();
 
-        this.getAccountItems(instancia);
+        this.getAccountItems(instancia.trim());
         this.getBanda(serv);
         this.getLinha(serv);
         this.getTv(serv);
@@ -72,9 +77,16 @@ public class ClienteITDAO extends AbstractOssDAO implements EfikaCustomerInterfa
         return ws.getDesignatorByAccessDesignator(s);
     }
 
-    public void getAssociatedDesignators(EfikaCustomerDTO c) {
+    public void getAssociatedDesignators(EfikaCustomerDTO c) throws FalhaInputException {
         port = FactoryService.create().getInventoryImplPort();
-        new TratativaDesignadores(port.getAssociatedDesignators(c.getDesignador(), null), c).getC();
+
+        InventoryDesignatorsResponse id = port.getAssociatedDesignators(c.getDesignador(), null);
+
+        if (id == null) {
+            throw new FalhaInputException();
+        }
+
+        new TratativaDesignadores(id, c).getC();
     }
 
     public GetInfoOut getInfo(String designador) throws Exception {
@@ -105,7 +117,7 @@ public class ClienteITDAO extends AbstractOssDAO implements EfikaCustomerInterfa
                             if (param.getName().equalsIgnoreCase("Upstream")) {
                                 i.setVelUp(new Long(param.getValue()));
                             }
-                            if(i.getVelDown()!= null && i.getVelUp()!=null){
+                            if (i.getVelDown() != null && i.getVelUp() != null) {
                                 break;
                             }
                         }
