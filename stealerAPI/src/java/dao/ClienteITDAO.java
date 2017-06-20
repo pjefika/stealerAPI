@@ -113,18 +113,18 @@ public class ClienteITDAO extends AbstractOssDAO implements EfikaCustomerInterfa
                         
                         for (com.gvt.ws.eai.oss.inventory.api.Param param : itn.getParam()) {
                             if (param.getName().equalsIgnoreCase("Downstream")) {
-                                System.out.println(itn.getStatusName()+"->"+itn.getModifiedDate().getValue());
-                                System.out.println(param.getValue());
+//                                System.out.println(itn.getStatusName()+"->"+itn.getModifiedDate().getValue());
+//                                System.out.println(param.getValue());
                                 i.setVelDown(new Long(param.getValue()));
                             }
                             if (param.getName().equalsIgnoreCase("Upstream")) {
-                                System.out.println(itn.getStatusName()+"->"+itn.getModifiedDate().getValue());
-                                System.out.println(param.getValue());
+//                                System.out.println(itn.getStatusName()+"->"+itn.getModifiedDate().getValue());
+//                                System.out.println(param.getValue());
                                 i.setVelUp(new Long(param.getValue()));
                             }
-//                            if (i.getVelDown() != null && i.getVelUp() != null) {
-//                                break;
-//                            }
+                            if (i.getVelDown() != null && i.getVelUp() != null) {
+                                break;
+                            }
                         }
                     });
                 });
