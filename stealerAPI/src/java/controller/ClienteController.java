@@ -8,11 +8,13 @@ package controller;
 import dao.EfikaCustomerInterface;
 import dao.FactoryDAO;
 import dao.InterfaceDAO;
+import java.util.logging.Logger;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import model.domain.EfikaCustomerDTO;
 import model.entity.Log;
 import util.GsonUtil;
@@ -28,22 +30,28 @@ public class ClienteController implements EfikaCustomerRestInter {
 
     private InterfaceDAO<Log> ldao = FactoryDAO.createLogDAO();
 
+    private static final Logger LOG = Logger.getLogger(ClienteController.class.getName());
+
     @GET
     @Path("/{instancia}")
     @Produces(MediaType.APPLICATION_JSON)
     @Override
-    public EfikaCustomerDTO getCliente(@PathParam("instancia") String instancia) throws Exception {
-        EfikaCustomerDTO out = dao.consultarCliente(instancia);
-        String persistOut = GsonUtil.serialize(out);
+    public Response getCliente(@PathParam("instancia") String instancia) {
         try {
-            Log l = new Log("ClienteController.getCliente");
-            l.setInput(instancia);
-            l.setOuput(persistOut);
-            ldao.cadastrar(l);
+            EfikaCustomerDTO out = dao.consultarCliente(instancia);
+            String persistOut = GsonUtil.serialize(out);
+            try {
+                Log l = new Log("ClienteController.getCliente");
+                l.setInput(instancia);
+                l.setOuput(persistOut);
+                ldao.cadastrar(l);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return Response.status(200).entity(out).build();
         } catch (Exception e) {
-            e.printStackTrace();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e).build();
         }
-        return out;
     }
 
 }

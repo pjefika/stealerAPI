@@ -5,7 +5,7 @@
  */
 package controller;
 
-import model.domain.EfikaCustomerDTO;
+import javax.ws.rs.core.Response;
 
 /**
  *
@@ -13,6 +13,6 @@ import model.domain.EfikaCustomerDTO;
  */
 public interface EfikaCustomerRestInter {
 
-    public EfikaCustomerDTO getCliente(String instancia) throws Exception;
+    public Response getCliente(String instancia);
 
 }
