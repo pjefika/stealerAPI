@@ -32,22 +32,18 @@ public class ClienteController implements EfikaCustomerRestInter {
     @Path("/{instancia}")
     @Produces(MediaType.APPLICATION_JSON)
     @Override
-    public EfikaCustomerDTO getCliente(@PathParam("instancia") String instancia) {
+    public EfikaCustomerDTO getCliente(@PathParam("instancia") String instancia) throws Exception {
+        EfikaCustomerDTO out = dao.consultarCliente(instancia);
+        String persistOut = GsonUtil.serialize(out);
         try {
-            EfikaCustomerDTO out = dao.consultarCliente(instancia);
-            String persistOut = GsonUtil.serialize(out);
-            try {
-                Log l = new Log("ClienteController.getCliente");
-                l.setInput(instancia);
-                l.setOuput(persistOut);
-                ldao.cadastrar(l);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return out;
-        } catch (Exception ex) {
-            return new EfikaCustomerDTO(instancia);
+            Log l = new Log("ClienteController.getCliente");
+            l.setInput(instancia);
+            l.setOuput(persistOut);
+            ldao.cadastrar(l);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        return out;
     }
 
 }

@@ -12,7 +12,7 @@ import model.domain.EfikaCustomerDTO;
  * @author G0042204
  */
 public interface EfikaCustomerRestInter {
-    
-    public EfikaCustomerDTO getCliente(String instancia);
-    
+
+    public EfikaCustomerDTO getCliente(String instancia) throws Exception;
+
 }
