@@ -18,6 +18,8 @@ public class TestValues {
     public static String SIP = "1630140007";
 
     public static String VEL_51200_25600 = "3125211148";
+
+    public static String VEL_25600_2048 = "6135971060";
     
     public static String VALIDO = "4130886762";
 

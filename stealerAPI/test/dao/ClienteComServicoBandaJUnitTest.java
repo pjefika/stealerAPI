@@ -41,10 +41,9 @@ public class ClienteComServicoBandaJUnitTest {
     }
 
     @Test
-    public void hibrido() {
+    public void velocidade() {
         try {
-                        
-            assertEquals(true, dao.consultarCliente(TestValues.VEL_51200_25600).getServicos().getVelDown().compareTo(51200l) == 0);
+            assertEquals(true, dao.consultarCliente(TestValues.VEL_51200_25600).getServicos().getVelDown().compareTo(25600l) == 0);
         } catch (Exception e) {
             fail(e.getMessage());
         }

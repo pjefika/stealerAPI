@@ -100,9 +100,9 @@ public class ClienteITDAO extends AbstractOssDAO implements EfikaCustomerInterfa
     }
 
     private void getAccountItems(String designator) {
-        if (this.result == null) {
+//        if (this.result == null) {
             this.result = port.getAccountItems(null, null, designator, null, true);
-        }
+//        }
     }
 
     private void getBanda(InventarioServico i) {
@@ -110,21 +110,19 @@ public class ClienteITDAO extends AbstractOssDAO implements EfikaCustomerInterfa
             acc.getAddress().forEach((adr) -> {
                 adr.getItems().forEach((item) -> {
                     item.getItems().stream().filter((itn) -> (itn.getStatusName().equalsIgnoreCase("ACTIVE") || itn.getStatusName().equalsIgnoreCase("PENDING"))).forEachOrdered((itn) -> {
-                        
+
                         for (com.gvt.ws.eai.oss.inventory.api.Param param : itn.getParam()) {
+                            System.out.println(itn.getStatusName() + "->" + itn.getModifiedDate().getValue());
+                            System.out.println(param.getName()+"->"+param.getValue());
                             if (param.getName().equalsIgnoreCase("Downstream")) {
-//                                System.out.println(itn.getStatusName()+"->"+itn.getModifiedDate().getValue());
-//                                System.out.println(param.getValue());
                                 i.setVelDown(new Long(param.getValue()));
                             }
                             if (param.getName().equalsIgnoreCase("Upstream")) {
-//                                System.out.println(itn.getStatusName()+"->"+itn.getModifiedDate().getValue());
-//                                System.out.println(param.getValue());
                                 i.setVelUp(new Long(param.getValue()));
                             }
-                            if (i.getVelDown() != null && i.getVelUp() != null) {
-                                break;
-                            }
+//                            if (i.getVelDown() != null && i.getVelUp() != null) {
+//                                break;
+//                            }
                         }
                     });
                 });
@@ -145,7 +143,7 @@ public class ClienteITDAO extends AbstractOssDAO implements EfikaCustomerInterfa
                                 if (param.getValue().toUpperCase().contains("TDM")) {
                                     i.setIsSip(Boolean.FALSE);
                                 }
-                                if(i.getIsSip() != null){
+                                if (i.getIsSip() != null) {
                                     break;
                                 }
                             }
@@ -179,7 +177,7 @@ public class ClienteITDAO extends AbstractOssDAO implements EfikaCustomerInterfa
                                         i.setIsHib(false);
                                         return;
                                     }
-                                    if(i.getIsHib()!=null){
+                                    if (i.getIsHib() != null) {
                                         break;
                                     }
                                 }
