@@ -5,6 +5,7 @@
  */
 package dao;
 
+import dao.exception.ClienteSemBandaException;
 import dao.exception.FalhaInputException;
 import input.TestValues;
 import org.junit.After;
@@ -68,6 +69,16 @@ public class ClienteInvalidoJUnitTest {
             assertTrue(true);
         } catch (Exception e) {
             fail();
+        }
+    }
+
+    @Test
+    public void clienteSemDesignador() {
+        try {
+            dao.consultarCliente(TestValues.SEM_BANDA);
+            fail();
+        } catch (Exception e) {
+            assertTrue(e instanceof ClienteSemBandaException);
         }
     }
 

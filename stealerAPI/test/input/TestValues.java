@@ -22,5 +22,8 @@ public class TestValues {
     public static String VEL_25600_2048 = "6135971060";
     
     public static String VALIDO = "4130886762";
+    
+    public static String SEM_BANDA = "4734273865";
 
 }
+

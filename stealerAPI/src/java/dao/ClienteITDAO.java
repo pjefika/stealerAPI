@@ -14,6 +14,7 @@ import com.gvt.ws.eai.oss.inventory.api.InventoryAccountResponse;
 import com.gvt.ws.eai.oss.inventory.api.InventoryDesignatorsResponse;
 import com.gvt.ws.eai.oss.inventory.api.Item;
 import com.gvt.www.ws.eai.oss.ossturbonet.OSSTurbonetProxy;
+import dao.exception.ClienteSemBandaException;
 import dao.exception.FalhaInputException;
 import exception.ossturbonet.oss.gvt.com.OSSTurbonetException;
 import model.FactoryService;
@@ -77,7 +78,7 @@ public class ClienteITDAO extends AbstractOssDAO implements EfikaCustomerInterfa
         return ws.getDesignatorByAccessDesignator(s);
     }
 
-    public void getAssociatedDesignators(EfikaCustomerDTO c) throws FalhaInputException {
+    public void getAssociatedDesignators(EfikaCustomerDTO c) throws FalhaInputException, ClienteSemBandaException {
         port = FactoryService.create().getInventoryImplPort();
 
         InventoryDesignatorsResponse id = port.getAssociatedDesignators(c.getDesignador(), null);
@@ -87,6 +88,10 @@ public class ClienteITDAO extends AbstractOssDAO implements EfikaCustomerInterfa
         }
 
         new TratativaDesignadores(id, c).getC();
+        
+        if(c.getDesignador().equalsIgnoreCase(c.getInstancia())){
+            throw new ClienteSemBandaException();
+        }
     }
 
     public GetInfoOut getInfo(String designador) throws Exception {
