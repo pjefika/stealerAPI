@@ -14,6 +14,7 @@ import com.gvt.ws.eai.oss.inventory.api.InventoryAccountResponse;
 import com.gvt.ws.eai.oss.inventory.api.InventoryDesignatorsResponse;
 import com.gvt.ws.eai.oss.inventory.api.Item;
 import com.gvt.www.ws.eai.oss.ossturbonet.OSSTurbonetProxy;
+import dao.exception.CircuitoNaoEncontradoException;
 import dao.exception.ClienteSemBandaException;
 import dao.exception.FalhaInputException;
 import exception.ossturbonet.oss.gvt.com.OSSTurbonetException;
@@ -49,7 +50,11 @@ public class ClienteITDAO extends AbstractOssDAO implements EfikaCustomerInterfa
         try {
             c.setRede(consultarInventarioRede(c.getDesignador()));
         } catch (OSSTurbonetException e) {
-            throw new FalhaInputException();
+            if (e.getFaultString().contains("Nao consta no TBS DSLAM cadastrado para este designador")) {
+                throw new CircuitoNaoEncontradoException();
+            } else {
+                throw new FalhaInputException();
+            }
         }
         try {
             c.setServicos(consultarInventarioServico(c.getDesignador()));
@@ -88,8 +93,8 @@ public class ClienteITDAO extends AbstractOssDAO implements EfikaCustomerInterfa
         }
 
         new TratativaDesignadores(id, c).getC();
-        
-        if(c.getDesignador().equalsIgnoreCase(c.getInstancia())){
+
+        if (c.getDesignador().equalsIgnoreCase(c.getInstancia())) {
             throw new ClienteSemBandaException();
         }
     }
@@ -106,7 +111,7 @@ public class ClienteITDAO extends AbstractOssDAO implements EfikaCustomerInterfa
 
     private void getAccountItems(String designator) {
 //        if (this.result == null) {
-            this.result = port.getAccountItems(null, null, designator, null, true);
+        this.result = port.getAccountItems(null, null, designator, null, true);
 //        }
     }
 
@@ -118,7 +123,7 @@ public class ClienteITDAO extends AbstractOssDAO implements EfikaCustomerInterfa
 
                         for (com.gvt.ws.eai.oss.inventory.api.Param param : itn.getParam()) {
                             System.out.println(itn.getStatusName() + "->" + itn.getModifiedDate().getValue());
-                            System.out.println(param.getName()+"->"+param.getValue());
+                            System.out.println(param.getName() + "->" + param.getValue());
                             if (param.getName().equalsIgnoreCase("Downstream")) {
                                 i.setVelDown(new Long(param.getValue()));
                             }

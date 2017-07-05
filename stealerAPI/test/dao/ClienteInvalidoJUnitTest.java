@@ -5,6 +5,7 @@
  */
 package dao;
 
+import dao.exception.CircuitoNaoEncontradoException;
 import dao.exception.ClienteSemBandaException;
 import dao.exception.FalhaInputException;
 import input.TestValues;
@@ -79,6 +80,17 @@ public class ClienteInvalidoJUnitTest {
             fail();
         } catch (Exception e) {
             assertTrue(e instanceof ClienteSemBandaException);
+        }
+    }
+
+    @Test
+    public void clienteSemCircuito() {
+         
+        try {
+            dao.consultarCliente("4133280564");
+            fail();
+        } catch (Exception e) {
+            assertTrue(e instanceof CircuitoNaoEncontradoException);
         }
     }
 
