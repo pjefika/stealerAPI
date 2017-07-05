@@ -50,7 +50,9 @@ public class ClienteITDAO extends AbstractOssDAO implements EfikaCustomerInterfa
         try {
             c.setRede(consultarInventarioRede(c.getDesignador()));
         } catch (OSSTurbonetException e) {
-            if (e.getFaultString().contains("Nao consta no TBS DSLAM cadastrado para este designador")) {
+            String erro = e.getFaultString();
+            if (erro.contains("Nao consta no TBS DSLAM cadastrado para este designador") ||
+                    erro.contains("NAO ENCONTROU ASSINALAMENTO PARA O CIRCUITO")) {
                 throw new CircuitoNaoEncontradoException();
             } else {
                 throw new FalhaInputException();

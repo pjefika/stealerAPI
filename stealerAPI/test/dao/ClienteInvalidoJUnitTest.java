@@ -84,10 +84,20 @@ public class ClienteInvalidoJUnitTest {
     }
 
     @Test
-    public void clienteSemCircuito() {
-         
+    public void clienteSemCircuitoGpon() {
+
         try {
-            dao.consultarCliente("4133280564");
+            dao.consultarCliente("1630105326");
+            fail();
+        } catch (Exception e) {
+            assertTrue(e instanceof CircuitoNaoEncontradoException);
+        }
+    }
+
+    @Test
+    public void clienteSemCircuitoMetalico() {
+        try {
+            dao.consultarCliente("1630105326");
             fail();
         } catch (Exception e) {
             assertTrue(e instanceof CircuitoNaoEncontradoException);
