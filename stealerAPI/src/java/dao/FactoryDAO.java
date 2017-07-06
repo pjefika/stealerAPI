@@ -21,9 +21,17 @@ public class FactoryDAO {
     public static InterfaceDAO<EfikaCustomerDTO> createInterfaceClienteDAO() {
         return null;
     }
-    
-    public static InterfaceDAO<Log> createLogDAO(){
+
+    public static InterfaceDAO<Log> createLogDAO() {
         return new LogDAO();
+    }
+
+    public static WorkOrderDAOInterface createWorkOrderDAO() {
+        return new WorkOrderDAO();
+    }
+
+    public static ManobraDAOInterface createManobraDAO() {
+        return new CadastroDAO();
     }
 
 }
