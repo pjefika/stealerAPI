@@ -6,7 +6,6 @@
 package model.domain.validacao;
 
 import br.com.gvt.www.ResourceManagement.WorkforceManagement.WorkforceManagementReporting.workOrderReportingEntities.WorkOrder;
-import com.gvt.www.ws.eai.oss.OSSTurbonetClienteAutenticado.OSSTurbonetClienteAutenticadoOut;
 import model.domain.ValidacaoDTO;
 import model.domain.enuns.ValidacaoEnum;
 
@@ -18,7 +17,7 @@ public class ValidacaoReparo extends ValidacaoDTO implements Validator {
 
     private final WorkOrder order;
 
-    public ValidacaoReparo(OSSTurbonetClienteAutenticadoOut auth, WorkOrder order) {
+    public ValidacaoReparo(WorkOrder order) {
         super(ValidacaoEnum.IS_REPARO);
         this.order = order;
     }
@@ -31,11 +30,11 @@ public class ValidacaoReparo extends ValidacaoDTO implements Validator {
     @Override
     public Boolean validar() {
         try {
-            this.setResultado(true);
+            this.setResultado(order.getWorkOrderComprisedOf(0).getWorkOrderItemInvolvesWorkSpec().getSpecificationDescription(0).getValue().equalsIgnoreCase("DEFEITO"));
             if (this.getResultado()) {
-                this.setMensagem("Existe autenticação após abertura da atividade.");
+                this.setMensagem("Atividade é um Reparo.");
             } else {
-                this.setMensagem("Não existe autenticação após abertura da atividade.");
+                this.setMensagem("Atividade é não um Reparo.");
             }
             return this.getResultado();
         } catch (NullPointerException e) {

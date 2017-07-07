@@ -13,7 +13,7 @@ import com.gvt.www.ws.eai.oss.OSSTurbonetInconsistenciaTBSRadius.OSSTurbonetInco
  *
  * @author G0042204
  */
-public interface ManobraDAOInterface {
+public interface OssTurbonetDAOInterface {
 
     public OSSTurbonetInconsistenciaTBSRadiusOut verificarInconsistenciaTBSRadius(GetInfoOut info) throws Exception;
 

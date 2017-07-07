@@ -6,13 +6,15 @@
 package model.domain;
 
 import bean.ossturbonet.oss.gvt.com.GetInfoOut;
+import br.com.gvt.www.ResourceManagement.WorkforceManagement.WorkforceManagementReporting.workOrderReportingEntities.WorkOrder;
 import dao.FactoryDAO;
-import dao.ManobraDAOInterface;
 import dao.WorkOrderDAOInterface;
 import java.util.ArrayList;
 import java.util.List;
 import model.domain.validacao.ValidacaoAutenticacao;
+import model.domain.validacao.ValidacaoReparo;
 import model.domain.validacao.Validator;
+import dao.OssTurbonetDAOInterface;
 
 /**
  *
@@ -22,7 +24,7 @@ public class ValidadorManobra implements ValidadorManobraInterface {
 
     private WorkOrderDAOInterface w;
 
-    private ManobraDAOInterface m;
+    private OssTurbonetDAOInterface m;
 
     private List<ValidacaoDTO> valids;
 
@@ -33,6 +35,7 @@ public class ValidadorManobra implements ValidadorManobraInterface {
         this.order = order;
         valids = new ArrayList<>();
         w = FactoryDAO.createWorkOrderDAO();
+        m = FactoryDAO.createManobraDAO();
     }
 
     public ValidadorManobra() {
@@ -42,10 +45,14 @@ public class ValidadorManobra implements ValidadorManobraInterface {
     public List<ValidacaoDTO> validar() {
         try {
             GetInfoOut info = m.getInfo(designador);
-            this.validar(new ValidacaoAutenticacao(m.isClienteAutenticado(info), w.getWorkOrder(order)));
+            WorkOrder wo = w.getWorkOrder(order);
+            
+            this.validar(new ValidacaoAutenticacao(m.isClienteAutenticado(info), wo));
+            this.validar(new ValidacaoReparo(wo));
 
             return valids;
         } catch (Exception e) {
+            e.printStackTrace();
             return null;
         }
     }

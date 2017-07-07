@@ -16,7 +16,8 @@ public enum ValidacaoEnum {
     LINHA_MUDA("Reclamação Linha Muda?"),
     RUIDO_CHIADO("Reclamação Ruído e Chiado?"),
     IS_ADSL("É ADSL?"),
-    IS_REPARO("É Reparo?");
+    IS_REPARO("É Reparo?"),
+    DIVERGENCIA_TBS_RADIUS("Existe divergencia entre TBS e Radius?");
 
     private final String nome;
 

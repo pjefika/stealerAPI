@@ -20,7 +20,7 @@ import java.rmi.RemoteException;
  *
  * @author G0041775
  */
-public class CadastroDAO implements ManobraDAOInterface {
+public class CadastroDAO implements OssTurbonetDAOInterface {
 
     private final OSSTurbonetProxy ws;
 
