@@ -5,6 +5,7 @@
  */
 package model.domain;
 
+import br.net.gvt.efika.customer.CustomerAssert;
 import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -45,8 +46,8 @@ public class ValidadorManobraInterfaceIT {
     public void testValidar() {
         System.out.println("validar");
         ValidadorManobraInterface instance = new ValidadorManobra("AUJ-81GCQQSC5-013", "8-2Q6NY8OG");
-        List<ValidacaoDTO> expResult = null;
-        List<ValidacaoDTO> result = instance.validar();
+        List<CustomerAssert> expResult = null;
+        List<CustomerAssert> result = instance.validar();
         
         System.out.println("end");
         

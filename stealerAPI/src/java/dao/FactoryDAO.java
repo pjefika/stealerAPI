@@ -30,7 +30,7 @@ public class FactoryDAO {
         return new WorkOrderDAO();
     }
 
-    public static OssTurbonetDAOInterface createManobraDAO() {
+    public static OssTurbonetDAOInterface createOssDAO() {
         return new CadastroDAO();
     }
 

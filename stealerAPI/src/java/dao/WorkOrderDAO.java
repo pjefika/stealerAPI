@@ -7,6 +7,8 @@ package dao;
 
 import br.com.gvt.www.ResourceManagement.WorkforceManagement.WorkforceManagementReporting.WorkOrderReporting.WorkOrderReportingProxy;
 import br.com.gvt.www.ResourceManagement.WorkforceManagement.WorkforceManagementReporting.workOrderReportingEntities.FindWorkOrderIn;
+import br.com.gvt.www.ResourceManagement.WorkforceManagement.WorkforceManagementReporting.workOrderReportingEntities.GetWorkDetailsIn;
+import br.com.gvt.www.ResourceManagement.WorkforceManagement.WorkforceManagementReporting.workOrderReportingEntities.GetWorkDetailsOut;
 import br.com.gvt.www.ResourceManagement.WorkforceManagement.WorkforceManagementReporting.workOrderReportingEntities.WorkOrder;
 import java.rmi.RemoteException;
 
@@ -24,6 +26,17 @@ public class WorkOrderDAO implements WorkOrderDAOInterface {
             ws = new WorkOrderReportingProxy();
             return ws.findWorkOrder(new FindWorkOrderIn(workOrderId, "", "", ""))[0];
         } catch (RemoteException e) {
+            return null;
+        }
+    }
+
+    @Override
+    public GetWorkDetailsOut getWorkDetails(String workOrderId) {
+        try {
+            ws = new WorkOrderReportingProxy();
+            return ws.getWorkDetails(new GetWorkDetailsIn(workOrderId));
+        } catch (RemoteException e) {
+            e.printStackTrace();
             return null;
         }
     }

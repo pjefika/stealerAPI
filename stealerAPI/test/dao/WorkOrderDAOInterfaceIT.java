@@ -5,6 +5,7 @@
  */
 package dao;
 
+import br.com.gvt.www.ResourceManagement.WorkforceManagement.WorkforceManagementReporting.workOrderReportingEntities.GetWorkDetailsOut;
 import br.com.gvt.www.ResourceManagement.WorkforceManagement.WorkforceManagementReporting.workOrderReportingEntities.WorkOrder;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -49,12 +50,25 @@ public class WorkOrderDAOInterfaceIT {
             String workOrderId = "8-2Q6NY8OG";
             WorkOrderDAOInterface instance = new WorkOrderDAO();
             WorkOrder result = instance.getWorkOrder(workOrderId);
-
             System.out.println("");
         } catch (Exception e) {
             fail(e.getMessage());
         }
+        // TODO review the generated test code and remove the default call to fail.
+    }
 
+    @Test
+    public void testGetWorkDetails() {
+
+        try {
+            System.out.println("getWorkDetails");
+            String workOrderId = "43079135";
+            WorkOrderDAOInterface instance = new WorkOrderDAO();
+            GetWorkDetailsOut result = instance.getWorkDetails(workOrderId);
+            System.out.println("");
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
         // TODO review the generated test code and remove the default call to fail.
     }
 

@@ -5,6 +5,7 @@
  */
 package dao;
 
+import br.com.gvt.www.ResourceManagement.WorkforceManagement.WorkforceManagementReporting.workOrderReportingEntities.GetWorkDetailsOut;
 import br.com.gvt.www.ResourceManagement.WorkforceManagement.WorkforceManagementReporting.workOrderReportingEntities.WorkOrder;
 
 /**
@@ -14,5 +15,7 @@ import br.com.gvt.www.ResourceManagement.WorkforceManagement.WorkforceManagement
 public interface WorkOrderDAOInterface {
 
     public WorkOrder getWorkOrder(String workOrderId);
+
+    public GetWorkDetailsOut getWorkDetails(String workOrderId);
 
 }

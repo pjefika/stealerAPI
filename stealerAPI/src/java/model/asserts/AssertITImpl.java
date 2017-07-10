@@ -3,15 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model;
+package model.asserts;
 
-import model.domain.ValidacaoDTO;
+import br.net.gvt.efika.customer.CustomerAssert;
+import java.util.List;
 
 /**
  *
  * @author G0042204
  */
-public class ValidacaoDTOAdapter {
+public interface AssertITImpl {
 
-    
+    public List<CustomerAssert> get();
+
 }

@@ -31,6 +31,10 @@ public class ClienteITDAO extends AbstractOssDAO implements EfikaCustomerInterfa
 
     private InventoryAccountResponse result;
 
+    private EfikaCustomerDTO c;
+
+    private GetInfoOut info;
+
     public ClienteITDAO() {
         ws = new OSSTurbonetProxy();
     }
@@ -44,15 +48,17 @@ public class ClienteITDAO extends AbstractOssDAO implements EfikaCustomerInterfa
      */
     @Override
     public EfikaCustomerDTO consultarCliente(String designador) throws Exception {
-        EfikaCustomerDTO c = new EfikaCustomerDTO(designador);
+        c = new EfikaCustomerDTO(designador);
         getAssociatedDesignators(c);
         //bloco de try adicionado para que retorne cliente apenas com servicos ou apenas rede ao invés de extourar exception
         try {
             c.setRede(consultarInventarioRede(c.getDesignador()));
+            
+            c.setAsserts(null);
         } catch (OSSTurbonetException e) {
             String erro = e.getFaultString();
-            if (erro.contains("Nao consta no TBS DSLAM cadastrado para este designador") ||
-                    erro.contains("NAO ENCONTROU ASSINALAMENTO PARA O CIRCUITO")) {
+            if (erro.contains("Nao consta no TBS DSLAM cadastrado para este designador")
+                    || erro.contains("NAO ENCONTROU ASSINALAMENTO PARA O CIRCUITO")) {
                 throw new CircuitoNaoEncontradoException();
             } else {
                 throw new FalhaInputException();
@@ -68,7 +74,6 @@ public class ClienteITDAO extends AbstractOssDAO implements EfikaCustomerInterfa
         return c;
     }
 
-    @Override
     public InventarioServico consultarInventarioServico(String instancia) throws Exception {
 
         InventarioServico serv = new InventarioServico();
@@ -102,9 +107,12 @@ public class ClienteITDAO extends AbstractOssDAO implements EfikaCustomerInterfa
     }
 
     public GetInfoOut getInfo(String designador) throws Exception {
-        String designator = this.getDesignador(designador);
-        String accessDesignator = this.getAccessDesignator(designator);
-        return ws.getInfo(designator, accessDesignator, "wise", "wise", designator, "wise", "0", "0");
+        if (info == null) {
+            String designator = this.getDesignador(designador);
+            String accessDesignator = this.getAccessDesignator(designator);
+            info = ws.getInfo(designator, accessDesignator, "wise", "wise", designator, "wise", "0", "0");
+        }
+        return info;
     }
 
     public String getAccessDesignator(String designador) throws Exception {
@@ -121,7 +129,8 @@ public class ClienteITDAO extends AbstractOssDAO implements EfikaCustomerInterfa
         result.getAccounts().forEach((acc) -> {
             acc.getAddress().forEach((adr) -> {
                 adr.getItems().forEach((item) -> {
-                    item.getItems().stream().filter((itn) -> (itn.getStatusName().equalsIgnoreCase("ACTIVE") || itn.getStatusName().equalsIgnoreCase("PENDING"))).forEachOrdered((itn) -> {
+                    item.getItems().stream().filter((itn) -> ((itn.getStatusName().equalsIgnoreCase("ACTIVE")
+                            || itn.getStatusName().equalsIgnoreCase("PENDING"))) && itn.getDesignator().getValue().equalsIgnoreCase(c.getDesignador())).forEachOrdered((itn) -> {
 
                         for (com.gvt.ws.eai.oss.inventory.api.Param param : itn.getParam()) {
                             System.out.println(itn.getStatusName() + "->" + itn.getModifiedDate().getValue());
@@ -140,6 +149,7 @@ public class ClienteITDAO extends AbstractOssDAO implements EfikaCustomerInterfa
                 });
             });
         });
+        System.out.println("getBanda");
     }
 
     private void getLinha(InventarioServico i) {
@@ -206,7 +216,6 @@ public class ClienteITDAO extends AbstractOssDAO implements EfikaCustomerInterfa
 
     }
 
-    @Override
     public InventarioRede consultarInventarioRede(String param1) throws Exception {
         return InventarioRedeAdapter.adapter(getInfo(param1));
     }

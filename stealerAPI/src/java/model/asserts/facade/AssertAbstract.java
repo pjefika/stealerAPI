@@ -3,16 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model.domain;
+package model.asserts.facade;
 
-import br.net.gvt.efika.customer.CustomerAssert;
-import java.util.List;
+import br.net.gvt.efika.asserts.AssertsEnum;
 
 /**
  *
  * @author G0042204
  */
-public interface ValidadorManobraInterface {
+public abstract class AssertAbstract {
 
-    public List<CustomerAssert> validar();
+    protected AssertsEnum as;
+
+    public AssertAbstract(AssertsEnum as) {
+        this.as = as;
+    }
+
 }

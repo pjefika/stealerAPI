@@ -6,6 +6,7 @@
 package dao;
 
 import input.TestValues;
+import model.domain.EfikaCustomerDTO;
 import org.junit.After;
 import org.junit.AfterClass;
 import static org.junit.Assert.*;
@@ -44,6 +45,16 @@ public class ClienteComServicoBandaJUnitTest {
     public void velocidade() {
         try {
             assertEquals(true, dao.consultarCliente(TestValues.VEL_51200_25600).getServicos().getVelDown().compareTo(25600l) == 0);
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+    }
+    
+        @Test
+    public void degustacaoTest() {
+        try {
+            EfikaCustomerDTO oi = dao.consultarCliente("2135563108");
+            System.out.println("end");
         } catch (Exception e) {
             fail(e.getMessage());
         }
