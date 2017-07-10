@@ -19,6 +19,7 @@ import dao.exception.ClienteSemBandaException;
 import dao.exception.FalhaInputException;
 import exception.ossturbonet.oss.gvt.com.OSSTurbonetException;
 import model.FactoryService;
+import model.asserts.facade.AssertFacadeFulltestCRM;
 import model.domain.EfikaCustomerDTO;
 import model.domain.InventarioRedeAdapter;
 import util.TratativaDesignadores;
@@ -53,8 +54,7 @@ public class ClienteITDAO extends AbstractOssDAO implements EfikaCustomerInterfa
         //bloco de try adicionado para que retorne cliente apenas com servicos ou apenas rede ao invés de extourar exception
         try {
             c.setRede(consultarInventarioRede(c.getDesignador()));
-            
-            c.setAsserts(null);
+            c.setAsserts(new AssertFacadeFulltestCRM(info).get());
         } catch (OSSTurbonetException e) {
             String erro = e.getFaultString();
             if (erro.contains("Nao consta no TBS DSLAM cadastrado para este designador")
