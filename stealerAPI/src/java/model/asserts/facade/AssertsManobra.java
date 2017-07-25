@@ -7,6 +7,7 @@ package model.asserts.facade;
 
 import bean.ossturbonet.oss.gvt.com.GetInfoOut;
 import br.com.gvt.www.ResourceManagement.WorkforceManagement.WorkforceManagementReporting.workOrderReportingEntities.WorkOrder;
+import br.net.gvt.efika.customer.EfikaCustomer;
 import model.asserts.AssertAutenticacaoAposOrdem;
 import model.asserts.AssertOrdemReparo;
 
@@ -16,22 +17,24 @@ import model.asserts.AssertOrdemReparo;
  */
 public class AssertsManobra extends AbstractAssertFacade {
 
-    private final String workOrderId;
+    private final EfikaCustomer cust;
 
-    private final GetInfoOut info;
+    private GetInfoOut info;
+
+    private final String workOrderId;
 
     private WorkOrder wo;
 
-    public AssertsManobra(String workOrderId, GetInfoOut info) {
+    public AssertsManobra(EfikaCustomer cust, String workOrderId) {
+        this.cust = cust;
         this.workOrderId = workOrderId;
-        this.info = info;
-
     }
 
     @Override
     public void afirmar() {
 
         try {
+            info = getOss().getInfo(cust.getDesignador());
             wo = getWork().getWorkOrder(workOrderId);
             adicionarAssert(new AssertOrdemReparo(wo).claim());
             adicionarAssert(new AssertAutenticacaoAposOrdem(getOss().isClienteAutenticado(info), wo).claim());
