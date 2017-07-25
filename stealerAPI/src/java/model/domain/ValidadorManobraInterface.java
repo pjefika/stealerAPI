@@ -14,5 +14,5 @@ import java.util.List;
  */
 public interface ValidadorManobraInterface {
 
-    public List<CustomerAssert> validar();
+    public List<CustomerAssert> afirmar();
 }

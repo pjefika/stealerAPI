@@ -5,22 +5,49 @@
  */
 package model.asserts.facade;
 
+import br.net.gvt.efika.customer.CustomerAssert;
 import dao.FactoryDAO;
 import dao.OssTurbonetDAOInterface;
+import dao.WorkOrderDAOInterface;
+import java.util.ArrayList;
+import java.util.List;
+import model.asserts.Assertter;
 
 /**
  *
  * @author G0042204
  */
-public abstract class AbstractAssertFacade {
+public abstract class AbstractAssertFacade implements Assertter {
 
     private OssTurbonetDAOInterface oss;
 
-    public OssTurbonetDAOInterface getOss() {
+    private WorkOrderDAOInterface work;
+
+    private List<CustomerAssert> as = new ArrayList<>();
+
+    protected OssTurbonetDAOInterface getOss() {
         if (oss == null) {
             oss = FactoryDAO.createOssDAO();
         }
         return oss;
     }
+
+    protected WorkOrderDAOInterface getWork() {
+        if (work == null) {
+            work = FactoryDAO.createWorkOrderDAO();
+        }
+        return work;
+    }
+
+    @Override
+    public List<CustomerAssert> assertThese() {
+        return as;
+    }
+
+    protected void adicionarAssert(CustomerAssert asserts) {
+        as.add(asserts);
+    }
+
+    public abstract void afirmar();
 
 }

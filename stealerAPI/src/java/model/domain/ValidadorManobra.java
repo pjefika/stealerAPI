@@ -8,11 +8,9 @@ package model.domain;
 import bean.ossturbonet.oss.gvt.com.GetInfoOut;
 import br.com.gvt.www.ResourceManagement.WorkforceManagement.WorkforceManagementReporting.workOrderReportingEntities.WorkOrder;
 import br.net.gvt.efika.customer.CustomerAssert;
-import dao.WorkOrderDAOInterface;
 import java.util.ArrayList;
 import java.util.List;
 import model.domain.validacao.Validator;
-import dao.OssTurbonetDAOInterface;
 
 /**
  *
@@ -35,13 +33,13 @@ public class ValidadorManobra extends AbstractFulltestFacade implements Validado
     }
 
     @Override
-    public List<CustomerAssert> validar() {
+    public List<CustomerAssert> afirmar() {
         try {
             GetInfoOut info = getM().getInfo(designador);
             WorkOrder wo = getW().getWorkOrder(order);
 
-//            this.validar(new AssertAutenticacaoAposOrdem(m.isClienteAutenticado(info), wo));
-//            this.validar(new ValidacaoReparo(wo));
+//            this.afirmar(new AssertAutenticacaoAposOrdem(m.isClienteAutenticado(info), wo));
+//            this.afirmar(new ValidacaoReparo(wo));
             return asserts;
         } catch (Exception e) {
             e.printStackTrace();

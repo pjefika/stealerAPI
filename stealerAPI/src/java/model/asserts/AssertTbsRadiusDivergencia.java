@@ -6,16 +6,14 @@
 package model.asserts;
 
 import br.net.gvt.efika.asserts.AssertsEnum;
-import br.net.gvt.efika.asserts.EfikaAssertable;
 import br.net.gvt.efika.customer.CustomerAssert;
 import com.gvt.www.ws.eai.oss.OSSTurbonetInconsistenciaTBSRadius.OSSTurbonetInconsistenciaTBSRadiusOut;
-import model.asserts.facade.AssertAbstract;
 
 /**
  *
  * @author G00422046
  */
-public class AssertTbsRadiusDivergencia extends AssertAbstract implements EfikaAssertable {
+public class AssertTbsRadiusDivergencia extends AssertAbstract {
 
     private final OSSTurbonetInconsistenciaTBSRadiusOut oss;
 
@@ -37,4 +35,6 @@ public class AssertTbsRadiusDivergencia extends AssertAbstract implements EfikaA
             return new CustomerAssert(as, Boolean.FALSE);
         }
     }
+
+
 }

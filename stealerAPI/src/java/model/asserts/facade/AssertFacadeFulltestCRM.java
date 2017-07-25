@@ -6,23 +6,15 @@
 package model.asserts.facade;
 
 import bean.ossturbonet.oss.gvt.com.GetInfoOut;
-import br.net.gvt.efika.customer.CustomerAssert;
-import dao.FactoryDAO;
-import dao.OssTurbonetDAOInterface;
-import java.util.ArrayList;
-import java.util.List;
 import model.asserts.AssertBloqueioRadius;
 import model.asserts.AssertCiruitoAtivo;
-import model.asserts.AssertITImpl;
 import model.asserts.AssertTbsRadiusDivergencia;
 
 /**
  *
  * @author G0042204
  */
-public class AssertFacadeFulltestCRM extends AbstractAssertFacade implements AssertITImpl {
-
-    private List<CustomerAssert> as = new ArrayList<>();
+public class AssertFacadeFulltestCRM extends AbstractAssertFacade {
 
     private final GetInfoOut info;
 
@@ -31,15 +23,13 @@ public class AssertFacadeFulltestCRM extends AbstractAssertFacade implements Ass
     }
 
     @Override
-    public List<CustomerAssert> get() {
+    public void afirmar() {
         try {
-            as.add(new AssertTbsRadiusDivergencia(getOss().verificarInconsistenciaTBSRadius(info)).claim());
-            as.add(new AssertCiruitoAtivo(info).claim());
-            as.add(new AssertBloqueioRadius(info.getInfoRadius()).claim());
+            adicionarAssert(new AssertTbsRadiusDivergencia(getOss().verificarInconsistenciaTBSRadius(info)).claim());
+            adicionarAssert(new AssertCiruitoAtivo(info).claim());
+            adicionarAssert(new AssertBloqueioRadius(info.getInfoRadius()).claim());
         } catch (Exception e) {
         }
-        
-        return as;
     }
 
 }

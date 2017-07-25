@@ -40,14 +40,14 @@ public class ValidadorManobraInterfaceIT {
     }
 
     /**
-     * Test of validar method, of class ValidadorManobraInterface.
+     * Test of afirmar method, of class ValidadorManobraInterface.
      */
     @Test
     public void testValidar() {
         System.out.println("validar");
         ValidadorManobraInterface instance = new ValidadorManobra("AUJ-81GCQQSC5-013", "8-2Q6NY8OG");
         List<CustomerAssert> expResult = null;
-        List<CustomerAssert> result = instance.validar();
+        List<CustomerAssert> result = instance.afirmar();
         
         System.out.println("end");
         

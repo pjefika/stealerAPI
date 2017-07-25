@@ -52,9 +52,9 @@ public class AssertITImplIT {
 
         try {
             System.out.println("get");
-            AssertITImpl instance = new AssertFacadeFulltestCRM(oss.getInfo("VPIO-3019VQ1I6-013"));
+            Assertter instance = new AssertFacadeFulltestCRM(oss.getInfo("VPIO-3019VQ1I6-013"));
             List<CustomerAssert> expResult = null;
-            List<CustomerAssert> result = instance.get();
+            List<CustomerAssert> result = instance.assertThese();
             System.out.println("dev");
             assertEquals(expResult, result);
         } catch (Exception e) {
