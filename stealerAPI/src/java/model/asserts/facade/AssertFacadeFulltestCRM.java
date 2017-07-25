@@ -20,23 +20,20 @@ import model.asserts.AssertTbsRadiusDivergencia;
  *
  * @author G0042204
  */
-public class AssertFacadeFulltestCRM implements AssertITImpl {
-
-    private OssTurbonetDAOInterface oss;
+public class AssertFacadeFulltestCRM extends AbstractAssertFacade implements AssertITImpl {
 
     private List<CustomerAssert> as = new ArrayList<>();
 
-    private GetInfoOut info;
+    private final GetInfoOut info;
 
     public AssertFacadeFulltestCRM(GetInfoOut info) {
         this.info = info;
-        oss = FactoryDAO.createOssDAO();
     }
 
     @Override
     public List<CustomerAssert> get() {
         try {
-            as.add(new AssertTbsRadiusDivergencia(oss.verificarInconsistenciaTBSRadius(info)).claim());
+            as.add(new AssertTbsRadiusDivergencia(getOss().verificarInconsistenciaTBSRadius(info)).claim());
             as.add(new AssertCiruitoAtivo(info).claim());
             as.add(new AssertBloqueioRadius(info.getInfoRadius()).claim());
         } catch (Exception e) {

@@ -8,7 +8,6 @@ package controller;
 import dao.EfikaCustomerInterface;
 import dao.FactoryDAO;
 import dao.InterfaceDAO;
-import java.util.logging.Logger;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -26,11 +25,9 @@ import util.GsonUtil;
 @Path("/oss")
 public class ClienteController implements EfikaCustomerRestInter {
 
-    private EfikaCustomerInterface dao = FactoryDAO.createClienteDAO();
+    private EfikaCustomerInterface dao;
 
     private InterfaceDAO<Log> ldao = FactoryDAO.createLogDAO();
-
-    private static final Logger LOG = Logger.getLogger(ClienteController.class.getName());
 
     @GET
     @Path("/{instancia}")
@@ -38,6 +35,7 @@ public class ClienteController implements EfikaCustomerRestInter {
     @Override
     public Response getCliente(@PathParam("instancia") String instancia) {
         try {
+            dao = FactoryDAO.createClienteDAO();
             EfikaCustomerDTO out = dao.consultarCliente(instancia);
             String persistOut = GsonUtil.serialize(out);
             try {
