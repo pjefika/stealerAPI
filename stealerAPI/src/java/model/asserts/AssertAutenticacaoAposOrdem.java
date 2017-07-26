@@ -28,11 +28,10 @@ public class AssertAutenticacaoAposOrdem implements EfikaAssertable {
 
     @Override
     public CustomerAssert claim() {
-        if (auth.getDataHoraAutenticacao().after(order.getDateOfSale())) {
-            return new CustomerAssert(AssertsEnum.AUTH_ABERTURA_ORDEM, Boolean.TRUE);
-        } else {
+        try {
+            return new CustomerAssert(AssertsEnum.AUTH_ABERTURA_ORDEM, auth.getDataHoraAutenticacao().after(order.getDateOfSale()));
+        } catch (Exception e) {
             return new CustomerAssert(AssertsEnum.AUTH_ABERTURA_ORDEM, Boolean.FALSE);
-
         }
     }
 

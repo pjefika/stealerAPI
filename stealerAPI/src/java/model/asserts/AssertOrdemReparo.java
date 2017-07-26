@@ -24,15 +24,12 @@ public class AssertOrdemReparo implements EfikaAssertable {
 
     @Override
     public CustomerAssert claim() {
-        /**
-         * Implementar
-         */
-        if (true) {
-            return new CustomerAssert(AssertsEnum.IS_REPARO, Boolean.TRUE);
-        } else {
+        try {
+            return new CustomerAssert(AssertsEnum.IS_REPARO, order.getWorkOrderComprisedOf()[0].getWorkOrderItemInvolvesWorkSpec().getSpecificationAcronym().toUpperCase().contains("TT"));
+        } catch (Exception e) {
             return new CustomerAssert(AssertsEnum.IS_REPARO, Boolean.FALSE);
 
         }
-    }
 
+    }
 }

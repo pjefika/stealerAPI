@@ -5,7 +5,7 @@
  */
 package controller;
 
-import br.net.gvt.efika.customer.EfikaCustomer;
+import controller.in.ManobraITAssertIn;
 import dao.FactoryDAO;
 import dao.InterfaceDAO;
 import javax.ws.rs.Consumes;
@@ -31,14 +31,14 @@ public class ManobraController {
     @Path("/assertIT")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response fulltest(EfikaCustomer cs, String workOrderId) throws Exception {
-        Response r;
+    public Response fulltest(ManobraITAssertIn in) throws Exception {
         try {
-            Assertter as = new AssertsManobra(cs, workOrderId);
-            cs.getAsserts().addAll(as.assertThese());
-            return Response.status(200).entity(cs).build();
+            System.out.println("in:" + in.getWorkOrderId());
+            Assertter as = new AssertsManobra(in.getCust(), in.getWorkOrderId());
+            return Response.status(200).entity(as.assertThese()).build();
         } catch (Exception e) {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
+            e.printStackTrace();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e).build();
 
         }
 

@@ -21,6 +21,7 @@ public class ClienteApplication extends Application {
 
     public ClienteApplication() {
         singletons.add(new ClienteController());
+        singletons.add(new ManobraController());
     }
 
     public Set<Object> getSingletons() {

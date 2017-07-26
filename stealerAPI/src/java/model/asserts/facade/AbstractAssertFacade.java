@@ -40,7 +40,8 @@ public abstract class AbstractAssertFacade implements Assertter {
     }
 
     @Override
-    public List<CustomerAssert> assertThese() {
+    public List<CustomerAssert> assertThese() throws Exception{
+        afirmar();
         return as;
     }
 
@@ -48,6 +49,6 @@ public abstract class AbstractAssertFacade implements Assertter {
         as.add(asserts);
     }
 
-    public abstract void afirmar();
+    public abstract void afirmar() throws Exception;
 
 }
