@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model.asserts;
+package model.asserts.facade;
 
 import br.net.gvt.efika.customer.CustomerAssert;
+import dao.EfikaCustomerInterface;
 import dao.FactoryDAO;
-import dao.OssTurbonetDAOInterface;
 import java.util.List;
-import model.asserts.facade.AssertFacadeFulltestCRM;
+import model.asserts.Assertter;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -21,11 +21,11 @@ import static org.junit.Assert.*;
  *
  * @author G0042204
  */
-public class AssertITImplIT {
+public class AssertsManobraIT {
 
-    private OssTurbonetDAOInterface oss = FactoryDAO.createOssDAO();
+    private EfikaCustomerInterface ec = FactoryDAO.createClienteDAO();
 
-    public AssertITImplIT() {
+    public AssertsManobraIT() {
     }
 
     @BeforeClass
@@ -45,22 +45,27 @@ public class AssertITImplIT {
     }
 
     /**
-     * Test of get method, of class AssertITImpl.
+     * Test of afirmar method, of class AssertsManobra.
      */
     @Test
-    public void testGet() {
-
+    public void testAfirmar() throws Exception {
         try {
-            System.out.println("get");
-            Assertter instance = new AssertFacadeFulltestCRM(oss.getInfo("VPIO-3019VQ1I6-013"));
-            List<CustomerAssert> expResult = null;
-            List<CustomerAssert> result = instance.assertThese();
-            System.out.println("dev");
-            assertEquals(expResult, result);
+            System.out.println("afirmar");
+            Assertter instance = new AssertsManobra(ec.consultarCliente("1124013751"), "8-2Q6NY8OG");
+            
+            List<CustomerAssert> cs = instance.assertThese();
+            
+            cs.forEach((t) -> {
+                System.out.println("Assert: " + t.getAsserts().name() + " | R: " + t.getValue());
+            });
+            
+            assertTrue(!cs.isEmpty());
+            System.out.println("end");
         } catch (Exception e) {
+            e.printStackTrace();
             fail(e.getMessage());
-        }
 
+        }
     }
 
 }

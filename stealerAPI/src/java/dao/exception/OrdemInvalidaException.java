@@ -3,17 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model.asserts;
-
-import br.net.gvt.efika.customer.CustomerAssert;
-import java.util.List;
+package dao.exception;
 
 /**
  *
  * @author G0042204
  */
-public interface AssertITImpl {
+public class OrdemInvalidaException extends Exception{
 
-    public List<CustomerAssert> get();
-
+    public OrdemInvalidaException() {
+        super("Número da Ordem inválido.");
+    }    
+    
 }

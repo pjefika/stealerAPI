@@ -3,13 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model.asserts;
+package dao;
 
-import br.net.gvt.efika.customer.CustomerAssert;
-import dao.FactoryDAO;
-import dao.OssTurbonetDAOInterface;
-import java.util.List;
-import model.asserts.facade.AssertFacadeFulltestCRM;
+import model.domain.EfikaCustomerDTO;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -21,11 +17,9 @@ import static org.junit.Assert.*;
  *
  * @author G0042204
  */
-public class AssertITImplIT {
+public class EfikaCustomerInterfaceIT {
 
-    private OssTurbonetDAOInterface oss = FactoryDAO.createOssDAO();
-
-    public AssertITImplIT() {
+    public EfikaCustomerInterfaceIT() {
     }
 
     @BeforeClass
@@ -45,18 +39,16 @@ public class AssertITImplIT {
     }
 
     /**
-     * Test of get method, of class AssertITImpl.
+     * Test of consultarCliente method, of class EfikaCustomerInterface.
      */
     @Test
-    public void testGet() {
-
+    public void testConsultarCliente() throws Exception {
         try {
-            System.out.println("get");
-            Assertter instance = new AssertFacadeFulltestCRM(oss.getInfo("VPIO-3019VQ1I6-013"));
-            List<CustomerAssert> expResult = null;
-            List<CustomerAssert> result = instance.assertThese();
-            System.out.println("dev");
-            assertEquals(expResult, result);
+            System.out.println("consultarCliente");
+            String param1 = "4130886762";
+            EfikaCustomerInterface instance = FactoryDAO.createClienteDAO();
+            EfikaCustomerDTO result = instance.consultarCliente(param1);
+            assertTrue(result != null);
         } catch (Exception e) {
             fail(e.getMessage());
         }

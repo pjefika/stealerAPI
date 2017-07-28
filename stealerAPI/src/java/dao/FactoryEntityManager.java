@@ -15,10 +15,13 @@ import javax.persistence.Persistence;
  */
 public class FactoryEntityManager {
 
-    static EntityManagerFactory emf = Persistence.createEntityManagerFactory("stealerAPIPU");
-//    static EntityManagerFactory emf = Persistence.createEntityManagerFactory("localPU");
+    static EntityManagerFactory emf;
 
     public static EntityManager getInstance() {
+
+        if (emf == null || !emf.isOpen()) {
+            emf = Persistence.createEntityManagerFactory("stealerAPIPU");
+        }
         return emf.createEntityManager();
     }
 }

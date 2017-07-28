@@ -13,7 +13,7 @@ import dao.WorkOrderDAOInterface;
  *
  * @author G0042204
  */
-public class AbstractFulltestFacade {
+public class AbstractFacadeDAO {
 
     private WorkOrderDAOInterface w;
 

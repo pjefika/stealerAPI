@@ -3,15 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model.asserts.facade;
+package model.asserts;
 
 import br.net.gvt.efika.asserts.AssertsEnum;
+import br.net.gvt.efika.asserts.EfikaAssertable;
 
 /**
  *
  * @author G0042204
  */
-public abstract class AssertAbstract {
+public abstract class AssertAbstract implements EfikaAssertable {
 
     protected AssertsEnum as;
 

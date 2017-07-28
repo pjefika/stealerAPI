@@ -51,6 +51,7 @@ public class WorkOrderDAOInterfaceIT {
             WorkOrderDAOInterface instance = new WorkOrderDAO();
             WorkOrder result = instance.getWorkOrder(workOrderId);
             System.out.println("");
+            assertTrue(!result.getStatus().isEmpty());
         } catch (Exception e) {
             fail(e.getMessage());
         }

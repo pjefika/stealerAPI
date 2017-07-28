@@ -9,30 +9,27 @@ import br.com.gvt.www.ResourceManagement.WorkforceManagement.WorkforceManagement
 import br.net.gvt.efika.asserts.AssertsEnum;
 import br.net.gvt.efika.asserts.EfikaAssertable;
 import br.net.gvt.efika.customer.CustomerAssert;
-import com.gvt.www.ws.eai.oss.OSSTurbonetClienteAutenticado.OSSTurbonetClienteAutenticadoOut;
 
 /**
  *
  * @author G0042204
  */
-public class AssertAutenticacaoAposOrdem implements EfikaAssertable {
-
-    private final OSSTurbonetClienteAutenticadoOut auth;
+public class AssertOrdemReparo implements EfikaAssertable {
 
     private final WorkOrder order;
 
-    public AssertAutenticacaoAposOrdem(OSSTurbonetClienteAutenticadoOut auth, WorkOrder order) {
-        this.auth = auth;
+    public AssertOrdemReparo(WorkOrder order) {
         this.order = order;
     }
 
     @Override
     public CustomerAssert claim() {
         try {
-            return new CustomerAssert(AssertsEnum.AUTH_ABERTURA_ORDEM, auth.getDataHoraAutenticacao().after(order.getDateOfSale()));
+            return new CustomerAssert(AssertsEnum.IS_REPARO, order.getWorkOrderComprisedOf()[0].getWorkOrderItemInvolvesWorkSpec().getSpecificationAcronym().toUpperCase().contains("TT"));
         } catch (Exception e) {
-            return new CustomerAssert(AssertsEnum.AUTH_ABERTURA_ORDEM, Boolean.FALSE);
-        }
-    }
+            return new CustomerAssert(AssertsEnum.IS_REPARO, Boolean.FALSE);
 
+        }
+
+    }
 }

@@ -54,7 +54,7 @@ public class ClienteITDAO extends AbstractOssDAO implements EfikaCustomerInterfa
         //bloco de try adicionado para que retorne cliente apenas com servicos ou apenas rede ao invés de extourar exception
         try {
             c.setRede(consultarInventarioRede(c.getDesignador()));
-            c.setAsserts(new AssertFacadeFulltestCRM(info).get());
+            c.setAsserts(new AssertFacadeFulltestCRM(info).assertThese());
         } catch (OSSTurbonetException e) {
             String erro = e.getFaultString();
             if (erro.contains("Nao consta no TBS DSLAM cadastrado para este designador")
