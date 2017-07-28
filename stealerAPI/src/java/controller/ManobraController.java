@@ -28,12 +28,11 @@ public class ManobraController {
     private InterfaceDAO<Log> ldao = FactoryDAO.createLogDAO();
 
     @POST
-    @Path("/assertIT")
+    @Path("/asserts")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response fulltest(ManobraITAssertIn in) throws Exception {
+    public Response asserts(ManobraITAssertIn in) throws Exception {
         try {
-            System.out.println("in:" + in.getWorkOrderId());
             Assertter as = new AssertsManobra(in.getCust(), in.getWorkOrderId());
             return Response.status(200).entity(as.assertThese()).build();
         } catch (Exception e) {
