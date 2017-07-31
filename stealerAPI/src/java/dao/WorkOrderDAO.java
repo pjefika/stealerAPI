@@ -21,13 +21,9 @@ public class WorkOrderDAO implements WorkOrderDAOInterface {
     private WorkOrderReportingProxy ws;
 
     @Override
-    public WorkOrder getWorkOrder(String workOrderId) {
-        try {
-            ws = new WorkOrderReportingProxy();
-            return ws.findWorkOrder(new FindWorkOrderIn(workOrderId, "", "", ""))[0];
-        } catch (RemoteException e) {
-            return null;
-        }
+    public WorkOrder getWorkOrder(String workOrderId) throws RemoteException {
+        ws = new WorkOrderReportingProxy();
+        return ws.findWorkOrder(new FindWorkOrderIn(workOrderId, "", "", ""))[0];
     }
 
     @Override

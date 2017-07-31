@@ -7,6 +7,7 @@ package dao;
 
 import br.com.gvt.www.ResourceManagement.WorkforceManagement.WorkforceManagementReporting.workOrderReportingEntities.GetWorkDetailsOut;
 import br.com.gvt.www.ResourceManagement.WorkforceManagement.WorkforceManagementReporting.workOrderReportingEntities.WorkOrder;
+import java.rmi.RemoteException;
 
 /**
  *
@@ -14,7 +15,7 @@ import br.com.gvt.www.ResourceManagement.WorkforceManagement.WorkforceManagement
  */
 public interface WorkOrderDAOInterface {
 
-    public WorkOrder getWorkOrder(String workOrderId);
+    public WorkOrder getWorkOrder(String workOrderId) throws RemoteException;
 
     public GetWorkDetailsOut getWorkDetails(String workOrderId);
 
