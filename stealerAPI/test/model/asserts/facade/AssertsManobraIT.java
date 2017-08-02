@@ -51,7 +51,7 @@ public class AssertsManobraIT {
     public void testAfirmar() throws Exception {
         try {
             System.out.println("afirmar");
-            Assertter instance = new AssertsManobra(ec.consultarCliente("1124013751"), "8-2Q6NY8OG");
+            Assertter instance = new AssertsManobra(ec.consultarCliente("1124013751"), "8-hhdhgddhd");
             
             List<CustomerAssert> cs = instance.assertThese();
             

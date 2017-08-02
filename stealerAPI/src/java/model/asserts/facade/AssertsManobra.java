@@ -37,7 +37,11 @@ public class AssertsManobra extends AbstractAssertFacade {
         if (workOrderId == null) {
             throw new OrdemInvalidaException();
         }
-        wo = getWork().getWorkOrder(workOrderId);
+        try {
+            wo = getWork().getWorkOrder(workOrderId);
+        } catch (Exception e) {
+            throw new OrdemInvalidaException();
+        }
         info = getOss().getInfo(cust.getDesignador());
         adicionarAssert(new AssertOrdemReparo(wo).claim());
         adicionarAssert(new AssertAutenticacaoAposOrdem(getOss().isClienteAutenticado(info), wo).claim());
