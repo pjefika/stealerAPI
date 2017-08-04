@@ -56,9 +56,12 @@ public class ClienteITDAO extends AbstractOssDAO implements EfikaCustomerInterfa
             c.setRede(consultarInventarioRede(c.getDesignador()));
             c.setAsserts(new AssertFacadeFulltestCRM(info).assertThese());
         } catch (OSSTurbonetException e) {
+            e.printStackTrace();
             String erro = e.getFaultString();
+            System.out.println("erro:" + erro);
             if (erro.contains("Nao consta no TBS DSLAM cadastrado para este designador")
-                    || erro.contains("NAO ENCONTROU ASSINALAMENTO PARA O CIRCUITO")) {
+                    || erro.contains("NAO ENCONTROU ASSINALAMENTO PARA O CIRCUITO")
+                    || erro.contains("CIRCUITO NAO ENCONTRADO PARA O DESIGNADOR")) {
                 throw new CircuitoNaoEncontradoException();
             } else {
                 throw new FalhaInputException();
@@ -108,9 +111,8 @@ public class ClienteITDAO extends AbstractOssDAO implements EfikaCustomerInterfa
 
     public GetInfoOut getInfo(String designador) throws Exception {
         if (info == null) {
-            String designator = this.getDesignador(designador);
-            String accessDesignator = this.getAccessDesignator(designator);
-            info = ws.getInfo(designator, accessDesignator, "wise", "wise", designator, "wise", "0", "0");
+//            String designator = this.getDesignador(designador);
+            info = ws.getInfo(c.getDesignador(), c.getDesignadorAcesso(), "wise", "wise", c.getDesignador(), "wise", "0", "0");
         }
         return info;
     }
