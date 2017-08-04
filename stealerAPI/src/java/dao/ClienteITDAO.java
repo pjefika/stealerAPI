@@ -98,7 +98,7 @@ public class ClienteITDAO extends AbstractOssDAO implements EfikaCustomerInterfa
 
         InventoryDesignatorsResponse id = port.getAssociatedDesignators(c.getDesignador(), null);
 
-        if (id == null) {
+        if (id.getDesignator().isEmpty()) {
             throw new FalhaInputException();
         }
 
