@@ -5,7 +5,10 @@
  */
 package dao;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHeaders;
 import org.apache.http.HttpHost;
@@ -40,11 +43,21 @@ public abstract class HttpDAO {
                 .build();
     }
 
-    public HttpEntity post(String url) throws IOException {
+    public String get(String url) throws IOException {
         HttpPost http = new HttpPost(url);
         http.setHeader(HttpHeaders.ACCEPT, "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8");
         http.setHeader(HttpHeaders.CONTENT_TYPE, "application/x-www-form-urlencoded");
-        return client(url).execute(http).getEntity();
+        HttpEntity response = client(url).execute(http).getEntity();
+        
+        InputStream instream = response.getContent();
+        BufferedReader rd = new BufferedReader(new InputStreamReader(instream));
+        StringBuffer result = new StringBuffer();
+        String line = "";
+        while ((line = rd.readLine()) != null) {
+            result.append(line);
+        }
+        instream.close();
+        return result.toString();
     }
 
 }
