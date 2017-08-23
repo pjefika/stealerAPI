@@ -5,12 +5,20 @@
  */
 package dao;
 
-/**
- *
- * @author G0042204
- */
-public interface ConsultaEquipamento {
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-    public String consultar(String instancia) throws Exception;
+public class ConsultaEquipamento extends HttpDAO implements ConsultaEquipamentoInterface {
+
+    @Override
+    public String consultar(String instancia) throws Exception {
+        String resp = get("http://gvtapp/WebPort/QueryNumber.do?instancia=" + instancia);
+        System.out.println(resp);
+        Matcher m = Pattern.compile("(?<!\\d)\\d{10,11}(?!\\d)").matcher(resp);
+        if(m.find(resp.indexOf("server_response"))){
+            return m.group();
+        }
+        return null;
+    }
 
 }
