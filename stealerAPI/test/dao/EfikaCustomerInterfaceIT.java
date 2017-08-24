@@ -47,7 +47,7 @@ public class EfikaCustomerInterfaceIT {
             System.out.println("consultarCliente");
             String param1 = "4130222839";
             EfikaCustomerInterface instance = FactoryDAO.createClienteDAO();
-            EfikaCustomerDTO result = instance.consultarCliente(param1);
+            EfikaCustomerDTO result = instance.consultar(param1);
             assertTrue(result != null);
         } catch (Exception e) {
             fail(e.getMessage());

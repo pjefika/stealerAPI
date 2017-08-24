@@ -44,7 +44,7 @@ public class ClienteComServicoBandaJUnitTest {
     @Test
     public void velocidade() {
         try {
-            assertEquals(true, dao.consultarCliente(TestValues.VEL_51200_25600).getServicos().getVelDown().compareTo(25600l) == 0);
+            assertEquals(true, dao.consultar(TestValues.VEL_51200_25600).getServicos().getVelDown().compareTo(25600l) == 0);
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -53,7 +53,7 @@ public class ClienteComServicoBandaJUnitTest {
         @Test
     public void degustacaoTest() {
         try {
-            EfikaCustomerDTO oi = dao.consultarCliente("2135563108");
+            EfikaCustomerDTO oi = dao.consultar("2135563108");
             System.out.println("end");
         } catch (Exception e) {
             fail(e.getMessage());

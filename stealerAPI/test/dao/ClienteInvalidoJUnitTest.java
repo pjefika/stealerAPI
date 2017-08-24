@@ -46,7 +46,7 @@ public class ClienteInvalidoJUnitTest {
     @Test
     public void erroDigitacao() {
         try {
-            dao.consultarCliente("413022-2839.");
+            dao.consultar("413022-2839.");
             fail();
         } catch (Exception e) {
             assertTrue(e instanceof FalhaInputException);
@@ -56,7 +56,7 @@ public class ClienteInvalidoJUnitTest {
     @Test
     public void erroDigitacao2() {
         try {
-            dao.consultarCliente("slkdf");
+            dao.consultar("slkdf");
             fail();
         } catch (Exception e) {
             assertTrue(e instanceof FalhaInputException);
@@ -66,7 +66,7 @@ public class ClienteInvalidoJUnitTest {
     @Test
     public void clienteValido() {
         try {
-            dao.consultarCliente(TestValues.VALIDO);
+            dao.consultar(TestValues.VALIDO);
             assertTrue(true);
         } catch (Exception e) {
             fail();
@@ -76,7 +76,7 @@ public class ClienteInvalidoJUnitTest {
     @Test
     public void clienteSemDesignador() {
         try {
-            dao.consultarCliente(TestValues.SEM_BANDA);
+            dao.consultar(TestValues.SEM_BANDA);
             fail();
         } catch (Exception e) {
             assertTrue(e instanceof ClienteSemBandaException);
@@ -87,7 +87,7 @@ public class ClienteInvalidoJUnitTest {
     public void clienteSemCircuitoGpon() {
 
         try {
-            dao.consultarCliente("1630105326");
+            dao.consultar("1630105326");
             fail();
         } catch (Exception e) {
             assertTrue(e instanceof CircuitoNaoEncontradoException);
@@ -97,7 +97,7 @@ public class ClienteInvalidoJUnitTest {
     @Test
     public void clienteSemCircuitoMetalico() {
         try {
-            dao.consultarCliente("1630105326");
+            dao.consultar("1630105326");
             fail();
         } catch (Exception e) {
             assertTrue(e instanceof CircuitoNaoEncontradoException);

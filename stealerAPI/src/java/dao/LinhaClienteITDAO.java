@@ -18,7 +18,7 @@ public class LinhaClienteITDAO implements EfikaCustomerInterface, LinhaClienteIn
     private final ConsultaEquipamentoInterface eqpDAO = new ConsultaEquipamento();
 
     @Override
-    public EfikaCustomerDTO consultarCliente(String param1) throws Exception {
+    public EfikaCustomerDTO consultar(String param1) throws Exception {
         EfikaCustomerDTO ec = new EfikaCustomerDTO("");
         ec.setInstancia(param1);
         ec.getLinha().setCentral(getSwitch(param1));

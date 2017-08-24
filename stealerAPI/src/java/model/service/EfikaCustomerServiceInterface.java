@@ -3,20 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model;
+package model.service;
 
-import dao.EfikaCustomerInterface;
 import model.domain.EfikaCustomerDTO;
 
 /**
  *
  * @author G0042204
  */
-public class CadastroITService implements EfikaCustomerInterface {
+public interface EfikaCustomerServiceInterface {
 
-    @Override
-    public EfikaCustomerDTO consultarCliente(String param1) throws Exception {
-        return null;
-    }
+    public EfikaCustomerDTO consultar(String param1) throws Exception;
 
 }

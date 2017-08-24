@@ -3,18 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dao;
+package model.service;
 
-import br.net.gvt.efika.customer.InventarioRede;
 import model.domain.EfikaCustomerDTO;
 
 /**
  *
  * @author G0042204
  */
-public interface EfikaCustomerInterface {
+public class CadastroITService implements EfikaCustomerServiceInterface {
 
-    public EfikaCustomerDTO consultar(String param1) throws Exception;
+    @Override
+    public EfikaCustomerDTO consultar(String param1) throws Exception {
+        return null;
+    }
 
-//    public InventarioRede consultarInventarioRede(String param1) throws Exception;
 }

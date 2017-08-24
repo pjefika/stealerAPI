@@ -47,7 +47,7 @@ public class LinhaClienteITDAOIT {
         System.out.println("consultarCliente");
         String param1 = "4133335556";
         LinhaClienteITDAO instance = new LinhaClienteITDAO();
-        EfikaCustomerDTO result = instance.consultarCliente(param1);
+        EfikaCustomerDTO result = instance.consultar(param1);
         System.out.println(result.getLinha().getCentral());
         System.out.println(result.getLinha().getDn());
         System.out.println(result.getLinha().getTipo());

@@ -17,8 +17,9 @@ import com.gvt.www.ws.eai.oss.ossturbonet.OSSTurbonetProxy;
 import dao.exception.CircuitoNaoEncontradoException;
 import dao.exception.ClienteSemBandaException;
 import dao.exception.FalhaInputException;
+import dao.inventory.AssociatedDesignators;
 import exception.ossturbonet.oss.gvt.com.OSSTurbonetException;
-import model.FactoryService;
+import model.service.FactoryITService;
 import model.asserts.facade.AssertFacadeFulltestCRM;
 import model.domain.EfikaCustomerDTO;
 import model.domain.InventarioRedeAdapter;
@@ -48,7 +49,7 @@ public class ClienteITDAO extends AbstractOssDAO implements EfikaCustomerInterfa
      * @throws Exception
      */
     @Override
-    public EfikaCustomerDTO consultarCliente(String designador) throws Exception {
+    public EfikaCustomerDTO consultar(String designador) throws Exception {
         c = new EfikaCustomerDTO(designador);
         getAssociatedDesignators(c);
         //bloco de try adicionado para que retorne cliente apenas com servicos ou apenas rede ao invés de extourar exception
@@ -94,13 +95,14 @@ public class ClienteITDAO extends AbstractOssDAO implements EfikaCustomerInterfa
     }
 
     public void getAssociatedDesignators(EfikaCustomerDTO c) throws FalhaInputException, ClienteSemBandaException {
-        port = FactoryService.create().getInventoryImplPort();
+        port = FactoryITService.createInvServ().getInventoryImplPort();
 
         InventoryDesignatorsResponse id = port.getAssociatedDesignators(c.getDesignador(), null);
 
         if (id.getDesignator().isEmpty()) {
             throw new FalhaInputException();
         }
+       
 
         new TratativaDesignadores(id, c).getC();
 
@@ -218,6 +220,7 @@ public class ClienteITDAO extends AbstractOssDAO implements EfikaCustomerInterfa
 
     }
 
+//    @Override
     public InventarioRede consultarInventarioRede(String param1) throws Exception {
         return InventarioRedeAdapter.adapter(getInfo(param1));
     }

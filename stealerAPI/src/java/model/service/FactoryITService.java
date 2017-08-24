@@ -3,18 +3,24 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model;
+package model.service;
 
 import br.com.gvt.oss.inventory.service.impl.*;
+import com.gvt.www.ws.eai.oss.ossturbonet.OSSTurbonet;
+import com.gvt.www.ws.eai.oss.ossturbonet.OSSTurbonetProxy;
 
 /**
  *
  * @author G0042204
  */
-public class FactoryService {
+public class FactoryITService {
 
-    public static InventoryService create() {
+    public static InventoryService createInvServ() {
         return new InventoryService();
+    }
+    
+    public static OSSTurbonet createOss(){
+        return new OSSTurbonetProxy();
     }
 
 }

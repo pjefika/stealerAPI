@@ -36,7 +36,7 @@ public class ClienteController implements EfikaCustomerRestInter {
     public Response getCliente(@PathParam("instancia") String instancia) {
         try {
             dao = FactoryDAO.createClienteDAO();
-            EfikaCustomerDTO out = dao.consultarCliente(instancia);
+            EfikaCustomerDTO out = dao.consultar(instancia);
             String persistOut = GsonUtil.serialize(out);
             try {
                 Log l = new Log("ClienteController.getCliente");

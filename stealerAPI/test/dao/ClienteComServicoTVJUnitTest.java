@@ -43,7 +43,7 @@ public class ClienteComServicoTVJUnitTest {
     @Test
     public void hibrido() {
         try {
-            assertEquals(true, dao.consultarCliente(TestValues.HIBRIDO).getServicos().getIsHib());
+            assertEquals(true, dao.consultar(TestValues.HIBRIDO).getServicos().getIsHib());
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -52,7 +52,7 @@ public class ClienteComServicoTVJUnitTest {
     @Test
     public void dth() {
         try {
-            assertEquals(false, dao.consultarCliente(TestValues.DTH).getServicos().getIsHib());
+            assertEquals(false, dao.consultar(TestValues.DTH).getServicos().getIsHib());
         } catch (Exception e) {
             fail(e.getMessage());
         }

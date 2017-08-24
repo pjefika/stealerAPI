@@ -49,7 +49,7 @@ public class CadastrarLogConsultaJUnitTest {
     @Test
     public void consultarCliente() {
         try {
-            EfikaCustomerDTO out = dao.consultarCliente(TestValues.HIBRIDO);
+            EfikaCustomerDTO out = dao.consultar(TestValues.HIBRIDO);
             try {
                 Log l = new Log("ClienteController.getCliente");
                 l.setInput(out.getInstancia());
