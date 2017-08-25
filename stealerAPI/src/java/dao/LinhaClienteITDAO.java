@@ -5,30 +5,31 @@
  */
 package dao;
 
+import br.net.gvt.efika.customer.EfikaCustomer;
+import br.net.gvt.efika.customer.InventarioLinha;
 import br.net.gvt.efika.customer.TipoCentral;
-import model.domain.EfikaCustomerDTO;
 
 /**
  *
  * @author G0041775
  */
-public class LinhaClienteITDAO implements EfikaCustomerInterface, LinhaClienteInterface {
+public class LinhaClienteITDAO implements LinhaClienteInterface {
 
     private final NumberInventoryDAOInterface numberDAO = new NumberInventoryDAO();
     private final ConsultaEquipamentoInterface eqpDAO = new ConsultaEquipamento();
 
     @Override
-    public EfikaCustomerDTO consultar(String param1) throws Exception {
-        EfikaCustomerDTO ec = new EfikaCustomerDTO("");
-        ec.setInstancia(param1);
-        ec.getLinha().setCentral(getSwitch(param1));
-        ec.getLinha().setDn(getDn(param1));
-        ec.getLinha().setTipo(getTipoCentral(param1));
-        return ec;
+    public InventarioLinha consultar(String instancia) {
+        InventarioLinha i = new InventarioLinha();
+
+        i.setCentral(getSwitch(instancia));
+        i.setDn(getDn(instancia));
+        i.setTipo(getTipoCentral(instancia));
+
+        return i;
     }
 
-    @Override
-    public String getDn(String instancia) {
+    protected String getDn(String instancia) {
         try {
             return eqpDAO.consultar(instancia);
         } catch (Exception e) {
@@ -36,8 +37,7 @@ public class LinhaClienteITDAO implements EfikaCustomerInterface, LinhaClienteIn
         }
     }
 
-    @Override
-    public String getSwitch(String instancia) {
+    protected String getSwitch(String instancia) {
         try {
             return numberDAO.getSwitchInfo(instancia).getSwitchName();
         } catch (Exception e) {
@@ -46,8 +46,7 @@ public class LinhaClienteITDAO implements EfikaCustomerInterface, LinhaClienteIn
         }
     }
 
-    @Override
-    public TipoCentral getTipoCentral(String instancia) {
+    protected TipoCentral getTipoCentral(String instancia) {
         try {
             return numberDAO.getSwitchInfo(instancia).getSwitchType().contentEquals("TDM") ? TipoCentral.TDM : TipoCentral.IMS;
         } catch (Exception e) {

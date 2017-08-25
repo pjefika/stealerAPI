@@ -3,16 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dao.exception;
+package model.service.tratativa;
 
 /**
  *
  * @author G0042204
  */
-public class FalhaInputException extends Exception{
+public interface Tratativa {
 
-    public FalhaInputException() {
-        super("Instância inválida.");
-    }    
-    
+    public void tratar() throws Exception;
+
 }

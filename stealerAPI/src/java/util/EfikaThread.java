@@ -5,6 +5,8 @@
  */
 package util;
 
+import java.util.Calendar;
+
 /**
  *
  * @author G0042204
@@ -14,6 +16,10 @@ public class EfikaThread extends Thread {
     public EfikaThread(Runnable target) {
         super(target);
         start();
+        System.out.println("Thread: " + Calendar.getInstance().getTime());
+
     }
+    
+    
 
 }

@@ -5,7 +5,7 @@
  */
 package dao;
 
-import br.net.gvt.efika.customer.TipoCentral;
+import br.net.gvt.efika.customer.InventarioLinha;
 
 /**
  *
@@ -13,10 +13,6 @@ import br.net.gvt.efika.customer.TipoCentral;
  */
 public interface LinhaClienteInterface {
 
-    public String getDn(String instancia);
-    
-    public String getSwitch(String instancia);
-    
-    public TipoCentral getTipoCentral(String instancia);
-    
+    public InventarioLinha consultar(String instancia);
+
 }

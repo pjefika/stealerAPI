@@ -5,6 +5,7 @@
  */
 package controller;
 
+import br.net.gvt.efika.customer.EfikaCustomer;
 import dao.EfikaCustomerInterface;
 import dao.FactoryDAO;
 import dao.InterfaceDAO;
@@ -36,7 +37,7 @@ public class ClienteController implements EfikaCustomerRestInter {
     public Response getCliente(@PathParam("instancia") String instancia) {
         try {
             dao = FactoryDAO.createClienteDAO();
-            EfikaCustomerDTO out = dao.consultar(instancia);
+            EfikaCustomer out = dao.consultar(instancia);
             String persistOut = GsonUtil.serialize(out);
             try {
                 Log l = new Log("ClienteController.getCliente");
@@ -46,7 +47,7 @@ public class ClienteController implements EfikaCustomerRestInter {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            return Response.status(200).entity(out).build();
+            return Response.status(200).entity(new EfikaCustomerDTO(out)).build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e).build();
         }

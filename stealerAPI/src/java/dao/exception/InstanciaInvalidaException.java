@@ -3,18 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model.service;
-
-import dao.EfikaCustomerInterface;
+package dao.exception;
 
 /**
  *
  * @author G0042204
  */
-public abstract class GerericService {
+public class InstanciaInvalidaException extends Exception{
 
-    private EfikaCustomerInterface dao;
+    public InstanciaInvalidaException() {
+        super("Instância inválida.");
+    }    
     
-    
-
 }

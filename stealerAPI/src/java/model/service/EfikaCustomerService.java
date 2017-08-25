@@ -5,14 +5,14 @@
  */
 package model.service;
 
-import model.domain.EfikaCustomerDTO;
+import br.net.gvt.efika.customer.EfikaCustomer;
 
 /**
  *
  * @author G0042204
  */
-public interface EfikaCustomerServiceInterface {
+public interface EfikaCustomerService {
 
-    public EfikaCustomerDTO consultar(String param1) throws Exception;
+    public EfikaCustomer consultar(String param1) throws Exception;
 
 }

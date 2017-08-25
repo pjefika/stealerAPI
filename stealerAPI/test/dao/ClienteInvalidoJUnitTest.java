@@ -7,7 +7,7 @@ package dao;
 
 import dao.exception.CircuitoNaoEncontradoException;
 import dao.exception.ClienteSemBandaException;
-import dao.exception.FalhaInputException;
+import dao.exception.InstanciaInvalidaException;
 import input.TestValues;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -49,7 +49,7 @@ public class ClienteInvalidoJUnitTest {
             dao.consultar("413022-2839.");
             fail();
         } catch (Exception e) {
-            assertTrue(e instanceof FalhaInputException);
+            assertTrue(e instanceof InstanciaInvalidaException);
         }
     }
 
@@ -59,7 +59,7 @@ public class ClienteInvalidoJUnitTest {
             dao.consultar("slkdf");
             fail();
         } catch (Exception e) {
-            assertTrue(e instanceof FalhaInputException);
+            assertTrue(e instanceof InstanciaInvalidaException);
         }
     }
 

@@ -5,8 +5,7 @@
  */
 package dao;
 
-import br.net.gvt.efika.customer.InventarioRede;
-import model.domain.EfikaCustomerDTO;
+import br.net.gvt.efika.customer.EfikaCustomer;
 
 /**
  *
@@ -14,7 +13,6 @@ import model.domain.EfikaCustomerDTO;
  */
 public interface EfikaCustomerInterface {
 
-    public EfikaCustomerDTO consultar(String param1) throws Exception;
+    public EfikaCustomer consultar(String param1) throws Exception;
 
-//    public InventarioRede consultarInventarioRede(String param1) throws Exception;
 }

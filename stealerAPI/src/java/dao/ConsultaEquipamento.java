@@ -14,11 +14,12 @@ public class ConsultaEquipamento extends HttpDAO implements ConsultaEquipamentoI
     public String consultar(String instancia) throws Exception {
         String resp = get("http://gvtapp/WebPort/QueryNumber.do?instancia=" + instancia);
         System.out.println(resp);
-        Matcher m = Pattern.compile("(?<!\\d)\\d{10,11}(?!\\d)").matcher(resp);
-        if(m.find(resp.indexOf("server_response"))){
-            return m.group();
+        Matcher m = Pattern.compile("(?!<div class=\"server_response\">\\s{0,500})(\\d{10,11}\\s{1})").matcher(resp);
+        if (m.find()) {
+            return m.group(1).trim();
+
         }
-        return null;
+        return instancia;
     }
 
 }

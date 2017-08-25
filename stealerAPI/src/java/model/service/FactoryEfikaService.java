@@ -11,5 +11,8 @@ package model.service;
  */
 public class FactoryEfikaService {
 
-
+    public static EfikaCustomerService create(){
+        return new EfikaCustomerServiceImpl();
+    }
+    
 }

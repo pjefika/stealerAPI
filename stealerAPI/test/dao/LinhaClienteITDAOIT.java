@@ -5,8 +5,9 @@
  */
 package dao;
 
+import br.net.gvt.efika.customer.EfikaCustomer;
+import br.net.gvt.efika.customer.InventarioLinha;
 import br.net.gvt.efika.customer.TipoCentral;
-import model.domain.EfikaCustomerDTO;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -47,10 +48,10 @@ public class LinhaClienteITDAOIT {
         System.out.println("consultarCliente");
         String param1 = "4133335556";
         LinhaClienteITDAO instance = new LinhaClienteITDAO();
-        EfikaCustomerDTO result = instance.consultar(param1);
-        System.out.println(result.getLinha().getCentral());
-        System.out.println(result.getLinha().getDn());
-        System.out.println(result.getLinha().getTipo());
+        InventarioLinha result = instance.consultar(param1);
+        System.out.println(result.getCentral());
+        System.out.println(result.getDn());
+        System.out.println(result.getTipo());
         assertTrue(result != null);
         
     }

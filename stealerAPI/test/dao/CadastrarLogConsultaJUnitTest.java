@@ -5,8 +5,8 @@
  */
 package dao;
 
+import br.net.gvt.efika.customer.EfikaCustomer;
 import input.TestValues;
-import model.domain.EfikaCustomerDTO;
 import model.entity.Log;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -49,7 +49,7 @@ public class CadastrarLogConsultaJUnitTest {
     @Test
     public void consultarCliente() {
         try {
-            EfikaCustomerDTO out = dao.consultar(TestValues.HIBRIDO);
+            EfikaCustomer out = dao.consultar(TestValues.HIBRIDO);
             try {
                 Log l = new Log("ClienteController.getCliente");
                 l.setInput(out.getInstancia());

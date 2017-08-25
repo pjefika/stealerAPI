@@ -1,86 +1,38 @@
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dao;
+package model.service.tratativa;
 
-import bean.ossturbonet.oss.gvt.com.GetInfoOut;
 import br.net.gvt.efika.customer.EfikaCustomer;
-import br.net.gvt.efika.customer.InventarioRede;
 import br.net.gvt.efika.customer.InventarioServico;
 import com.gvt.ws.eai.oss.inventory.api.Account;
 import com.gvt.ws.eai.oss.inventory.api.InventoryAccountResponse;
-import com.gvt.ws.eai.oss.inventory.api.InventoryDesignatorsResponse;
 import com.gvt.ws.eai.oss.inventory.api.Item;
-import com.gvt.www.ws.eai.oss.ossturbonet.OSSTurbonetProxy;
-import dao.exception.CircuitoNaoEncontradoException;
-import dao.exception.ClienteSemBandaException;
-import dao.exception.InstanciaInvalidaException;
-import exception.ossturbonet.oss.gvt.com.OSSTurbonetException;
-import model.asserts.facade.AssertFacadeFulltestCRM;
-import model.domain.InventarioRedeAdapter;
-import model.service.tratativa.TratativaAssociatedDesignators;
 
 /**
  *
- * @author G0041775
+ * @author G0042204
  */
-public class ClienteITDAO extends AbstractOssDAO implements EfikaCustomerInterface {
+public class TratativaInventarioServicos extends TratativaEfikaCustomer {
 
-    private InventoryAccountResponse result;
+    private final InventoryAccountResponse account;
 
-    private EfikaCustomer c;
-
-    private GetInfoOut info;
-
-    public ClienteITDAO() {
-        ws = new OSSTurbonetProxy();
+    public TratativaInventarioServicos(InventoryAccountResponse account, EfikaCustomer c) {
+        super(c);
+        this.account = account;
     }
 
-    /**
-     * Consulta aos Serviços de IT - Cadastro - Designador - Serviços
-     *
-     * @param designador
-     * @return
-     * @throws Exception
-     */
     @Override
-    public EfikaCustomer consultar(String designador) throws Exception {
-        c = new EfikaCustomer(designador);
-        getAssociatedDesignators(c);
-        //bloco de try adicionado para que retorne cliente apenas com servicos ou apenas rede ao invés de extourar exception
-        try {
-            c.setRede(consultarInventarioRede(c.getDesignador()));
-            c.setAsserts(new AssertFacadeFulltestCRM(info).assertThese());
-        } catch (OSSTurbonetException e) {
-            e.printStackTrace();
-            String erro = e.getFaultString();
-            System.out.println("erro:" + erro);
-            if (erro.contains("Nao consta no TBS DSLAM cadastrado para este designador")
-                    || erro.contains("NAO ENCONTROU ASSINALAMENTO PARA O CIRCUITO")
-                    || erro.contains("CIRCUITO NAO ENCONTRADO PARA O DESIGNADOR")) {
-                throw new CircuitoNaoEncontradoException();
-            } else {
-                throw new InstanciaInvalidaException();
-            }
-        }
-        try {
-            c.setServicos(consultarInventarioServico(c.getDesignador()));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-//        cadastrar(c);
-        return c;
+    public void tratar() throws Exception {
+        getC().setServicos(this.consultarInventarioServico());
     }
 
-    public InventarioServico consultarInventarioServico(String instancia) throws Exception {
+    protected InventarioServico consultarInventarioServico() throws Exception {
 
         InventarioServico serv = new InventarioServico();
 
-        this.getAccountItems(instancia.trim());
         this.getBanda(serv);
         this.getLinha(serv);
         this.getTv(serv);
@@ -88,51 +40,12 @@ public class ClienteITDAO extends AbstractOssDAO implements EfikaCustomerInterfa
         return serv;
     }
 
-    protected String getDesignador(String s) throws Exception {
-        return ws.getDesignatorByAccessDesignator(s);
-    }
-
-    public void getAssociatedDesignators(EfikaCustomer c) throws InstanciaInvalidaException, ClienteSemBandaException {
-        port = FactoryITService.createInvServ().getInventoryImplPort();
-
-        InventoryDesignatorsResponse id = port.getAssociatedDesignators(c.getDesignador(), null);
-
-        if (id.getDesignator().isEmpty()) {
-            throw new InstanciaInvalidaException();
-        }
-       
-
-        new TratativaAssociatedDesignators(id, c).getC();
-
-        if (c.getDesignador().equalsIgnoreCase(c.getInstancia())) {
-            throw new ClienteSemBandaException();
-        }
-    }
-
-    public GetInfoOut getInfo(String designador) throws Exception {
-        if (info == null) {
-//            String designator = this.getDesignador(designador);
-            info = ws.getInfo(c.getDesignador(), c.getDesignadorAcesso(), "wise", "wise", c.getDesignador(), "wise", "0", "0");
-        }
-        return info;
-    }
-
-    public String getAccessDesignator(String designador) throws Exception {
-        return ws.getAccessDesignator(designador);
-    }
-
-    private void getAccountItems(String designator) {
-//        if (this.result == null) {
-        this.result = port.getAccountItems(null, null, designator, null, true);
-//        }
-    }
-
     private void getBanda(InventarioServico i) {
-        result.getAccounts().forEach((acc) -> {
+        account.getAccounts().forEach((acc) -> {
             acc.getAddress().forEach((adr) -> {
                 adr.getItems().forEach((item) -> {
                     item.getItems().stream().filter((itn) -> ((itn.getStatusName().equalsIgnoreCase("ACTIVE")
-                            || itn.getStatusName().equalsIgnoreCase("PENDING"))) && itn.getDesignator().getValue().equalsIgnoreCase(c.getDesignador())).forEachOrdered((itn) -> {
+                            || itn.getStatusName().equalsIgnoreCase("PENDING"))) && itn.getDesignator().getValue().equalsIgnoreCase(getC().getDesignador())).forEachOrdered((itn) -> {
 
                         for (com.gvt.ws.eai.oss.inventory.api.Param param : itn.getParam()) {
                             System.out.println(itn.getStatusName() + "->" + itn.getModifiedDate().getValue());
@@ -155,7 +68,7 @@ public class ClienteITDAO extends AbstractOssDAO implements EfikaCustomerInterfa
     }
 
     private void getLinha(InventarioServico i) {
-        result.getAccounts().forEach((Account acc) -> {
+        account.getAccounts().forEach((Account acc) -> {
             acc.getAddress().forEach((adr) -> {
                 adr.getItems().forEach((item) -> {
                     item.getItems().stream().filter((itn) -> (itn.getStatusName().equalsIgnoreCase("ACTIVE") || itn.getStatusName().equalsIgnoreCase("PENDING"))).forEachOrdered((itn) -> {
@@ -186,7 +99,7 @@ public class ClienteITDAO extends AbstractOssDAO implements EfikaCustomerInterfa
     }
 
     private void getTv(InventarioServico i) {
-        result.getAccounts().forEach((acc) -> {
+        account.getAccounts().forEach((acc) -> {
             acc.getAddress().forEach((adr) -> {
                 adr.getItems().forEach((Item item) -> {
                     item.getItems().stream().filter((itn) -> (itn.getStatusName().equalsIgnoreCase("ACTIVE") || itn.getStatusName().equalsIgnoreCase("PENDING"))).forEachOrdered((itn) -> {
@@ -216,11 +129,6 @@ public class ClienteITDAO extends AbstractOssDAO implements EfikaCustomerInterfa
             i.setIsHib(Boolean.FALSE);
         }
 
-    }
-
-//    @Override
-    public InventarioRede consultarInventarioRede(String param1) throws Exception {
-        return InventarioRedeAdapter.adapter(getInfo(param1));
     }
 
 }
