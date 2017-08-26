@@ -47,7 +47,7 @@ public class ConsultaEquipamentoImplIT {
             String instancia = "4133335556";
             String expResult = "4160435534";
 
-            ConsultaEquipamento instance = new ConsultaEquipamento();
+            ConsultaEquipamentoImpl instance = new ConsultaEquipamentoImpl();
             String result = instance.consultar(instancia);
             assertEquals(expResult, result);
         } catch (Exception e) {

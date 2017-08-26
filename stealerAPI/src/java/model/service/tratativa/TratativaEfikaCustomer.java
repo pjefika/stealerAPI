@@ -11,7 +11,7 @@ import br.net.gvt.efika.customer.EfikaCustomer;
  *
  * @author G0042204
  */
-public abstract class TratativaEfikaCustomer implements Tratativa, Runnable{
+public abstract class TratativaEfikaCustomer implements Tratativa, Runnable {
 
     private EfikaCustomer c;
 
@@ -32,11 +32,8 @@ public abstract class TratativaEfikaCustomer implements Tratativa, Runnable{
         try {
             this.tratar();
         } catch (Exception ex) {
-            ex.printStackTrace();
+            throw new RuntimeException(ex);
         }
     }
-    
-    
-    
 
 }

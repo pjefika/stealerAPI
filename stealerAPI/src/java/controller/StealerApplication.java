@@ -13,14 +13,14 @@ import javax.ws.rs.core.Application;
  *
  * @author G0041775
  */
-public class ClienteApplication extends Application {
+public class StealerApplication extends Application {
 
     private Set<Object> singletons = new HashSet<Object>();
 
     private Set<Class<?>> empty = new HashSet<Class<?>>();
 
-    public ClienteApplication() {
-        singletons.add(new ClienteController());
+    public StealerApplication() {
+        singletons.add(new EfikaCustomerController());
         singletons.add(new ManobraController());
     }
 

@@ -20,7 +20,7 @@ import org.junit.Test;
  */
 public class ClienteComServicoBandaJUnitTest {
 
-    private final EfikaCustomerInterface dao = FactoryDAO.createClienteDAO();
+    private final ConsultaEfikaCustomer dao = FactoryDAO.createClienteDAO();
 
     public ClienteComServicoBandaJUnitTest() {
     }

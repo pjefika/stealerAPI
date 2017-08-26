@@ -23,7 +23,7 @@ import util.GsonUtil;
  */
 public class CadastrarLogConsultaJUnitTest {
 
-    private EfikaCustomerInterface dao = FactoryDAO.createClienteDAO();
+    private ConsultaEfikaCustomer dao = FactoryDAO.createClienteDAO();
 
     private InterfaceDAO<Log> ldao = FactoryDAO.createLogDAO();
 

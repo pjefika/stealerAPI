@@ -33,10 +33,6 @@ public class TratativaAssociatedDesignators extends TratativaEfikaCustomer {
 
         new TratativaAssociatedDesignators(r, getC()).getC();
 
-        if (getC().getDesignador().equalsIgnoreCase(getC().getInstancia())) {
-            throw new ClienteSemBandaException();
-        }
-
         for (Designator designator : r.getDesignator()) {
 
             // Designador de Acesso
@@ -56,6 +52,10 @@ public class TratativaAssociatedDesignators extends TratativaEfikaCustomer {
             if (designator.getDesignatorType().getValue().equals(3)) {
                 getC().setDesignador(designator.getValue());
             }
+        }
+
+        if (getC().getDesignador().equalsIgnoreCase(getC().getInstancia())) {
+            throw new ClienteSemBandaException();
         }
     }
 

@@ -16,7 +16,7 @@ import br.net.gvt.efika.customer.TipoCentral;
 public class LinhaClienteITDAO implements LinhaClienteInterface {
 
     private final NumberInventoryDAOInterface numberDAO = new NumberInventoryDAO();
-    private final ConsultaEquipamentoInterface eqpDAO = new ConsultaEquipamento();
+    private final ConsultaEquipamento eqpDAO = new ConsultaEquipamentoImpl();
 
     @Override
     public InventarioLinha consultar(String instancia) {

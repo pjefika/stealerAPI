@@ -19,7 +19,7 @@ import static org.junit.Assert.*;
  */
 public class ClienteComServicoLinhaJUnitTest {
 
-    private final EfikaCustomerInterface dao = FactoryDAO.createClienteDAO();
+    private final ConsultaEfikaCustomer dao = FactoryDAO.createClienteDAO();
 
     public ClienteComServicoLinhaJUnitTest() {
     }

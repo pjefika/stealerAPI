@@ -27,7 +27,7 @@ import model.service.tratativa.TratativaAssociatedDesignators;
  *
  * @author G0041775
  */
-public class ClienteITDAO extends AbstractOssDAO implements EfikaCustomerInterface {
+public class ClienteITDAO extends AbstractOssDAO implements ConsultaEfikaCustomer {
 
     private InventoryAccountResponse result;
 

@@ -48,8 +48,8 @@ public class TratativaInventarioServicos extends TratativaEfikaCustomer {
                             || itn.getStatusName().equalsIgnoreCase("PENDING"))) && itn.getDesignator().getValue().equalsIgnoreCase(getC().getDesignador())).forEachOrdered((itn) -> {
 
                         for (com.gvt.ws.eai.oss.inventory.api.Param param : itn.getParam()) {
-                            System.out.println(itn.getStatusName() + "->" + itn.getModifiedDate().getValue());
-                            System.out.println(param.getName() + "->" + param.getValue());
+//                            System.out.println(itn.getStatusName() + "->" + itn.getModifiedDate().getValue());
+//                            System.out.println(param.getName() + "->" + param.getValue());
                             if (param.getName().equalsIgnoreCase("Downstream")) {
                                 i.setVelDown(new Long(param.getValue()));
                             }
@@ -64,7 +64,7 @@ public class TratativaInventarioServicos extends TratativaEfikaCustomer {
                 });
             });
         });
-        System.out.println("getBanda");
+//        System.out.println("getBanda");
     }
 
     private void getLinha(InventarioServico i) {

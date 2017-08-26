@@ -12,7 +12,7 @@
 
     <context-param>
         <param-name>javax.ws.rs.Application</param-name>
-        <param-value>controller.ClienteApplication</param-value>
+        <param-value>controller.StealerApplication</param-value>
     </context-param>
     
     <listener>

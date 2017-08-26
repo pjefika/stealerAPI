@@ -6,7 +6,6 @@
 package controller;
 
 import br.net.gvt.efika.customer.EfikaCustomer;
-import dao.EfikaCustomerInterface;
 import dao.FactoryDAO;
 import dao.InterfaceDAO;
 import javax.ws.rs.GET;
@@ -15,20 +14,22 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import model.domain.EfikaCustomerDTO;
 import model.entity.Log;
 import util.GsonUtil;
+import dao.ConsultaEfikaCustomer;
+import model.service.EfikaCustomerService;
+import model.service.EfikaCustomerServiceImpl;
 
 /**
  *
  * @author G0041775
  */
 @Path("/oss")
-public class ClienteController implements EfikaCustomerRestInter {
+public class EfikaCustomerController implements EfikaCustomerRestInter {
 
-    private EfikaCustomerInterface dao;
+    private ConsultaEfikaCustomer dao;
 
-    private InterfaceDAO<Log> ldao = FactoryDAO.createLogDAO();
+    private InterfaceDAO<Log> ldao;
 
     @GET
     @Path("/{instancia}")
@@ -36,18 +37,20 @@ public class ClienteController implements EfikaCustomerRestInter {
     @Override
     public Response getCliente(@PathParam("instancia") String instancia) {
         try {
-            dao = FactoryDAO.createClienteDAO();
-            EfikaCustomer out = dao.consultar(instancia);
+            EfikaCustomerService instance = new EfikaCustomerServiceImpl();
+            
+            EfikaCustomer out = instance.consultar(instancia);
             String persistOut = GsonUtil.serialize(out);
             try {
                 Log l = new Log("ClienteController.getCliente");
                 l.setInput(instancia);
                 l.setOuput(persistOut);
+                ldao = FactoryDAO.createLogDAO();
                 ldao.cadastrar(l);
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            return Response.status(200).entity(new EfikaCustomerDTO(out)).build();
+            return Response.status(200).entity(out).build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e).build();
         }

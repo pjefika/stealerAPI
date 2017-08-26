@@ -10,9 +10,12 @@ import br.net.gvt.efika.customer.EfikaCustomer;
 import dao.FactoryDAO;
 import dao.LinhaClienteITDAO;
 import dao.LinhaClienteInterface;
+import dao.exception.ClienteSemBandaException;
+import dao.exception.InstanciaInvalidaException;
 import dao.oss.OSSGenericDAO;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.asserts.facade.AssertFacadeFulltestCRM;
 import model.service.tratativa.TratativaAssociatedDesignators;
 import model.service.tratativa.TratativaInventarioLinha;
 import model.service.tratativa.TratativaInventarioRede;
@@ -34,43 +37,45 @@ public class EfikaCustomerServiceImpl implements EfikaCustomerService {
         ec.setDesignador(designador);
 
         EfikaThread t0 = new EfikaThread(new TratativaAssociatedDesignators(dao.getAssociatedDesignators(designador), ec));
-        System.out.println("t0");
-
         t0.join();
 
-        EfikaThread t1 = new EfikaThread(() -> {
-            try {
-                info = dao.getInfo(ec.getDesignador(), ec.getDesignadorAcesso());
-            } catch (Exception ex) {
-                Logger.getLogger(EfikaCustomerServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        });
-
-        EfikaThread t2 = new EfikaThread(() -> {
-            try {
-                info = dao.getInfo(ec.getDesignador(), ec.getDesignadorAcesso());
-            } catch (Exception ex) {
-                Logger.getLogger(EfikaCustomerServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        });
-
-        new TratativaInventarioRede(getInfo(), ec);
-
-        EfikaThread t3 = new EfikaThread(new TratativaInventarioServicos(dao.getAccountItems(ec.getDesignador()), ec));
-        EfikaThread t4 = new EfikaThread(new TratativaInventarioLinha(linha.consultar(ec.getInstancia()), ec));
-
         try {
-            t1.join();
-            t3.join();
-            t4.join();
-        } catch (InterruptedException ex) {
+            t0.possuiException();
+            EfikaThread t1 = new EfikaThread(new TratativaInventarioRede(getInfo(), ec));
+            EfikaThread t2 = new EfikaThread(new TratativaInventarioServicos(dao.getAccountItems(ec.getDesignador()), ec));
+            EfikaThread t3 = new EfikaThread(new TratativaInventarioLinha(linha.consultar(ec.getInstancia()), ec));
 
+            t1.join();
+            t2.join();
+            t3.join();
+
+            ec.setAsserts(new AssertFacadeFulltestCRM(getInfo()).assertThese());
+
+        } catch (Exception e) {
+            
+            if (e.getCause() instanceof InstanciaInvalidaException) {
+                throw e;
+            }
+
+            if (e.getCause() instanceof ClienteSemBandaException) {
+                EfikaThread t2 = new EfikaThread(new TratativaInventarioServicos(dao.getAccountItems(ec.getDesignador()), ec));
+                EfikaThread t3 = new EfikaThread(new TratativaInventarioLinha(linha.consultar(ec.getInstancia()), ec));
+                t2.join();
+                t3.join();
+            }
         }
 
         return ec;
     }
 
     public GetInfoOut getInfo() {
+        if (info == null) {
+            try {
+                info = dao.getInfo(ec.getDesignador(), ec.getDesignadorAcesso());
+            } catch (Exception ex) {
+                Logger.getLogger(EfikaCustomerServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         return info;
     }
 

@@ -22,7 +22,7 @@ import org.junit.Test;
  */
 public class ClienteInvalidoJUnitTest {
 
-    private final EfikaCustomerInterface dao = FactoryDAO.createClienteDAO();
+    private final ConsultaEfikaCustomer dao = FactoryDAO.createClienteDAO();
 
     public ClienteInvalidoJUnitTest() {
     }
