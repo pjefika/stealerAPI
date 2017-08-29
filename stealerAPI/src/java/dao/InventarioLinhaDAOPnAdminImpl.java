@@ -9,7 +9,7 @@ import br.net.gvt.efika.customer.InventarioLinha;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class InventarioLinhaDAOImpl extends HttpDAO implements InventarioLinhaDAO {
+public class InventarioLinhaDAOPnAdminImpl extends HttpDAO implements InventarioLinhaDAO {
 
     @Override
     public InventarioLinha consultar(String instancia) {

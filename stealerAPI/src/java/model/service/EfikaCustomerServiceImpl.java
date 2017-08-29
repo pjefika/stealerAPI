@@ -8,7 +8,6 @@ package model.service;
 import bean.ossturbonet.oss.gvt.com.GetInfoOut;
 import br.net.gvt.efika.customer.EfikaCustomer;
 import dao.FactoryDAO;
-import dao.LinhaClienteITDAO;
 import dao.exception.ClienteSemBandaException;
 import dao.exception.InstanciaInvalidaException;
 import dao.oss.OSSGenericDAO;
@@ -21,6 +20,7 @@ import model.service.tratativa.TratativaInventarioRede;
 import model.service.tratativa.TratativaInventarioServicos;
 import util.EfikaThread;
 import dao.InventarioLinhaDAO;
+import dao.InventarioLinhaDAOPnAdminImpl;
 
 public class EfikaCustomerServiceImpl implements EfikaCustomerService {
 
@@ -28,7 +28,7 @@ public class EfikaCustomerServiceImpl implements EfikaCustomerService {
 
     private OSSGenericDAO dao = FactoryDAO.createOSS();
 
-    private InventarioLinhaDAO linha = new LinhaClienteITDAO();
+    private InventarioLinhaDAO linha = new InventarioLinhaDAOPnAdminImpl();
 
     private GetInfoOut info;
 

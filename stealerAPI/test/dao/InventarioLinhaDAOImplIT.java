@@ -47,7 +47,7 @@ public class InventarioLinhaDAOImplIT {
         try {
             System.out.println("consultar");
             String instancia = "4133335556";
-            InventarioLinhaDAOImpl instance = new InventarioLinhaDAOImpl();
+            InventarioLinhaDAOPnAdminImpl instance = new InventarioLinhaDAOPnAdminImpl();
             InventarioLinha result = instance.consultar(instancia);
             System.out.println(GsonUtil.serialize(result));
             assertTrue(true);
