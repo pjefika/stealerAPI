@@ -31,7 +31,8 @@ public class InventarioLinhaDAOPnAdminImpl extends HttpDAO implements Inventario
         }
 
         try {
-            Matcher m = Pattern.compile("(?:Registro no Sisnum)(?:.*)(.{5}_.{3}\\d{2})(?:.*)(?!Histórico do Sisnum)").matcher(resp);
+            Matcher m = Pattern.compile("(?:Registro no Sisnum)(?:.*)(.{5}_.{3}\\d{2})(?:.*)(Histórico do Sisnum)").matcher(resp);
+//            System.out.println(resp);fix regex crazy
             if (m.find()) {
                 i.setCentral(m.group(1).trim());
             }
