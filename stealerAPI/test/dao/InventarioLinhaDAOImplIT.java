@@ -3,24 +3,24 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model.service;
+package dao;
 
-import br.net.gvt.efika.customer.EfikaCustomer;
+import br.net.gvt.efika.customer.InventarioLinha;
 import org.junit.After;
 import org.junit.AfterClass;
-import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import static org.junit.Assert.*;
 import util.GsonUtil;
 
 /**
  *
  * @author G0042204
  */
-public class EfikaCustomerServiceImplIT {
+public class InventarioLinhaDAOImplIT {
 
-    public EfikaCustomerServiceImplIT() {
+    public InventarioLinhaDAOImplIT() {
     }
 
     @BeforeClass
@@ -40,19 +40,21 @@ public class EfikaCustomerServiceImplIT {
     }
 
     /**
-     * Test of consultar method, of class EfikaCustomerServiceImpl.
+     * Test of consultar method, of class InventarioLinhaDAOImpl.
      */
     @Test
     public void testConsultar() {
         try {
             System.out.println("consultar");
-            String param1 = "4133335556";
-            EfikaCustomerService instance = new EfikaCustomerServiceImpl();
-            EfikaCustomer result = instance.consultar(param1);
+            String instancia = "4133335556";
+            InventarioLinhaDAOImpl instance = new InventarioLinhaDAOImpl();
+            InventarioLinha result = instance.consultar(instancia);
             System.out.println(GsonUtil.serialize(result));
-            System.out.println("");
+            assertTrue(true);
+            // TODO review the generated test code and remove the default call to fail.  
         } catch (Exception e) {
             fail(e.getMessage());
+
         }
 
     }

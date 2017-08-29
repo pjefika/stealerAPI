@@ -44,7 +44,7 @@ public class NumberInventoryDAOIT {
     @Test
     public void testGetSwitchInfo() throws Exception {
         System.out.println("getSwitchInfo");
-        String instancia = "4133335556";
+        String instancia = "4160435534";
         NumberInventoryDAO instance = new NumberInventoryDAO();
         String expResult = "TDM";
         GetNumberByFilterOut result = instance.getSwitchInfo(instancia);

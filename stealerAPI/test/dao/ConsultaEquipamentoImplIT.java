@@ -44,8 +44,8 @@ public class ConsultaEquipamentoImplIT {
     public void testConsultar() throws Exception {
         try {
             System.out.println("consultar");
-            String instancia = "4133335556";
-            String expResult = "4160435534";
+            String instancia = "4130886762";
+            String expResult = "4130886762";
 
             ConsultaEquipamentoImpl instance = new ConsultaEquipamentoImpl();
             String result = instance.consultar(instancia);

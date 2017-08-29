@@ -5,7 +5,6 @@
  */
 package dao;
 
-import br.net.gvt.efika.customer.EfikaCustomer;
 import br.net.gvt.efika.customer.InventarioLinha;
 import br.net.gvt.efika.customer.TipoCentral;
 
@@ -13,7 +12,7 @@ import br.net.gvt.efika.customer.TipoCentral;
  *
  * @author G0041775
  */
-public class LinhaClienteITDAO implements LinhaClienteInterface {
+public class LinhaClienteITDAO implements InventarioLinhaDAO {
 
     private final NumberInventoryDAOInterface numberDAO = new NumberInventoryDAO();
     private final ConsultaEquipamento eqpDAO = new ConsultaEquipamentoImpl();

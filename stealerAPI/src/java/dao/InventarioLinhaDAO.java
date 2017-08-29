@@ -11,7 +11,7 @@ import br.net.gvt.efika.customer.InventarioLinha;
  *
  * @author G0041775
  */
-public interface LinhaClienteInterface {
+public interface InventarioLinhaDAO {
 
     public InventarioLinha consultar(String instancia);
 

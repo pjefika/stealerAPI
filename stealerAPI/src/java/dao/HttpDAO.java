@@ -46,14 +46,15 @@ public abstract class HttpDAO {
     public String get(String url) throws IOException {
         HttpPost http = new HttpPost(url);
         http.setHeader(HttpHeaders.ACCEPT, "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8");
-        http.setHeader(HttpHeaders.CONTENT_TYPE, "application/x-www-form-urlencoded");
+        http.setHeader("Cookie", "JSESSIONID=A588C80B5F44EA0BFE462326555AE387; SID=163436; GVT_USER_LOGIN=G0042204; GVT_AUTH_TYPE=NTLM; ACEPNADMIN=R2630205373");
         HttpEntity response = client(url).execute(http).getEntity();
         
         InputStream instream = response.getContent();
         BufferedReader rd = new BufferedReader(new InputStreamReader(instream));
         StringBuffer result = new StringBuffer();
-        String line = "";
+        String line;
         while ((line = rd.readLine()) != null) {
+            System.out.println(line);
             result.append(line);
         }
         instream.close();

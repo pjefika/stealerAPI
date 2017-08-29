@@ -12,12 +12,16 @@ public class ConsultaEquipamentoImpl extends HttpDAO implements ConsultaEquipame
 
     @Override
     public String consultar(String instancia) throws Exception {
-        String resp = get("http://gvtapp/WebPort/QueryNumber.do?instancia=" + instancia);
-//        System.out.println(resp);
-        Matcher m = Pattern.compile("(?!<div class=\"server_response\">\\s{0,500})(\\d{10,11}\\s{1})").matcher(resp);
-        if (m.find()) {
-            return m.group(1).trim();
+        String resp = get("http://pnadmin.gvt.com.br/pn/pn.jsp?numero=" + instancia);
+        System.out.println(resp);
+        try {
+            Matcher m = Pattern.compile("(?:Registro no Sisnum)(?:.*)(\\d{10})(?:.*)(?!Histórico do Sisnum)").matcher(resp);
+            if (m.find()) {
+                return m.group(1).trim();
 
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return instancia;
     }
