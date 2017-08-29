@@ -6,11 +6,14 @@
 package dao;
 
 import br.net.gvt.efika.customer.InventarioLinha;
+import br.net.gvt.efika.customer.TipoCentral;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class InventarioLinhaDAOPnAdminImpl extends HttpDAO implements InventarioLinhaDAO {
 
+    private NumberInventoryDAOInterface ni = new NumberInventoryDAO();
+    
     @Override
     public InventarioLinha consultar(String instancia) {
         InventarioLinha i = new InventarioLinha();
@@ -34,6 +37,12 @@ public class InventarioLinhaDAOPnAdminImpl extends HttpDAO implements Inventario
             }
         } catch (Exception e) {
             i.setCentral(null);
+        }
+        
+        try {
+            i.setTipo(TipoCentral.valueOf(ni.getSwitchInfo(i.getCentral()).getSwitches(0).getSwitchType()));
+        } catch (Exception e) {
+            i.setTipo(null);
         }
 
         return i;

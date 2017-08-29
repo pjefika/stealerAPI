@@ -6,6 +6,7 @@
 package dao;
 
 import br.com.gvt.www.eai.NumberInventoryServicesWS.GetNumberByFilterOut;
+import br.com.gvt.www.eai.NumberInventoryServicesWS.GetSwitchInfoByFilterOut;
 import java.rmi.RemoteException;
 
 /**
@@ -14,7 +15,8 @@ import java.rmi.RemoteException;
  */
 public interface NumberInventoryDAOInterface {
     
-    public GetNumberByFilterOut getSwitchInfo(String instancia) throws RemoteException;
+    public GetNumberByFilterOut getSwitchInfoByNumber(String instancia) throws RemoteException;
     
+    public GetSwitchInfoByFilterOut getSwitchInfo(String central) throws RemoteException;
    
 }

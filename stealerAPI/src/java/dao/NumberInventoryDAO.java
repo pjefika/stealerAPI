@@ -7,6 +7,8 @@ package dao;
 
 import br.com.gvt.www.eai.NumberInventoryServicesWS.GetNumberByFilterIn;
 import br.com.gvt.www.eai.NumberInventoryServicesWS.GetNumberByFilterOut;
+import br.com.gvt.www.eai.NumberInventoryServicesWS.GetSwitchInfoByFilterIn;
+import br.com.gvt.www.eai.NumberInventoryServicesWS.GetSwitchInfoByFilterOut;
 import br.com.gvt.www.eai.NumberInventoryServicesWS.NumberInventoryServicesWSProxy;
 import java.rmi.RemoteException;
 
@@ -19,8 +21,13 @@ public class NumberInventoryDAO implements NumberInventoryDAOInterface{
     private final NumberInventoryServicesWSProxy ws = new NumberInventoryServicesWSProxy();
     
     @Override
-    public GetNumberByFilterOut getSwitchInfo(String instancia) throws RemoteException {
+    public GetNumberByFilterOut getSwitchInfoByNumber(String instancia) throws RemoteException {
         return ws.getNumberByFilter(new GetNumberByFilterIn(instancia));
+    }
+
+    @Override
+    public GetSwitchInfoByFilterOut getSwitchInfo(String central) throws RemoteException {
+        return ws.getSwitchInfoByFilter(new GetSwitchInfoByFilterIn(central, null, null, null));
     }
     
 }

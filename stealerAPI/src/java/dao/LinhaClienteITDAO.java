@@ -38,7 +38,7 @@ public class LinhaClienteITDAO implements InventarioLinhaDAO {
 
     protected String getSwitch(String instancia) {
         try {
-            return numberDAO.getSwitchInfo(instancia).getSwitchName();
+            return numberDAO.getSwitchInfoByNumber(instancia).getSwitchName();
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -47,7 +47,7 @@ public class LinhaClienteITDAO implements InventarioLinhaDAO {
 
     protected TipoCentral getTipoCentral(String instancia) {
         try {
-            return numberDAO.getSwitchInfo(instancia).getSwitchType().contentEquals("TDM") ? TipoCentral.TDM : TipoCentral.IMS;
+            return numberDAO.getSwitchInfoByNumber(instancia).getSwitchType().contentEquals("TDM") ? TipoCentral.TDM : TipoCentral.IMS;
         } catch (Exception e) {
             return null;
         }
