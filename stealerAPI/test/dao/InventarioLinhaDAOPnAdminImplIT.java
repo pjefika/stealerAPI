@@ -6,6 +6,7 @@
 package dao;
 
 import br.net.gvt.efika.customer.InventarioLinha;
+import br.net.gvt.efika.customer.TipoCentral;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -19,22 +20,22 @@ import util.GsonUtil;
  * @author G0041775
  */
 public class InventarioLinhaDAOPnAdminImplIT {
-    
+
     public InventarioLinhaDAOPnAdminImplIT() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -47,12 +48,10 @@ public class InventarioLinhaDAOPnAdminImplIT {
         System.out.println("consultar");
         String instancia = "4133335556";
         InventarioLinhaDAOPnAdminImpl instance = new InventarioLinhaDAOPnAdminImpl();
-        InventarioLinha expResult = null;
         InventarioLinha result = instance.consultar(instancia);
         System.out.println(GsonUtil.serialize(result));
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertTrue(result != null);
+
     }
-    
+
 }
