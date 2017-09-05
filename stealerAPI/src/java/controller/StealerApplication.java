@@ -22,6 +22,7 @@ public class StealerApplication extends Application {
     public StealerApplication() {
         singletons.add(new EfikaCustomerController());
         singletons.add(new ManobraController());
+        singletons.add(new LinhaController());
     }
 
     public Set<Object> getSingletons() {
