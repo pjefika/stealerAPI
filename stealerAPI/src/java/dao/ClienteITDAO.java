@@ -36,7 +36,7 @@ public class ClienteITDAO extends AbstractOssDAO implements ConsultaEfikaCustome
     private GetInfoOut info;
 
     public ClienteITDAO() {
-        ws = new OSSTurbonetProxy();
+        ws = FactoryITService.createOss();
     }
 
     /**
@@ -76,6 +76,7 @@ public class ClienteITDAO extends AbstractOssDAO implements ConsultaEfikaCustome
         return c;
     }
 
+    @Override
     public InventarioServico consultarInventarioServico(String instancia) throws Exception {
 
         InventarioServico serv = new InventarioServico();
@@ -218,7 +219,7 @@ public class ClienteITDAO extends AbstractOssDAO implements ConsultaEfikaCustome
 
     }
 
-//    @Override
+    @Override
     public InventarioRede consultarInventarioRede(String param1) throws Exception {
         return InventarioRedeAdapter.adapter(getInfo(param1));
     }

@@ -7,6 +7,7 @@ package model.domain;
 
 import bean.ossturbonet.oss.gvt.com.GetInfoOut;
 import br.net.gvt.efika.customer.InventarioRede;
+import br.net.gvt.efika.customer.OrigemRede;
 import br.net.gvt.efika.customer.TipoRede;
 
 /**
@@ -18,6 +19,7 @@ public class InventarioRedeAdapter {
     public static InventarioRede adapter(GetInfoOut out) {
 
         InventarioRede r = new InventarioRede();
+        r.setOrigem(OrigemRede.ONLINE);
 
         try {
             if (out.getTechnology().equalsIgnoreCase("GPON")) {

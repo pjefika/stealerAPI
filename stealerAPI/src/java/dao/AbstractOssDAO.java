@@ -6,7 +6,7 @@
 package dao;
 
 import br.com.gvt.oss.inventory.service.impl.InventoryImpl;
-import com.gvt.www.ws.eai.oss.ossturbonet.OSSTurbonetProxy;
+import com.gvt.www.ws.eai.oss.ossturbonet.OSSTurbonet;
 
 /**
  *
@@ -14,7 +14,7 @@ import com.gvt.www.ws.eai.oss.ossturbonet.OSSTurbonetProxy;
  */
 public class AbstractOssDAO {
 
-    protected OSSTurbonetProxy ws;
+    protected OSSTurbonet ws;
     protected InventoryImpl port;
 
 }

@@ -5,21 +5,22 @@
  */
 package dao;
 
-import br.net.gvt.efika.customer.EfikaCustomer;
+import br.net.gvt.efika.customer.InventarioRede;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import util.GsonUtil;
 
 /**
  *
  * @author G0042204
  */
-public class EfikaCustomerInterfaceIT {
+public class InventarioRedeOfflineDAOIT {
 
-    public EfikaCustomerInterfaceIT() {
+    public InventarioRedeOfflineDAOIT() {
     }
 
     @BeforeClass
@@ -39,20 +40,22 @@ public class EfikaCustomerInterfaceIT {
     }
 
     /**
-     * Test of consultarCliente method, of class EfikaCustomerInterface.
+     * Test of consultarInventarioRede method, of class
+     * InventarioRedeOfflineDAO.
      */
     @Test
-    public void testConsultarCliente() throws Exception {
+    public void testConsultarInventarioRede() throws Exception {
+        System.out.println("consultarInventarioRede");
         try {
-            System.out.println("consultarCliente");
-            String param1 = "CTA-81MMWYSLO-013";
-            ConsultaEfikaCustomer instance = FactoryDAO.createClienteDAO();
-            EfikaCustomer result = instance.consultar(param1);
+            String instancia = "4130886762";
+            InventarioRedeOfflineDAO instance = new InventarioRedeOfflineDAO();
+            InventarioRede result = instance.consultarInventarioRede(instancia);
+            System.out.println(GsonUtil.serialize(result));
             assertTrue(result != null);
         } catch (Exception e) {
             fail(e.getMessage());
-        }
 
+        }
     }
 
 }
