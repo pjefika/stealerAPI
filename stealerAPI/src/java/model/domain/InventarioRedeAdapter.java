@@ -7,6 +7,7 @@ package model.domain;
 
 import bean.ossturbonet.oss.gvt.com.GetInfoOut;
 import br.net.gvt.efika.customer.InventarioRede;
+import br.net.gvt.efika.customer.TipoRede;
 
 /**
  *
@@ -17,6 +18,17 @@ public class InventarioRedeAdapter {
     public static InventarioRede adapter(GetInfoOut out) {
 
         InventarioRede r = new InventarioRede();
+
+        try {
+            if (out.getTechnology().equalsIgnoreCase("GPON")) {
+                r.setTipo(TipoRede.GPON);
+            } else {
+                r.setTipo(TipoRede.METALICA);
+            }
+        } catch (Exception e) {
+            r.setTipo(null);
+        }
+
         r.setVendorDslam(out.getInfoTBS().getDslamModel());
         r.setModeloDslam(out.getInfoTBS().getDslamVendor());
         r.setIpDslam(out.getInfoTBS().getIpDslam());
@@ -29,8 +41,6 @@ public class InventarioRedeAdapter {
         r.setVlanVod(out.getInfoTBS().getVlanVoD());
         r.setVlanVoip(out.getInfoTBS().getVlanVoIP());
         r.setCvLan(out.getInfoTBS().getPortAddrSeq().intValue() + 100);
-        
-        
 
         return r;
     }
