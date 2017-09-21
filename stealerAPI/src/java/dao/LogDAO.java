@@ -16,6 +16,7 @@ public class LogDAO extends AbstractHibernateDAO implements InterfaceDAO<Log> {
     @Override
     public void cadastrar(Log t) throws Exception {
         super.persist(t);
+        this.close();
     }
 
 }

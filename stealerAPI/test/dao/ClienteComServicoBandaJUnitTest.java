@@ -5,8 +5,8 @@
  */
 package dao;
 
+import br.net.gvt.efika.customer.EfikaCustomer;
 import input.TestValues;
-import model.domain.EfikaCustomerDTO;
 import org.junit.After;
 import org.junit.AfterClass;
 import static org.junit.Assert.*;
@@ -20,7 +20,7 @@ import org.junit.Test;
  */
 public class ClienteComServicoBandaJUnitTest {
 
-    private final EfikaCustomerInterface dao = FactoryDAO.createClienteDAO();
+    private final ConsultaEfikaCustomer dao = FactoryDAO.createClienteDAO();
 
     public ClienteComServicoBandaJUnitTest() {
     }
@@ -44,7 +44,7 @@ public class ClienteComServicoBandaJUnitTest {
     @Test
     public void velocidade() {
         try {
-            assertEquals(true, dao.consultarCliente(TestValues.VEL_51200_25600).getServicos().getVelDown().compareTo(25600l) == 0);
+            assertEquals(true, dao.consultar(TestValues.VEL_51200_25600).getServicos().getVelDown().compareTo(25600l) == 0);
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -53,7 +53,7 @@ public class ClienteComServicoBandaJUnitTest {
         @Test
     public void degustacaoTest() {
         try {
-            EfikaCustomerDTO oi = dao.consultarCliente("2135563108");
+            EfikaCustomer oi = dao.consultar("2135563108");
             System.out.println("end");
         } catch (Exception e) {
             fail(e.getMessage());

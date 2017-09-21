@@ -19,7 +19,7 @@ import static org.junit.Assert.*;
  */
 public class ClienteComServicoLinhaJUnitTest {
 
-    private final EfikaCustomerInterface dao = FactoryDAO.createClienteDAO();
+    private final ConsultaEfikaCustomer dao = FactoryDAO.createClienteDAO();
 
     public ClienteComServicoLinhaJUnitTest() {
     }
@@ -43,7 +43,7 @@ public class ClienteComServicoLinhaJUnitTest {
     @Test
     public void sip() {
         try {
-            assertEquals(true, dao.consultarCliente(TestValues.SIP).getServicos().getIsSip());
+            assertEquals(true, dao.consultar(TestValues.SIP).getServicos().getIsSip());
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -52,7 +52,7 @@ public class ClienteComServicoLinhaJUnitTest {
     @Test
     public void tdm() {
         try {
-            assertEquals(false, dao.consultarCliente(TestValues.TDM).getServicos().getIsSip());
+            assertEquals(false, dao.consultar(TestValues.TDM).getServicos().getIsSip());
         } catch (Exception e) {
             fail(e.getMessage());
         }

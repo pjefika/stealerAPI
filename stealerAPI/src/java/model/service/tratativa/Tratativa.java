@@ -3,18 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dao;
-
-import br.com.gvt.oss.inventory.service.impl.InventoryImpl;
-import com.gvt.www.ws.eai.oss.ossturbonet.OSSTurbonet;
+package model.service.tratativa;
 
 /**
  *
  * @author G0042204
  */
-public class AbstractOssDAO {
+public interface Tratativa {
 
-    protected OSSTurbonet ws;
-    protected InventoryImpl port;
+    public void tratar() throws Exception;
 
 }

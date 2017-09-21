@@ -5,7 +5,8 @@
  */
 package dao;
 
-import model.domain.EfikaCustomerDTO;
+import br.net.gvt.efika.customer.EfikaCustomer;
+import dao.oss.OSSGenericDAO;
 import model.entity.Log;
 
 /**
@@ -14,11 +15,11 @@ import model.entity.Log;
  */
 public class FactoryDAO {
 
-    public static EfikaCustomerInterface createClienteDAO() {
+    public static ConsultaEfikaCustomer createClienteDAO() {
         return new ClienteITDAO();
     }
 
-    public static InterfaceDAO<EfikaCustomerDTO> createInterfaceClienteDAO() {
+    public static InterfaceDAO<EfikaCustomer> createInterfaceClienteDAO() {
         return null;
     }
 
@@ -32,6 +33,10 @@ public class FactoryDAO {
 
     public static OssTurbonetDAOInterface createOssDAO() {
         return new CadastroDAO();
+    }
+
+    public static OSSGenericDAO createOSS() {
+        return new OSSGenericDAO();
     }
 
 }

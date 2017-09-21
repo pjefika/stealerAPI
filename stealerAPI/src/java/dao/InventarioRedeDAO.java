@@ -5,18 +5,14 @@
  */
 package dao;
 
-import model.entity.Cliente;
-
+import br.net.gvt.efika.customer.InventarioRede;
 
 /**
  *
  * @author G0042204
  */
-public class ClienteDAO extends AbstractHibernateDAO implements InterfaceDAO<Cliente> {
+public interface InventarioRedeDAO {
 
-    @Override
-    public void cadastrar(Cliente obj) throws Exception {
-        super.persist(obj);
-    }
+    public InventarioRede consultarInventarioRede(String instancia) throws Exception;
 
 }

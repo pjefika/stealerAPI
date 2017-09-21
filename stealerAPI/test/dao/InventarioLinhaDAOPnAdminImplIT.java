@@ -5,21 +5,23 @@
  */
 package dao;
 
-import br.net.gvt.efika.customer.EfikaCustomer;
+import br.net.gvt.efika.customer.InventarioLinha;
+import br.net.gvt.efika.customer.TipoCentral;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import util.GsonUtil;
 
 /**
  *
- * @author G0042204
+ * @author G0041775
  */
-public class EfikaCustomerInterfaceIT {
+public class InventarioLinhaDAOPnAdminImplIT {
 
-    public EfikaCustomerInterfaceIT() {
+    public InventarioLinhaDAOPnAdminImplIT() {
     }
 
     @BeforeClass
@@ -39,19 +41,16 @@ public class EfikaCustomerInterfaceIT {
     }
 
     /**
-     * Test of consultarCliente method, of class EfikaCustomerInterface.
+     * Test of consultar method, of class InventarioLinhaDAOPnAdminImpl.
      */
     @Test
-    public void testConsultarCliente() throws Exception {
-        try {
-            System.out.println("consultarCliente");
-            String param1 = "CTA-81MMWYSLO-013";
-            ConsultaEfikaCustomer instance = FactoryDAO.createClienteDAO();
-            EfikaCustomer result = instance.consultar(param1);
-            assertTrue(result != null);
-        } catch (Exception e) {
-            fail(e.getMessage());
-        }
+    public void testConsultar() {
+        System.out.println("consultar");
+        String instancia = "4133335556";
+        InventarioLinhaDAOPnAdminImpl instance = new InventarioLinhaDAOPnAdminImpl();
+        InventarioLinha result = instance.consultar(instancia);
+        System.out.println(GsonUtil.serialize(result));
+        assertTrue(result != null);
 
     }
 

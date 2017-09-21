@@ -10,10 +10,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Lob;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
 
 /**
  *
-    * @author G0042204
+ * @author G0042204
  */
 @Entity
 @Table(name = "STEALERAPI_LOG")
@@ -21,12 +22,13 @@ public class Log extends AbstractEntity {
 
     private String action;
 
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Calendar data;
 
     private String input;
 
     @Lob
-    @Column(length = 255555)
+    @Column(columnDefinition = "LONGVARCHAR")
     private String output;
 
     public Log(String action) {

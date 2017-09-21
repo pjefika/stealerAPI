@@ -5,23 +5,20 @@
  */
 package dao;
 
-import input.TestValues;
 import org.junit.After;
 import org.junit.AfterClass;
-import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
  *
  * @author G0042204
  */
-public class ClienteComServicoTVJUnitTest {
+public class ConsultaEquipamentoImplIT {
 
-    private final ConsultaEfikaCustomer dao = FactoryDAO.createClienteDAO();
-
-    public ClienteComServicoTVJUnitTest() {
+    public ConsultaEquipamentoImplIT() {
     }
 
     @BeforeClass
@@ -40,21 +37,22 @@ public class ClienteComServicoTVJUnitTest {
     public void tearDown() {
     }
 
+    /**
+     * Test of consultar method, of class ConsultaEquipamentoImpl.
+     */
     @Test
-    public void hibrido() {
+    public void testConsultar() throws Exception {
         try {
-            assertEquals(true, dao.consultar(TestValues.HIBRIDO).getServicos().getIsHib());
+            System.out.println("consultar");
+            String instancia = "4130886762";
+            String expResult = "4130886762";
+
+            ConsultaEquipamentoImpl instance = new ConsultaEquipamentoImpl();
+            String result = instance.consultar(instancia);
+            assertEquals(expResult, result);
         } catch (Exception e) {
             fail(e.getMessage());
         }
     }
 
-    @Test
-    public void dth() {
-        try {
-            assertEquals(false, dao.consultar(TestValues.DTH).getServicos().getIsHib());
-        } catch (Exception e) {
-            fail(e.getMessage());
-        }
-    }
 }

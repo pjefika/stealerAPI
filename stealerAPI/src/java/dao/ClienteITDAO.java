@@ -7,6 +7,7 @@
 package dao;
 
 import bean.ossturbonet.oss.gvt.com.GetInfoOut;
+import br.net.gvt.efika.customer.EfikaCustomer;
 import br.net.gvt.efika.customer.InventarioRede;
 import br.net.gvt.efika.customer.InventarioServico;
 import com.gvt.ws.eai.oss.inventory.api.Account;
@@ -16,28 +17,26 @@ import com.gvt.ws.eai.oss.inventory.api.Item;
 import com.gvt.www.ws.eai.oss.ossturbonet.OSSTurbonetProxy;
 import dao.exception.CircuitoNaoEncontradoException;
 import dao.exception.ClienteSemBandaException;
-import dao.exception.FalhaInputException;
+import dao.exception.InstanciaInvalidaException;
 import exception.ossturbonet.oss.gvt.com.OSSTurbonetException;
-import model.FactoryService;
 import model.asserts.facade.AssertFacadeFulltestCRM;
-import model.domain.EfikaCustomerDTO;
 import model.domain.InventarioRedeAdapter;
-import util.TratativaDesignadores;
+import model.service.tratativa.TratativaAssociatedDesignators;
 
 /**
  *
  * @author G0041775
  */
-public class ClienteITDAO extends AbstractOssDAO implements EfikaCustomerInterface {
+public class ClienteITDAO extends AbstractOssDAO implements ConsultaEfikaCustomer {
 
     private InventoryAccountResponse result;
 
-    private EfikaCustomerDTO c;
+    private EfikaCustomer c;
 
     private GetInfoOut info;
 
     public ClienteITDAO() {
-        ws = new OSSTurbonetProxy();
+        ws = FactoryITService.createOss();
     }
 
     /**
@@ -48,8 +47,8 @@ public class ClienteITDAO extends AbstractOssDAO implements EfikaCustomerInterfa
      * @throws Exception
      */
     @Override
-    public EfikaCustomerDTO consultarCliente(String designador) throws Exception {
-        c = new EfikaCustomerDTO(designador);
+    public EfikaCustomer consultar(String designador) throws Exception {
+        c = new EfikaCustomer(designador);
         getAssociatedDesignators(c);
         //bloco de try adicionado para que retorne cliente apenas com servicos ou apenas rede ao invés de extourar exception
         try {
@@ -64,7 +63,7 @@ public class ClienteITDAO extends AbstractOssDAO implements EfikaCustomerInterfa
                     || erro.contains("CIRCUITO NAO ENCONTRADO PARA O DESIGNADOR")) {
                 throw new CircuitoNaoEncontradoException();
             } else {
-                throw new FalhaInputException();
+                throw new InstanciaInvalidaException();
             }
         }
         try {
@@ -77,6 +76,7 @@ public class ClienteITDAO extends AbstractOssDAO implements EfikaCustomerInterfa
         return c;
     }
 
+    @Override
     public InventarioServico consultarInventarioServico(String instancia) throws Exception {
 
         InventarioServico serv = new InventarioServico();
@@ -93,16 +93,17 @@ public class ClienteITDAO extends AbstractOssDAO implements EfikaCustomerInterfa
         return ws.getDesignatorByAccessDesignator(s);
     }
 
-    public void getAssociatedDesignators(EfikaCustomerDTO c) throws FalhaInputException, ClienteSemBandaException {
-        port = FactoryService.create().getInventoryImplPort();
+    public void getAssociatedDesignators(EfikaCustomer c) throws InstanciaInvalidaException, ClienteSemBandaException {
+        port = FactoryITService.createInvServ().getInventoryImplPort();
 
         InventoryDesignatorsResponse id = port.getAssociatedDesignators(c.getDesignador(), null);
 
         if (id.getDesignator().isEmpty()) {
-            throw new FalhaInputException();
+            throw new InstanciaInvalidaException();
         }
+       
 
-        new TratativaDesignadores(id, c).getC();
+        new TratativaAssociatedDesignators(id, c).getC();
 
         if (c.getDesignador().equalsIgnoreCase(c.getInstancia())) {
             throw new ClienteSemBandaException();
@@ -218,6 +219,7 @@ public class ClienteITDAO extends AbstractOssDAO implements EfikaCustomerInterfa
 
     }
 
+    @Override
     public InventarioRede consultarInventarioRede(String param1) throws Exception {
         return InventarioRedeAdapter.adapter(getInfo(param1));
     }

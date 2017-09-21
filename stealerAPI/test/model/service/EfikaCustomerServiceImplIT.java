@@ -3,25 +3,24 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dao;
+package model.service;
 
-import input.TestValues;
+import br.net.gvt.efika.customer.EfikaCustomer;
 import org.junit.After;
 import org.junit.AfterClass;
-import static org.junit.Assert.*;
+import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import util.GsonUtil;
 
 /**
  *
  * @author G0042204
  */
-public class ClienteComServicoTVJUnitTest {
+public class EfikaCustomerServiceImplIT {
 
-    private final ConsultaEfikaCustomer dao = FactoryDAO.createClienteDAO();
-
-    public ClienteComServicoTVJUnitTest() {
+    public EfikaCustomerServiceImplIT() {
     }
 
     @BeforeClass
@@ -40,21 +39,22 @@ public class ClienteComServicoTVJUnitTest {
     public void tearDown() {
     }
 
+    /**
+     * Test of consultar method, of class EfikaCustomerServiceImpl.
+     */
     @Test
-    public void hibrido() {
+    public void testConsultar() {
         try {
-            assertEquals(true, dao.consultar(TestValues.HIBRIDO).getServicos().getIsHib());
+            System.out.println("consultar");
+            String param1 = "6232803886";
+            EfikaCustomerService instance = new EfikaCustomerServiceImpl();
+            EfikaCustomer result = instance.consultar(param1);
+            System.out.println(GsonUtil.serialize(result));
+            System.out.println("");
         } catch (Exception e) {
             fail(e.getMessage());
         }
+
     }
 
-    @Test
-    public void dth() {
-        try {
-            assertEquals(false, dao.consultar(TestValues.DTH).getServicos().getIsHib());
-        } catch (Exception e) {
-            fail(e.getMessage());
-        }
-    }
 }

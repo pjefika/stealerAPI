@@ -5,14 +5,14 @@
  */
 package dao;
 
-import model.domain.EfikaCustomerDTO;
+import br.net.gvt.efika.customer.InventarioServico;
 
 /**
  *
  * @author G0042204
  */
-public interface EfikaCustomerInterface {
+public interface InventarioServicoDAO {
 
-    public EfikaCustomerDTO consultarCliente(String param1) throws Exception;
-
+    public InventarioServico consultarInventarioServico(String instancia) throws Exception;
+    
 }

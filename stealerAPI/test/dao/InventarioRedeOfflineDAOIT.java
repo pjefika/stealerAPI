@@ -5,23 +5,22 @@
  */
 package dao;
 
-import input.TestValues;
+import br.net.gvt.efika.customer.InventarioRede;
 import org.junit.After;
 import org.junit.AfterClass;
-import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import static org.junit.Assert.*;
+import util.GsonUtil;
 
 /**
  *
  * @author G0042204
  */
-public class ClienteComServicoTVJUnitTest {
+public class InventarioRedeOfflineDAOIT {
 
-    private final ConsultaEfikaCustomer dao = FactoryDAO.createClienteDAO();
-
-    public ClienteComServicoTVJUnitTest() {
+    public InventarioRedeOfflineDAOIT() {
     }
 
     @BeforeClass
@@ -40,21 +39,23 @@ public class ClienteComServicoTVJUnitTest {
     public void tearDown() {
     }
 
+    /**
+     * Test of consultarInventarioRede method, of class
+     * InventarioRedeOfflineDAO.
+     */
     @Test
-    public void hibrido() {
+    public void testConsultarInventarioRede() throws Exception {
+        System.out.println("consultarInventarioRede");
         try {
-            assertEquals(true, dao.consultar(TestValues.HIBRIDO).getServicos().getIsHib());
+            String instancia = "4130886762";
+            InventarioRedeOfflineDAO instance = new InventarioRedeOfflineDAO();
+            InventarioRede result = instance.consultarInventarioRede(instancia);
+            System.out.println(GsonUtil.serialize(result));
+            assertTrue(result != null);
         } catch (Exception e) {
             fail(e.getMessage());
+
         }
     }
 
-    @Test
-    public void dth() {
-        try {
-            assertEquals(false, dao.consultar(TestValues.DTH).getServicos().getIsHib());
-        } catch (Exception e) {
-            fail(e.getMessage());
-        }
-    }
 }

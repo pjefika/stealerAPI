@@ -3,18 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model;
-
-import br.com.gvt.oss.inventory.service.impl.*;
+package dao;
 
 /**
  *
  * @author G0042204
  */
-public class FactoryService {
+public interface ConsultaEquipamento {
 
-    public static InventoryService create() {
-        return new InventoryService();
-    }
+    public String consultar(String instancia) throws Exception;
 
 }

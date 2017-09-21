@@ -3,18 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dao;
+package model.service;
 
-import br.com.gvt.oss.inventory.service.impl.InventoryImpl;
-import com.gvt.www.ws.eai.oss.ossturbonet.OSSTurbonet;
+import br.net.gvt.efika.customer.EfikaCustomer;
 
 /**
  *
  * @author G0042204
  */
-public class AbstractOssDAO {
+public interface EfikaCustomerService {
 
-    protected OSSTurbonet ws;
-    protected InventoryImpl port;
+    public EfikaCustomer consultar(String param1) throws Exception;
 
 }
