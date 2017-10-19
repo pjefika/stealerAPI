@@ -14,6 +14,7 @@ import com.gvt.ws.eai.oss.inventory.api.Account;
 import com.gvt.ws.eai.oss.inventory.api.InventoryAccountResponse;
 import com.gvt.ws.eai.oss.inventory.api.InventoryDesignatorsResponse;
 import com.gvt.ws.eai.oss.inventory.api.Item;
+import com.gvt.www.ws.eai.oss.OSSTurbonetStatusConexao.OSSTurbonetStatusConexaoOut;
 import com.gvt.www.ws.eai.oss.ossturbonet.OSSTurbonetProxy;
 import dao.exception.CircuitoNaoEncontradoException;
 import dao.exception.ClienteSemBandaException;
@@ -101,7 +102,6 @@ public class ClienteITDAO extends AbstractOssDAO implements ConsultaEfikaCustome
         if (id.getDesignator().isEmpty()) {
             throw new InstanciaInvalidaException();
         }
-       
 
         new TratativaAssociatedDesignators(id, c).getC();
 

@@ -7,6 +7,8 @@ package model.service;
 
 import bean.ossturbonet.oss.gvt.com.GetInfoOut;
 import br.net.gvt.efika.customer.EfikaCustomer;
+import com.gvt.www.ws.eai.oss.OSSTurbonetStatusConexao.OSSTurbonetStatusConexaoOut;
+import dao.ClienteITDAO;
 import dao.FactoryDAO;
 import dao.exception.ClienteSemBandaException;
 import dao.exception.InstanciaInvalidaException;
@@ -77,6 +79,11 @@ public class EfikaCustomerServiceImpl implements EfikaCustomerService {
             }
         }
         return info;
+    }
+    
+    @Override
+    public OSSTurbonetStatusConexaoOut getAutenticacaoByMacOrIp(String str) throws Exception{
+        return dao.getAuth(str);
     }
 
 }
