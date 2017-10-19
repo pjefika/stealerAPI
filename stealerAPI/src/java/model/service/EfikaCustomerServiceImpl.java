@@ -8,6 +8,7 @@ package model.service;
 import bean.ossturbonet.oss.gvt.com.GetInfoOut;
 import br.net.gvt.efika.customer.EfikaCustomer;
 import com.gvt.www.ws.eai.oss.OSSTurbonetStatusConexao.OSSTurbonetStatusConexaoOut;
+import com.gvt.www.ws.eai.oss.gpon.ConsultInfoGponOut;
 import dao.ClienteITDAO;
 import dao.FactoryDAO;
 import dao.exception.ClienteSemBandaException;
@@ -84,6 +85,11 @@ public class EfikaCustomerServiceImpl implements EfikaCustomerService {
     @Override
     public OSSTurbonetStatusConexaoOut getAutenticacaoByMacOrIp(String str) throws Exception{
         return dao.getAuth(str);
+    }
+
+    @Override
+    public ConsultInfoGponOut getInfoGpon(String instancia) throws Exception {
+        return dao.getInfoGpon(instancia);
     }
 
 }

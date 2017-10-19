@@ -7,6 +7,7 @@ package controller;
 
 import br.net.gvt.efika.customer.EfikaCustomer;
 import com.gvt.www.ws.eai.oss.OSSTurbonetStatusConexao.OSSTurbonetStatusConexaoOut;
+import com.gvt.www.ws.eai.oss.gpon.ConsultInfoGponOut;
 import dao.FactoryDAO;
 import dao.InterfaceDAO;
 import javax.ws.rs.GET;
@@ -66,7 +67,7 @@ public class EfikaCustomerController implements EfikaCustomerRestInter {
             OSSTurbonetStatusConexaoOut autenticacaoByMacOrIp = instance.getAutenticacaoByMacOrIp(mac);
             String persistOut = GsonUtil.serialize(autenticacaoByMacOrIp);
             try {
-                Log l = new Log("ClienteController.getCliente");
+                Log l = new Log("ClienteController.getAuth");
                 l.setInput(mac);
                 l.setOuput(persistOut);
                 ldao = FactoryDAO.createLogDAO();
@@ -75,6 +76,29 @@ public class EfikaCustomerController implements EfikaCustomerRestInter {
                 e.printStackTrace();
             }
             return Response.status(200).entity(autenticacaoByMacOrIp).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e).build();
+        }
+    }
+
+    @GET
+    @Path("/infoGpon/{instancia}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getInfoGpon(@PathParam("instancia") String instancia) {
+        try {
+            EfikaCustomerService instance = new EfikaCustomerServiceImpl();
+            ConsultInfoGponOut infoGpon = instance.getInfoGpon(instancia);
+            String persistOut = GsonUtil.serialize(infoGpon);
+            try {
+                Log l = new Log("ClienteController.getInfoGpon");
+                l.setInput(instancia);
+                l.setOuput(persistOut);
+                ldao = FactoryDAO.createLogDAO();
+                ldao.cadastrar(l);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return Response.status(200).entity(infoGpon).build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e).build();
         }

@@ -7,6 +7,7 @@ package model.service;
 
 import br.net.gvt.efika.customer.EfikaCustomer;
 import com.gvt.www.ws.eai.oss.OSSTurbonetStatusConexao.OSSTurbonetStatusConexaoOut;
+import com.gvt.www.ws.eai.oss.gpon.ConsultInfoGponOut;
 
 /**
  *
@@ -16,7 +17,9 @@ public interface EfikaCustomerService {
 
     public EfikaCustomer consultar(String param1) throws Exception;
     
-    public OSSTurbonetStatusConexaoOut getAutenticacaoByMacOrIp(String str) throws Exception;
+    public OSSTurbonetStatusConexaoOut getAutenticacaoByMacOrIp(String macouip) throws Exception;
+    
+    public ConsultInfoGponOut getInfoGpon(String instancia) throws Exception;
     
 
 }
