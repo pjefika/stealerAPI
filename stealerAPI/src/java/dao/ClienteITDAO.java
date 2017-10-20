@@ -101,7 +101,7 @@ public class ClienteITDAO extends AbstractOssDAO implements ConsultaEfikaCustome
             throw new InstanciaInvalidaException();
         }
 
-        new TratativaAssociatedDesignators(id, c).getC();
+        new TratativaAssociatedDesignators(id, c, null).getC();
 
         if (c.getDesignador().equalsIgnoreCase(c.getInstancia())) {
             throw new ClienteSemBandaException();

@@ -7,6 +7,8 @@ package model.service;
 
 import bean.ossturbonet.oss.gvt.com.GetInfoOut;
 import br.net.gvt.efika.customer.EfikaCustomer;
+import com.gvt.ws.eai.oss.inventory.api.InventoryAccountResponse;
+import com.gvt.ws.eai.oss.inventory.api.InventoryDesignatorsResponse;
 import com.gvt.www.ws.eai.oss.OSSTurbonetStatusConexao.OSSTurbonetStatusConexaoOut;
 import com.gvt.www.ws.eai.oss.gpon.ConsultInfoGponOut;
 import dao.ClienteITDAO;
@@ -37,15 +39,24 @@ public class EfikaCustomerServiceImpl implements EfikaCustomerService {
 
     @Override
     public synchronized EfikaCustomer consultar(String designador) throws Exception {
-        ec.setDesignador(designador);
+//        ec.setInstancia(designador);
+//        ec.setDesignador(designador);
+        InventoryAccountResponse accountItems = dao.getAccountItems(designador);
+        InventoryDesignatorsResponse associatedDesignators = dao.getAssociatedDesignators(designador);
+        
+        
+        EfikaThread t0 = new EfikaThread(new TratativaAssociatedDesignators(associatedDesignators, ec, accountItems));
 
-        EfikaThread t0 = new EfikaThread(new TratativaAssociatedDesignators(dao.getAssociatedDesignators(designador), ec));
-        t0.join();
+        while(t0.isAlive()){
+            System.out.println("alaive");
+            Thread.sleep(2000);
+        }
+        
 
         try {
             t0.possuiException();
             EfikaThread t1 = new EfikaThread(new TratativaInventarioRede(getInfo(), ec));
-            EfikaThread t2 = new EfikaThread(new TratativaInventarioServicos(dao.getAccountItems(ec.getDesignador()), ec));
+            EfikaThread t2 = new EfikaThread(new TratativaInventarioServicos(accountItems, ec));
             EfikaThread t3 = new EfikaThread(new TratativaInventarioLinha(linha.consultar(ec.getInstancia()), ec));
 
             t1.join();
@@ -55,7 +66,7 @@ public class EfikaCustomerServiceImpl implements EfikaCustomerService {
             ec.setAsserts(new AssertFacadeFulltestCRM(getInfo()).assertThese());
 
         } catch (Exception e) {
-            
+
             if (e.getCause() instanceof InstanciaInvalidaException) {
                 throw e;
             }
@@ -81,9 +92,9 @@ public class EfikaCustomerServiceImpl implements EfikaCustomerService {
         }
         return info;
     }
-    
+
     @Override
-    public OSSTurbonetStatusConexaoOut getAutenticacaoByMacOrIp(String str) throws Exception{
+    public OSSTurbonetStatusConexaoOut getAutenticacaoByMacOrIp(String str) throws Exception {
         return dao.getAuth(str);
     }
 
