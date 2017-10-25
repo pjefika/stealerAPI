@@ -39,7 +39,6 @@ public class TratativaAssociatedDesignators extends TratativaEfikaCustomer {
         new TratativaAssociatedDesignators(r, getC(), a).getC();
         if (r.getDesignator().size()>2) {
             for (Designator designator : r.getDesignator()) {
-                System.out.println("olapalhaco");
                 // Designador de Acesso
                 if (designator.getDesignatorType().getValue().equals(1)) {
                     getC().setDesignadorAcesso(designator.getValue());
@@ -67,7 +66,6 @@ public class TratativaAssociatedDesignators extends TratativaEfikaCustomer {
                             getC().setDesignadorAcesso(t2.getDesignator().getValue());
                         }
                         t2.getItems().forEach((t3) -> {
-                            System.out.println("aqui");
 //                            if (t3.getStatusName().equalsIgnoreCase("ACTIVE")) {
                                 if (t3.getSpecId() == 3) {
                                     if (getC().getInstancia() == null) {
