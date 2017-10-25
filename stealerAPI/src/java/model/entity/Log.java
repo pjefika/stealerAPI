@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.Lob;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
+import javax.validation.constraints.NotNull;
 
 /**
  *
@@ -24,8 +25,13 @@ public class Log extends AbstractEntity {
 
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Calendar data;
-
+    
+    @Lob
+    @Column(columnDefinition = "LONGVARCHAR")
     private String input;
+
+    @NotNull
+    private String executor;
 
     @Lob
     @Column(columnDefinition = "LONGVARCHAR")
@@ -33,6 +39,13 @@ public class Log extends AbstractEntity {
 
     public Log(String action) {
         this.action = action;
+        this.data = Calendar.getInstance();
+    }
+
+    public Log(LoggerIn in) {
+        this.action = in.getAcao();
+        this.input = in.getInput();
+        this.executor = in.getExecutor();
         this.data = Calendar.getInstance();
     }
 
@@ -66,6 +79,14 @@ public class Log extends AbstractEntity {
 
     public void setOuput(String ouput) {
         this.output = ouput;
+    }
+
+    public String getExecutor() {
+        return executor;
+    }
+
+    public void setExecutor(String executor) {
+        this.executor = executor;
     }
 
 }
