@@ -10,11 +10,10 @@ import com.gvt.www.ws.eai.oss.OSSTurbonetStatusConexao.OSSTurbonetStatusConexaoO
 import com.gvt.www.ws.eai.oss.gpon.ConsultInfoGponOut;
 import controller.in.GetAuthIn;
 import controller.in.GetClienteIn;
+import controller.in.GetInfoGponIn;
 import dao.FactoryDAO;
 import dao.InterfaceDAO;
-import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -79,17 +78,16 @@ public class EfikaCustomerController implements EfikaCustomerRestInter {
         }
     }
 
-    @GET
-    @Path("/infoGpon/{instancia}")
+    @POST
+    @Path("/infoGpon/")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getInfoGpon(@PathParam("instancia") String instancia) {
+    public Response getInfoGpon(GetInfoGponIn in) {
         try {
             EfikaCustomerService instance = new EfikaCustomerServiceImpl();
-            ConsultInfoGponOut infoGpon = instance.getInfoGpon(instancia);
+            ConsultInfoGponOut infoGpon = instance.getInfoGpon(in.getInstancia());
             String persistOut = GsonUtil.serialize(infoGpon);
             try {
-                Log l = new Log("ClienteController.getInfoGpon");
-                l.setInput(instancia);
+                Log l = new Log(in);
                 l.setOuput(persistOut);
                 ldao = FactoryDAO.createLogDAO();
                 ldao.cadastrar(l);

@@ -27,8 +27,6 @@ import dao.InventarioLinhaDAOPnAdminImpl;
 @Path("/linha")
 public class LinhaController{
 
-    private ConsultaEfikaCustomer dao;
-
     private InterfaceDAO<Log> ldao;
 
     @GET
