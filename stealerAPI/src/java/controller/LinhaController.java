@@ -6,19 +6,18 @@
 package controller;
 
 import br.net.gvt.efika.customer.InventarioLinha;
+import controller.in.ConsultarLinhaIn;
 import dao.FactoryDAO;
 import dao.InterfaceDAO;
-import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import model.entity.Log;
 import util.GsonUtil;
-import dao.ConsultaEfikaCustomer;
 import dao.InventarioLinhaDAO;
 import dao.InventarioLinhaDAOPnAdminImpl;
+import javax.ws.rs.POST;
 
 /**
  *
@@ -29,17 +28,16 @@ public class LinhaController{
 
     private InterfaceDAO<Log> ldao;
 
-    @GET
-    @Path("/{instancia}")
+    @POST
+    @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response consultar(@PathParam("instancia") String instancia) {
+    public Response consultar(ConsultarLinhaIn in) {
         try {
             InventarioLinhaDAO linha = new InventarioLinhaDAOPnAdminImpl();
-            InventarioLinha out = linha.consultar(instancia);
+            InventarioLinha out = linha.consultar(in.getInstancia());
             String persistOut = GsonUtil.serialize(out);
             try {
-                Log l = new Log("LinhaController.consultar");
-                l.setInput(instancia);
+                Log l = new Log(in);
                 l.setOuput(persistOut);
                 ldao = FactoryDAO.createLogDAO();
                 ldao.cadastrar(l);
