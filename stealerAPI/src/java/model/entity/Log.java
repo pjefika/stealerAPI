@@ -31,6 +31,9 @@ public class Log extends AbstractEntity {
     @Column(columnDefinition = "LONGVARCHAR")
     private String output;
 
+    public Log() {
+    }
+
     public Log(String action) {
         this.action = action;
         this.data = Calendar.getInstance();

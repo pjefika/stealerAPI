@@ -39,4 +39,8 @@ public class FactoryDAO {
         return new OSSGenericDAO();
     }
 
+    public static ChamadaBillingDAO createChamadaBillingDAO() {
+        return new ChamadaBillingDAOImpl();
+    }
+
 }

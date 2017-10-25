@@ -51,14 +51,14 @@ public class AssertsManobraIT {
     public void testAfirmar() throws Exception {
         try {
             System.out.println("afirmar");
-            Assertter instance = new AssertsManobra(ec.consultar("1124013751"), "8-hhdhgddhd");
-            
+            Assertter instance = new AssertsManobra(ec.consultar("CTA-81MMWYSLO-013"), "8-2Q6NY8OG");
+
             List<CustomerAssert> cs = instance.assertThese();
-            
+
             cs.forEach((t) -> {
                 System.out.println("Assert: " + t.getAsserts().name() + " | R: " + t.getValue());
             });
-            
+
             assertTrue(!cs.isEmpty());
             System.out.println("end");
         } catch (Exception e) {
