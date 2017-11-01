@@ -12,7 +12,6 @@ import com.gvt.ws.eai.oss.inventory.api.InventoryDesignatorsResponse;
 import com.gvt.www.ws.eai.oss.OSSTurbonetStatusConexao.OSSTurbonetStatusConexaoOut;
 import com.gvt.www.ws.eai.oss.gpon.ConsultInfoGponOut;
 import com.gvt.www.ws.eai.oss.ossturbonet.OSSTurbonet;
-import java.awt.BorderLayout;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -80,7 +79,7 @@ public class OSSGenericDAOIT {
     @Test
     public void testGetAssociatedDesignators() {
         System.out.println("getAssociatedDesignators");
-        String instancia = "2126140060";
+        String instancia = "4130935248";
         OSSGenericDAO instance = new OSSGenericDAO();
 //        InventoryDesignatorsResponse expResult = null;
         InventoryDesignatorsResponse result = instance.getAssociatedDesignators(instancia);
@@ -97,7 +96,7 @@ public class OSSGenericDAOIT {
     @Test
     public void testGetInfo() throws Exception {
         System.out.println("getInfo");
-        String designador = "SGO-813QW9FNYO-013";
+        String designador = "CTA-813X6RF8QI-013";
         String designadorAcesso = "";
         OSSGenericDAO instance = new OSSGenericDAO();
         GetInfoOut result = instance.getInfo(designador, designadorAcesso);

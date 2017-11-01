@@ -23,6 +23,7 @@ public class AbstractHibernateDAO {
         getEm().getTransaction().begin();
         getEm().persist(obj);
         getEm().getTransaction().commit();
+        this.close();
     }
 
     public EntityManager getEm() {
@@ -36,8 +37,15 @@ public class AbstractHibernateDAO {
     public void close() {
         try {
             em.close();
-            emf.close();
+           
         } catch (Exception e) {
+            System.out.println("EMCLOSE");
+            e.printStackTrace();
+        }
+        try {
+             emf.close();
+        } catch (Exception e) {
+            System.out.println("EMFCLOSE");
             e.printStackTrace();
         }
     }
