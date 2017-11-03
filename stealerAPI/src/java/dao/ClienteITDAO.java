@@ -218,6 +218,7 @@ public class ClienteITDAO extends AbstractOssDAO implements ConsultaEfikaCustome
             });
         });
 
+
     }
 
     @Override

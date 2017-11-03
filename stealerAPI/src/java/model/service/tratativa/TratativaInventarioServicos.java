@@ -10,8 +10,10 @@ import br.net.gvt.efika.customer.InventarioServico;
 import br.net.gvt.efika.enums.TecnologiaLinha;
 import br.net.gvt.efika.enums.TecnologiaTv;
 import com.gvt.ws.eai.oss.inventory.api.Account;
+import com.gvt.ws.eai.oss.inventory.api.Address;
 import com.gvt.ws.eai.oss.inventory.api.InventoryAccountResponse;
 import com.gvt.ws.eai.oss.inventory.api.Item;
+import com.gvt.ws.eai.oss.inventory.api.Param;
 
 /**
  *
@@ -73,8 +75,8 @@ public class TratativaInventarioServicos extends TratativaEfikaCustomer {
         account.getAccounts().forEach((Account acc) -> {
             acc.getAddress().forEach((adr) -> {
                 adr.getItems().forEach((item) -> {
-                    item.getItems().stream().filter((itn) -> (itn.getStatusName().equalsIgnoreCase("ACTIVE") || itn.getStatusName().equalsIgnoreCase("PENDING"))).forEachOrdered((itn) -> {
-                        for (com.gvt.ws.eai.oss.inventory.api.Param param : itn.getParam()) {
+                    item.getItems().stream().filter((itn) -> (itn.getStatusName().equalsIgnoreCase("ACTIVE") || itn.getStatusName().equalsIgnoreCase("PENDING"))).forEachOrdered((it) -> {
+                        for (com.gvt.ws.eai.oss.inventory.api.Param param : it.getParam()) {
                             if (param.getName().equalsIgnoreCase("TecnologiaVoz")) {
                                 if (param.getValue().toUpperCase().contains("SIP")) {
                                     i.setTipoLinha(TecnologiaLinha.SIP);
@@ -104,32 +106,66 @@ public class TratativaInventarioServicos extends TratativaEfikaCustomer {
     }
 
     private void getTv(InventarioServico i) {
-        account.getAccounts().forEach((acc) -> {
-            acc.getAddress().forEach((adr) -> {
-                adr.getItems().forEach((Item item) -> {
-                    item.getItems().stream().filter((itn) -> (itn.getStatusName().equalsIgnoreCase("ACTIVE") || itn.getStatusName().equalsIgnoreCase("PENDING"))).forEachOrdered((itn) -> {
-                        for (com.gvt.ws.eai.oss.inventory.api.Param param : itn.getParam()) {
-                            if (param.getName().equalsIgnoreCase("TecnologiaTV")) {
-                                if (param.getValue() != null) {
-                                    if (param.getValue().toUpperCase().contains("BRID")) {
-                                        i.setTipoTv(TecnologiaTv.HIBRIDA);
-                                        return;
-                                    }
-                                    if (param.getValue().toUpperCase().contains("DTH")) {
-                                        i.setTipoTv(TecnologiaTv.DTH);
-                                        return;
-                                    }
-                                    if (param.getValue().toUpperCase().contains("IPTV")) {
-                                        i.setTipoTv(TecnologiaTv.IPTV);
-                                        return;
+
+        for (Account account1 : account.getAccounts()) {
+            for (Address addres : account1.getAddress()) {
+                for (Item item : addres.getItems()) {
+                    for (Item item1 : item.getItems()) {
+                        if (item1.getStatusName().equalsIgnoreCase("ACTIVE") || item1.getStatusName().equalsIgnoreCase("PENDING")) {
+                            for (com.gvt.ws.eai.oss.inventory.api.Param param : item1.getParam()) {
+                                if (param.getName().equalsIgnoreCase("TecnologiaTV")) {
+                                    if (param.getValue() != null) {
+                                        System.out.println("param->"+param.getValue());
+                                        if (param.getValue().toUpperCase().contains("BRID")) {
+                                            i.setTipoTv(TecnologiaTv.HIBRIDA);
+                                            return;
+                                        }
+                                        if (param.getValue().toUpperCase().contains("DTH")) {
+                                            i.setTipoTv(TecnologiaTv.DTH);
+                                            return;
+                                        }
+                                        if (param.getValue().toUpperCase().contains("IPTV")) {
+                                            i.setTipoTv(TecnologiaTv.IPTV);
+                                            return;
+                                        }
                                     }
                                 }
                             }
                         }
-                    });
-                });
-            });
-        });
+                    }
+
+                }
+
+            }
+
+        }
+
+//        account.getAccounts().forEach((acc) -> {
+//            acc.getAddress().forEach((adr) -> {
+//                adr.getItems().forEach((Item item) -> {
+//                    item.getItems().stream().filter((itn) -> (itn.getStatusName().equalsIgnoreCase("ACTIVE") || itn.getStatusName().equalsIgnoreCase("PENDING"))).forEachOrdered((it) -> {
+//                        for (com.gvt.ws.eai.oss.inventory.api.Param param : it.getParam()) {
+//                            if (param.getName().equalsIgnoreCase("TecnologiaTV")) {
+//                                if (param.getValue() != null) {
+//                                    if (param.getValue().toUpperCase().contains("BRID")) {
+//                                        i.setTipoTv(TecnologiaTv.HIBRIDA);
+//                                        break;
+//                                    }
+//                                    if (param.getValue().toUpperCase().contains("DTH")) {
+//                                        i.setTipoTv(TecnologiaTv.DTH);
+//                                        break;
+//                                    }
+//                                    if (param.getValue().toUpperCase().contains("IPTV")) {
+//                                        i.setTipoTv(TecnologiaTv.IPTV);
+//                                        break;
+//                                    }
+//                                }
+//                            }
+//                        }
+//                    });
+//                });
+//            });
+//        });
     }
 
 }
