@@ -5,6 +5,7 @@
  */
 package dao;
 
+import br.net.gvt.efika.enums.TecnologiaTv;
 import input.TestValues;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -43,7 +44,7 @@ public class ClienteComServicoTVJUnitTest {
     @Test
     public void hibrido() {
         try {
-            assertEquals(true, dao.consultar(TestValues.HIBRIDO).getServicos().getIsHib());
+            assertEquals(TecnologiaTv.HIBRIDA, dao.consultar(TestValues.HIBRIDO).getServicos().getTipoTv());
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -52,7 +53,7 @@ public class ClienteComServicoTVJUnitTest {
     @Test
     public void dth() {
         try {
-            assertEquals(false, dao.consultar(TestValues.DTH).getServicos().getIsHib());
+            assertEquals(TecnologiaTv.DTH, dao.consultar(TestValues.DTH).getServicos().getTipoTv());
         } catch (Exception e) {
             fail(e.getMessage());
         }
