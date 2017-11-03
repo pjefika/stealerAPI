@@ -18,27 +18,28 @@ import dao.oss.OSSGenericDAO;
  * @author G0042204
  */
 public class TratativaAssociatedDesignators extends TratativaEfikaCustomer {
-    
+
     private final InventoryDesignatorsResponse r;
-    
+
     private final InventoryAccountResponse a;
-    
+
     public TratativaAssociatedDesignators(InventoryDesignatorsResponse r, EfikaCustomer c, InventoryAccountResponse a) {
         super(c);
         this.r = r;
         this.a = a;
     }
-    
+
     @Override
     public void tratar() throws Exception {
-        
+
         if (r.getDesignator().isEmpty() && a.getAccounts().isEmpty()) {
             throw new InstanciaInvalidaException();
         }
-        
+
         new TratativaAssociatedDesignators(r, getC(), a).getC();
-        if (r.getDesignator().size()>2) {
+        if (r.getDesignator().size() > 2) {
             for (Designator designator : r.getDesignator()) {
+                System.out.println("type->" + designator.getDesignatorType().getValue() + "_val->" + designator.getValue());
                 // Designador de Acesso
                 if (designator.getDesignatorType().getValue().equals(1)) {
                     getC().setDesignadorAcesso(designator.getValue());
@@ -50,13 +51,18 @@ public class TratativaAssociatedDesignators extends TratativaEfikaCustomer {
                     if (getC().getInstancia() == null) {
                         getC().setInstancia(designator.getValue());
                     }
-                    
+
+                }
+                // Designador de TV
+                if (designator.getDesignatorType().getValue().equals(4)) {
+                    getC().setDesignadorTv(designator.getValue());
                 }
 
                 // Designador de Banda
                 if (designator.getDesignatorType().getValue().equals(3)) {
                     getC().setDesignador(designator.getValue());
                 }
+
             }
         } else {
             a.getAccounts().forEach((t) -> {
@@ -67,24 +73,24 @@ public class TratativaAssociatedDesignators extends TratativaEfikaCustomer {
                         }
                         t2.getItems().forEach((t3) -> {
 //                            if (t3.getStatusName().equalsIgnoreCase("ACTIVE")) {
-                                if (t3.getSpecId() == 3) {
-                                    if (getC().getInstancia() == null) {
-                                        getC().setInstancia(t3.getDesignator().getValue());
-                                    }
+                            if (t3.getSpecId() == 3) {
+                                if (getC().getInstancia() == null) {
+                                    getC().setInstancia(t3.getDesignator().getValue());
                                 }
-                                if (t3.getSpecId() == 4) {
-                                    getC().setDesignador(t3.getDesignator().getValue());
-                                }
+                            }
+                            if (t3.getSpecId() == 4) {
+                                getC().setDesignador(t3.getDesignator().getValue());
+                            }
 //                            }
                         });
                     });
                 });
             });
         }
-        
+
         if (getC().getDesignador().equalsIgnoreCase(getC().getInstancia()) || getC().getDesignador().isEmpty()) {
             throw new ClienteSemBandaException();
         }
     }
-    
+
 }

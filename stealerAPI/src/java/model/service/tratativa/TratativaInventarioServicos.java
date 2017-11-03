@@ -45,60 +45,71 @@ public class TratativaInventarioServicos extends TratativaEfikaCustomer {
     }
 
     private void getBanda(InventarioServico i) {
-        account.getAccounts().forEach((acc) -> {
-            acc.getAddress().forEach((adr) -> {
-                adr.getItems().forEach((item) -> {
-                    item.getItems().stream().filter((itn) -> ((itn.getStatusName().equalsIgnoreCase("ACTIVE")
-                            || itn.getStatusName().equalsIgnoreCase("PENDING"))) && itn.getDesignator().getValue().equalsIgnoreCase(getC().getDesignador())).forEachOrdered((itn) -> {
-
-                        for (com.gvt.ws.eai.oss.inventory.api.Param param : itn.getParam()) {
+        for (Account account1 : account.getAccounts()) {
+            for (Address addres : account1.getAddress()) {
+                for (Item item : addres.getItems()) {
+                    for (Item item1 : item.getItems()) {
+                        if ((item1.getStatusName().equalsIgnoreCase("ACTIVE") || item1.getStatusName().equalsIgnoreCase("PENDING"))
+                                && item1.getDesignator().getValue().equalsIgnoreCase(getC().getDesignador())) {
+                            for (com.gvt.ws.eai.oss.inventory.api.Param param : item1.getParam()) {
 //                            System.out.println(itn.getStatusName() + "->" + itn.getModifiedDate().getValue());
 //                            System.out.println(param.getName() + "->" + param.getValue());
-                            if (param.getName().equalsIgnoreCase("Downstream")) {
-                                i.setVelDown(new Long(param.getValue()));
-                            }
-                            if (param.getName().equalsIgnoreCase("Upstream")) {
-                                i.setVelUp(new Long(param.getValue()));
-                            }
+                                if (param.getName().equalsIgnoreCase("Downstream")) {
+                                    i.setVelDown(new Long(param.getValue()));
+                                }
+                                if (param.getName().equalsIgnoreCase("Upstream")) {
+                                    i.setVelUp(new Long(param.getValue()));
+                                }
 //                            if (i.getVelDown() != null && i.getVelUp() != null) {
 //                                break;
 //                            }
+                            }
                         }
-                    });
-                });
-            });
-        });
-//        System.out.println("getBanda");
+                    }
+
+                }
+
+            }
+        }
+
     }
 
     private void getLinha(InventarioServico i) {
-        account.getAccounts().forEach((Account acc) -> {
-            acc.getAddress().forEach((adr) -> {
-                adr.getItems().forEach((item) -> {
-                    item.getItems().stream().filter((itn) -> (itn.getStatusName().equalsIgnoreCase("ACTIVE") || itn.getStatusName().equalsIgnoreCase("PENDING"))).forEachOrdered((it) -> {
-                        for (com.gvt.ws.eai.oss.inventory.api.Param param : it.getParam()) {
-                            if (param.getName().equalsIgnoreCase("TecnologiaVoz")) {
-                                if (param.getValue().toUpperCase().contains("SIP")) {
-                                    i.setTipoLinha(TecnologiaLinha.SIP);
-                                }
-                                if (param.getValue().toUpperCase().contains("TDM")) {
-                                    i.setTipoLinha(TecnologiaLinha.TDM);
-                                }
-                                if (param.getValue().toUpperCase().contains("V5")) {
-                                    i.setTipoLinha(TecnologiaLinha.IMS_V5);
-                                }
-                                if (param.getValue().toUpperCase().contains("IMS/H248")) {
-                                    i.setTipoLinha(TecnologiaLinha.IMS_H248);
-                                }
-                                if (i.getTipoLinha() != null) {
-                                    break;
+
+        for (Account account1 : account.getAccounts()) {
+            for (Address addres : account1.getAddress()) {
+                for (Item item : addres.getItems()) {
+                    for (Item item1 : item.getItems()) {
+                        if (item1.getStatusName().equalsIgnoreCase("ACTIVE") || item1.getStatusName().equalsIgnoreCase("PENDING")) {
+                            if (item1.getDesignator().getValue().equalsIgnoreCase(getC().getInstancia())) {
+                                for (com.gvt.ws.eai.oss.inventory.api.Param param : item1.getParam()) {
+                                    if (param.getName().equalsIgnoreCase("TecnologiaVoz")) {
+                                        if (param.getValue().toUpperCase().contains("SIP")) {
+                                            i.setTipoLinha(TecnologiaLinha.SIP);
+                                        }
+                                        if (param.getValue().toUpperCase().contains("TDM")) {
+                                            i.setTipoLinha(TecnologiaLinha.TDM);
+                                        }
+                                        if (param.getValue().toUpperCase().contains("V5")) {
+                                            i.setTipoLinha(TecnologiaLinha.IMS_V5);
+                                        }
+                                        if (param.getValue().toUpperCase().contains("IMS/H248")) {
+                                            i.setTipoLinha(TecnologiaLinha.IMS_H248);
+                                        }
+                                        if (i.getTipoLinha() != null) {
+                                            break;
+                                        }
+                                    }
                                 }
                             }
+
                         }
-                    });
-                });
-            });
-        });
+                    }
+
+                }
+
+            }
+        }
 
         if (i.getTipoLinha() == null) {
             i.setTipoLinha(TecnologiaLinha.SIP);
@@ -112,60 +123,36 @@ public class TratativaInventarioServicos extends TratativaEfikaCustomer {
                 for (Item item : addres.getItems()) {
                     for (Item item1 : item.getItems()) {
                         if (item1.getStatusName().equalsIgnoreCase("ACTIVE") || item1.getStatusName().equalsIgnoreCase("PENDING")) {
-                            for (com.gvt.ws.eai.oss.inventory.api.Param param : item1.getParam()) {
-                                if (param.getName().equalsIgnoreCase("TecnologiaTV")) {
-                                    if (param.getValue() != null) {
-                                        System.out.println("param->"+param.getValue());
-                                        if (param.getValue().toUpperCase().contains("BRID")) {
-                                            i.setTipoTv(TecnologiaTv.HIBRIDA);
-                                            return;
-                                        }
-                                        if (param.getValue().toUpperCase().contains("DTH")) {
-                                            i.setTipoTv(TecnologiaTv.DTH);
-                                            return;
-                                        }
-                                        if (param.getValue().toUpperCase().contains("IPTV")) {
-                                            i.setTipoTv(TecnologiaTv.IPTV);
-                                            return;
+                            if (item1.getDesignator().getValue().equalsIgnoreCase(getC().getDesignadorTv())) {
+                                for (com.gvt.ws.eai.oss.inventory.api.Param param : item1.getParam()) {
+                                    if (param.getName().equalsIgnoreCase("TecnologiaTV")) {
+                                        if (param.getValue() != null) {
+                                            System.out.println("param->" + param.getValue());
+                                            if (param.getValue().toUpperCase().contains("BRID")) {
+                                                i.setTipoTv(TecnologiaTv.HIBRIDA);
+                                                return;
+                                            }
+                                            if (param.getValue().toUpperCase().contains("DTH")) {
+                                                i.setTipoTv(TecnologiaTv.DTH);
+                                                return;
+                                            }
+                                            if (param.getValue().toUpperCase().contains("IPTV")) {
+                                                i.setTipoTv(TecnologiaTv.IPTV);
+                                                return;
+                                            }
                                         }
                                     }
                                 }
                             }
+
                         }
                     }
 
                 }
 
             }
-
         }
 
-//        account.getAccounts().forEach((acc) -> {
-//            acc.getAddress().forEach((adr) -> {
-//                adr.getItems().forEach((Item item) -> {
-//                    item.getItems().stream().filter((itn) -> (itn.getStatusName().equalsIgnoreCase("ACTIVE") || itn.getStatusName().equalsIgnoreCase("PENDING"))).forEachOrdered((it) -> {
-//                        for (com.gvt.ws.eai.oss.inventory.api.Param param : it.getParam()) {
-//                            if (param.getName().equalsIgnoreCase("TecnologiaTV")) {
-//                                if (param.getValue() != null) {
-//                                    if (param.getValue().toUpperCase().contains("BRID")) {
-//                                        i.setTipoTv(TecnologiaTv.HIBRIDA);
-//                                        break;
-//                                    }
-//                                    if (param.getValue().toUpperCase().contains("DTH")) {
-//                                        i.setTipoTv(TecnologiaTv.DTH);
-//                                        break;
-//                                    }
-//                                    if (param.getValue().toUpperCase().contains("IPTV")) {
-//                                        i.setTipoTv(TecnologiaTv.IPTV);
-//                                        break;
-//                                    }
-//                                }
-//                            }
-//                        }
-//                    });
-//                });
-//            });
-//        });
     }
 
 }
