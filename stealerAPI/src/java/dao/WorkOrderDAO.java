@@ -6,6 +6,8 @@
 package dao;
 
 import br.com.gvt.www.ResourceManagement.WorkforceManagement.WorkforceManagementReporting.WorkOrderReporting.WorkOrderReportingProxy;
+import br.com.gvt.www.ResourceManagement.WorkforceManagement.WorkforceManagementReporting.workOrderReportingEntities.FindCustomerIn;
+import br.com.gvt.www.ResourceManagement.WorkforceManagement.WorkforceManagementReporting.workOrderReportingEntities.FindCustomerOut;
 import br.com.gvt.www.ResourceManagement.WorkforceManagement.WorkforceManagementReporting.workOrderReportingEntities.FindWorkOrderIn;
 import br.com.gvt.www.ResourceManagement.WorkforceManagement.WorkforceManagementReporting.workOrderReportingEntities.GetWorkDetailsIn;
 import br.com.gvt.www.ResourceManagement.WorkforceManagement.WorkforceManagementReporting.workOrderReportingEntities.GetWorkDetailsOut;
@@ -31,6 +33,16 @@ public class WorkOrderDAO implements WorkOrderDAOInterface {
         try {
             ws = new WorkOrderReportingProxy();
             return ws.getWorkDetails(new GetWorkDetailsIn(workOrderId));
+        } catch (RemoteException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public FindCustomerOut getCustomer(String workOrderId) {
+        try {
+            ws = new WorkOrderReportingProxy();
+            return ws.findCustomer(new FindCustomerIn(workOrderId));
         } catch (RemoteException e) {
             e.printStackTrace();
             return null;

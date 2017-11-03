@@ -23,7 +23,7 @@ public class ChamadaBillingDAOImpl extends AbstractHibernateDAO implements Chama
                 + "AND i.dataInicio >:param2");
         query.setParameter("param1", instancia);
         query.setParameter("param2", data);
-        query.setMaxResults(1);
+        query.setMaxResults(10);
         return query.getResultList();
     }
 

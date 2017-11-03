@@ -6,7 +6,6 @@
 package model.asserts.facade;
 
 import br.net.gvt.efika.customer.CustomerAssert;
-import dao.FactoryDAO;
 import java.util.List;
 import model.asserts.Assertter;
 import org.junit.After;
@@ -15,7 +14,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import dao.ConsultaEfikaCustomer;
+import model.service.EfikaCustomerService;
+import model.service.EfikaCustomerServiceImpl;
 
 /**
  *
@@ -23,7 +23,7 @@ import dao.ConsultaEfikaCustomer;
  */
 public class AssertsManobraIT {
 
-    private ConsultaEfikaCustomer ec = FactoryDAO.createClienteDAO();
+    EfikaCustomerService serv = new EfikaCustomerServiceImpl();
 
     public AssertsManobraIT() {
     }
@@ -51,10 +51,8 @@ public class AssertsManobraIT {
     public void testAfirmar() throws Exception {
         try {
             System.out.println("afirmar");
-            Assertter instance = new AssertsManobra(ec.consultar("CTA-81MMWYSLO-013"), "8-2Q6NY8OG");
-
+            Assertter instance = new AssertsManobra(serv.consultar("4130886762"), "8-2Q6NY8OG");
             List<CustomerAssert> cs = instance.assertThese();
-
             cs.forEach((t) -> {
                 System.out.println("Assert: " + t.getAsserts().name() + " | R: " + t.getValue());
             });
