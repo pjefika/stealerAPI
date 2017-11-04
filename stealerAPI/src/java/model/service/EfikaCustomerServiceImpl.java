@@ -26,6 +26,7 @@ import model.service.tratativa.TratativaInventarioServicos;
 import util.EfikaThread;
 import dao.InventarioLinhaDAO;
 import dao.InventarioLinhaDAOPnAdminImpl;
+import dao.exception.ImpossivelIdentificarDesignadoresException;
 
 public class EfikaCustomerServiceImpl implements EfikaCustomerService {
 
@@ -66,7 +67,7 @@ public class EfikaCustomerServiceImpl implements EfikaCustomerService {
 
         } catch (Exception e) {
 
-            if (e.getCause() instanceof InstanciaInvalidaException) {
+            if (e.getCause() instanceof InstanciaInvalidaException || e.getCause() instanceof ImpossivelIdentificarDesignadoresException) {
                 throw e;
             }
 
