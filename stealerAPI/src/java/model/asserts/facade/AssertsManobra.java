@@ -10,6 +10,7 @@ import br.com.gvt.www.ResourceManagement.WorkforceManagement.WorkforceManagement
 import br.net.gvt.efika.customer.EfikaCustomer;
 import dao.exception.OrdemInvalidaException;
 import model.asserts.AssertAutenticacaoAposOrdem;
+import model.asserts.AssertChamadaBilling;
 import model.asserts.AssertOrdemReparo;
 
 /**
@@ -45,6 +46,7 @@ public class AssertsManobra extends AbstractAssertFacade {
         info = getOss().getInfo(cust.getDesignador());
         adicionarAssert(new AssertOrdemReparo(wo).claim());
         adicionarAssert(new AssertAutenticacaoAposOrdem(getOss().isClienteAutenticado(info), wo).claim());
+        adicionarAssert(new AssertChamadaBilling(wo, cust.getInstancia()).claim());
     }
 
 }
