@@ -3,18 +3,22 @@
     <persistence-unit name="stealerAPIPU" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
         <jta-data-source>java:/co</jta-data-source>
+        <class>model.entity.Log</class>
+        <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect"/>
             <property name="hibernate.id.new_generator_mappings" value="false"/>
+            <property name="hibernate.show_sql" value="true"/>
         </properties>
     </persistence-unit>
     <persistence-unit name="cdrPU" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <class>model.entities.ChamadaBilling</class>
+        <class>model.entity.ChamadaBilling</class>
         <properties>
             <property name="javax.persistence.jdbc.driver" value="oracle.jdbc.OracleDriver"/>
             <property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@10.41.7.207:1521/PBI1"/>
-            <property name="javax.persistence.jdbc.user" value="####"/>
-            <property name="javax.persistence.jdbc.password" value="####"/>            
+            <property name="javax.persistence.jdbc.user" value="###"/>
+            <property name="javax.persistence.jdbc.password" value="###"/>            
             <property name="hibernate.id.new_generator_mappings" value="false"/>
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect"/>
