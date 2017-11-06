@@ -46,7 +46,7 @@ public class EfikaCustomerServiceImplIT {
     public void testConsultar() {
         try {
             System.out.println("consultar");
-            String param1 = "SGO-813QW9FNYO-013";
+            String param1 = "8130800689";
             EfikaCustomerService instance = new EfikaCustomerServiceImpl();
             EfikaCustomer result = instance.consultar(param1);
             System.out.println(GsonUtil.serialize(result));
