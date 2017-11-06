@@ -8,17 +8,18 @@ package controller;
 import br.net.gvt.efika.customer.EfikaCustomer;
 import com.gvt.www.ws.eai.oss.OSSTurbonetStatusConexao.OSSTurbonetStatusConexaoOut;
 import com.gvt.www.ws.eai.oss.gpon.ConsultInfoGponOut;
+import controller.in.GetAuthIn;
+import controller.in.GetClienteIn;
+import controller.in.GetInfoGponIn;
 import dao.FactoryDAO;
 import dao.InterfaceDAO;
-import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import model.entity.Log;
 import util.GsonUtil;
-import dao.ConsultaEfikaCustomer;
+import javax.ws.rs.POST;
 import model.service.EfikaCustomerService;
 import model.service.EfikaCustomerServiceImpl;
 
@@ -29,23 +30,20 @@ import model.service.EfikaCustomerServiceImpl;
 @Path("/oss")
 public class EfikaCustomerController implements EfikaCustomerRestInter {
 
-    private ConsultaEfikaCustomer dao;
-
     private InterfaceDAO<Log> ldao;
 
-    @GET
-    @Path("/{instancia}")
+    @POST
+    @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
     @Override
-    public Response getCliente(@PathParam("instancia") String instancia) {
+    public Response getCliente(GetClienteIn in) {
         try {
             EfikaCustomerService instance = new EfikaCustomerServiceImpl();
 
-            EfikaCustomer out = instance.consultar(instancia);
+            EfikaCustomer out = instance.consultar(in.getInstancia());
             String persistOut = GsonUtil.serialize(out);
             try {
-                Log l = new Log("ClienteController.getCliente");
-                l.setInput(instancia);
+                Log l = new Log(in);
                 l.setOuput(persistOut);
                 ldao = FactoryDAO.createLogDAO();
                 ldao.cadastrar(l);
@@ -58,17 +56,16 @@ public class EfikaCustomerController implements EfikaCustomerRestInter {
         }
     }
 
-    @GET
-    @Path("/auth/{mac}")
+    @POST
+    @Path("/auth/")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAuth(@PathParam("mac") String mac) {
+    public Response getAuth(GetAuthIn in) {
         try {
             EfikaCustomerService instance = new EfikaCustomerServiceImpl();
-            OSSTurbonetStatusConexaoOut autenticacaoByMacOrIp = instance.getAutenticacaoByMacOrIp(mac);
+            OSSTurbonetStatusConexaoOut autenticacaoByMacOrIp = instance.getAutenticacaoByMacOrIp(in.getMacOrIp());
             String persistOut = GsonUtil.serialize(autenticacaoByMacOrIp);
             try {
-                Log l = new Log("ClienteController.getAuth");
-                l.setInput(mac);
+                Log l = new Log(in);
                 l.setOuput(persistOut);
                 ldao = FactoryDAO.createLogDAO();
                 ldao.cadastrar(l);
@@ -81,17 +78,16 @@ public class EfikaCustomerController implements EfikaCustomerRestInter {
         }
     }
 
-    @GET
-    @Path("/infoGpon/{instancia}")
+    @POST
+    @Path("/infoGpon/")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getInfoGpon(@PathParam("instancia") String instancia) {
+    public Response getInfoGpon(GetInfoGponIn in) {
         try {
             EfikaCustomerService instance = new EfikaCustomerServiceImpl();
-            ConsultInfoGponOut infoGpon = instance.getInfoGpon(instancia);
+            ConsultInfoGponOut infoGpon = instance.getInfoGpon(in.getInstancia());
             String persistOut = GsonUtil.serialize(infoGpon);
             try {
-                Log l = new Log("ClienteController.getInfoGpon");
-                l.setInput(instancia);
+                Log l = new Log(in);
                 l.setOuput(persistOut);
                 ldao = FactoryDAO.createLogDAO();
                 ldao.cadastrar(l);

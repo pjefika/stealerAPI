@@ -50,7 +50,6 @@ public class EfikaCustomerServiceImpl implements EfikaCustomerService {
         EfikaThread t0 = new EfikaThread(new TratativaAssociatedDesignators(associatedDesignators, ec, accountItems));
 
         while(t0.isAlive()){
-            System.out.println("alaive");
             Thread.sleep(2000);
         }
         

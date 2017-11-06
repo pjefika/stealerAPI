@@ -5,6 +5,7 @@
  */
 package controller;
 
+import controller.in.GetClienteIn;
 import javax.ws.rs.core.Response;
 
 /**
@@ -13,6 +14,6 @@ import javax.ws.rs.core.Response;
  */
 public interface EfikaCustomerRestInter {
 
-    public Response getCliente(String instancia);
+    public Response getCliente(GetClienteIn in);
 
 }

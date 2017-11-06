@@ -6,12 +6,14 @@
 package controller.in;
 
 import br.net.gvt.efika.customer.EfikaCustomer;
+import model.entity.LoggerIn;
+import util.GsonUtil;
 
 /**
  *
  * @author G0042204
  */
-public class ManobraITAssertIn {
+public class ManobraITAssertIn extends LoggerIn{
 
     private EfikaCustomer cust;
 
@@ -22,6 +24,16 @@ public class ManobraITAssertIn {
 
     public EfikaCustomer getCust() {
         return cust;
+    }
+    
+    @Override
+    public String getInput(){
+        return "{\"ordem\":\""+workOrderId+"\", \"cust\": \""+GsonUtil.serialize(cust)+"\"}";
+    }
+    
+    @Override
+    public String getAcao(){
+        return "ControllerManobra.asserts";
     }
 
     public void setCust(EfikaCustomer cust) {

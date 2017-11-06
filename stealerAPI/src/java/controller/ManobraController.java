@@ -5,9 +5,11 @@
  */
 package controller;
 
+import br.net.gvt.efika.customer.CustomerAssert;
 import controller.in.ManobraITAssertIn;
 import dao.FactoryDAO;
 import dao.InterfaceDAO;
+import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -17,6 +19,7 @@ import javax.ws.rs.core.Response;
 import model.asserts.Assertter;
 import model.asserts.facade.AssertsManobra;
 import model.entity.Log;
+import util.GsonUtil;
 
 /**
  *
@@ -34,7 +37,16 @@ public class ManobraController {
     public Response asserts(ManobraITAssertIn in) throws Exception {
         try {
             Assertter as = new AssertsManobra(in.getCust(), in.getWorkOrderId());
-            return Response.status(200).entity(as.assertThese()).build();
+            List<CustomerAssert> assertThese = as.assertThese();
+             try {
+                Log l = new Log(in);
+                l.setOuput(GsonUtil.serialize(assertThese));
+                ldao = FactoryDAO.createLogDAO();
+                ldao.cadastrar(l);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return Response.status(200).entity(assertThese).build();
         } catch (Exception e) {
             e.printStackTrace();
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e).build();
