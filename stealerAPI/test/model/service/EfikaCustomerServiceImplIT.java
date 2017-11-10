@@ -46,7 +46,7 @@ public class EfikaCustomerServiceImplIT {
     public void testConsultar() {
         try {
             System.out.println("consultar");
-            String param1 = "4130935248";
+            String param1 = "4130157784";
 
             EfikaCustomerService instance = new EfikaCustomerServiceImpl();
             EfikaCustomer result = instance.consultar(param1);

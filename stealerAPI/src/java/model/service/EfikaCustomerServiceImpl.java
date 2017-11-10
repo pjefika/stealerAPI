@@ -58,6 +58,7 @@ public class EfikaCustomerServiceImpl implements EfikaCustomerService {
         try {
             t0.possuiException();
             EfikaThread t1 = new EfikaThread(new TratativaInventarioRede(getInfo(), ec));
+            System.out.println("eee"+ec.getDesignadorTv());
             EfikaThread t2 = new EfikaThread(new TratativaInventarioServicos(accountItems, ec));
             EfikaThread t3 = new EfikaThread(new TratativaInventarioLinha(linha.consultar(ec.getInstancia()), ec));
 

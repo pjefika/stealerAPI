@@ -13,7 +13,6 @@ import com.gvt.ws.eai.oss.inventory.api.Account;
 import com.gvt.ws.eai.oss.inventory.api.Address;
 import com.gvt.ws.eai.oss.inventory.api.InventoryAccountResponse;
 import com.gvt.ws.eai.oss.inventory.api.Item;
-import com.gvt.ws.eai.oss.inventory.api.Param;
 
 /**
  *
@@ -53,7 +52,7 @@ public class TratativaInventarioServicos extends TratativaEfikaCustomer {
                                 && item1.getDesignator().getValue().equalsIgnoreCase(getC().getDesignador())) {
                             for (com.gvt.ws.eai.oss.inventory.api.Param param : item1.getParam()) {
 //                            System.out.println(itn.getStatusName() + "->" + itn.getModifiedDate().getValue());
-//                            System.out.println(param.getName() + "->" + param.getValue());
+                                System.out.println(param.getName() + "->" + param.getValue());
                                 if (param.getName().equalsIgnoreCase("Downstream")) {
                                     i.setVelDown(new Long(param.getValue()));
                                 }
@@ -122,12 +121,23 @@ public class TratativaInventarioServicos extends TratativaEfikaCustomer {
             for (Address addres : account1.getAddress()) {
                 for (Item item : addres.getItems()) {
                     for (Item item1 : item.getItems()) {
+                        System.out.println("paramTV->" + item1.getDesignator().getValue() + "status->" + item1.getStatusName());
                         if (item1.getStatusName().equalsIgnoreCase("ACTIVE") || item1.getStatusName().equalsIgnoreCase("PENDING")) {
-                            if (item1.getDesignator().getValue().equalsIgnoreCase(getC().getDesignadorTv())) {
-                                for (com.gvt.ws.eai.oss.inventory.api.Param param : item1.getParam()) {
-                                    if (param.getName().equalsIgnoreCase("TecnologiaTV")) {
+
+                            for (com.gvt.ws.eai.oss.inventory.api.Param param : item1.getParam()) {
+                                System.out.println("paramTV->" + param.getName());
+                                if (param.getName().equalsIgnoreCase("TecnologiaTV")) {
+                                    if (getC().getDesignadorTv() == null) {
+                                        try {
+                                            EfikaCustomer cust = TratativasGetDesignadores.tratativaInventoryResponse(account, getC());
+                                            getC().setDesignadorTv(cust.getDesignadorTv());
+                                        } catch (Exception ex) {
+                                        }
+                                    }
+                                    if (item1.getDesignator().getValue().equalsIgnoreCase(getC().getDesignadorTv())) {
+
                                         if (param.getValue() != null) {
-                                            System.out.println("param->" + param.getValue());
+                                            System.out.println("paramTV->" + param.getValue());
                                             if (param.getValue().toUpperCase().contains("BRID")) {
                                                 i.setTipoTv(TecnologiaTv.HIBRIDA);
                                                 return;
