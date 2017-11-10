@@ -6,39 +6,43 @@
 package model.service.tratativa;
 
 import br.net.gvt.efika.customer.EfikaCustomer;
+import com.gvt.ws.eai.oss.inventory.api.Account;
+import com.gvt.ws.eai.oss.inventory.api.Address;
 import com.gvt.ws.eai.oss.inventory.api.Designator;
 import com.gvt.ws.eai.oss.inventory.api.InventoryAccountResponse;
 import com.gvt.ws.eai.oss.inventory.api.InventoryDesignatorsResponse;
+import com.gvt.ws.eai.oss.inventory.api.Item;
 import dao.exception.ClienteSemBandaException;
+import dao.exception.ImpossivelIdentificarDesignadoresException;
 import dao.exception.InstanciaInvalidaException;
-import dao.oss.OSSGenericDAO;
 
 /**
  *
  * @author G0042204
  */
 public class TratativaAssociatedDesignators extends TratativaEfikaCustomer {
-    
+
     private final InventoryDesignatorsResponse r;
-    
+
     private final InventoryAccountResponse a;
-    
+
     public TratativaAssociatedDesignators(InventoryDesignatorsResponse r, EfikaCustomer c, InventoryAccountResponse a) {
         super(c);
         this.r = r;
         this.a = a;
     }
-    
+
     @Override
     public void tratar() throws Exception {
-        
+
         if (r.getDesignator().isEmpty() && a.getAccounts().isEmpty()) {
             throw new InstanciaInvalidaException();
         }
-        
+
         new TratativaAssociatedDesignators(r, getC(), a).getC();
-        if (r.getDesignator().size()>2) {
+        if (r.getDesignator().size() > 2) {
             for (Designator designator : r.getDesignator()) {
+//                System.out.println("type->" + designator.getDesignatorType().getValue() + "_val->" + designator.getValue());
 
                 // Designador de Acesso
                 if (designator.getDesignatorType().getValue().equals(1)) {
@@ -51,41 +55,60 @@ public class TratativaAssociatedDesignators extends TratativaEfikaCustomer {
                     if (getC().getInstancia() == null) {
                         getC().setInstancia(designator.getValue());
                     }
-                    
+
+                }
+                // Designador de TV
+                if (designator.getDesignatorType().getValue().equals(4)) {
+                    getC().setDesignadorTv(designator.getValue());
                 }
 
                 // Designador de Banda
                 if (designator.getDesignatorType().getValue().equals(3)) {
                     getC().setDesignador(designator.getValue());
                 }
+
             }
         } else {
-            a.getAccounts().forEach((t) -> {
-                t.getAddress().forEach((t1) -> {
-                    t1.getItems().forEach((t2) -> {
-                        if (t2.getStatusName().equalsIgnoreCase("ACTIVE") && t2.getSpecId() == 6) {
-                            getC().setDesignadorAcesso(t2.getDesignator().getValue());
+            if (a.getAccounts().size() > 0) {
+                if (a.getAccounts().get(0).getAddress().size() > 1 || a.getAccounts().size() > 1) {
+                    throw new ImpossivelIdentificarDesignadoresException();
+                }
+            }
+            for (Account account1 : a.getAccounts()) {
+                for (Address addres : account1.getAddress()) {
+                    for (Item item : addres.getItems()) {
+                        if ((item.getStatusName().equalsIgnoreCase("ACTIVE") || item.getStatusName().equalsIgnoreCase("PENDING"))
+                                && item.getSpecId() == 6) {
+                            getC().setDesignadorAcesso(item.getDesignator().getValue());
                         }
-                        t2.getItems().forEach((t3) -> {
-//                            if (t3.getStatusName().equalsIgnoreCase("ACTIVE")) {
-                                if (t3.getSpecId() == 3) {
-                                    if (getC().getInstancia() == null) {
-                                        getC().setInstancia(t3.getDesignator().getValue());
+                        for (Item item1 : item.getItems()) {
+                            if (item1.getStatusName().equalsIgnoreCase("ACTIVE") || item1.getStatusName().equalsIgnoreCase("PENDING")) {
+//                                System.out.println("type->" + item1.getDesignator().getDesignatorType().getValue() + "_des->" + item1.getDesignator().getValue());
+                                if (null != item1.getDesignator().getDesignatorType().getValue()) {
+                                    switch (item1.getDesignator().getDesignatorType().getValue()) {
+                                        case 2:
+                                            getC().setInstancia(item1.getDesignator().getValue());
+                                            break;
+                                        case 3:
+                                            getC().setDesignador(item1.getDesignator().getValue());
+                                            break;
+                                        case 4:
+                                            getC().setDesignadorTv(item1.getDesignator().getValue());
+                                            break;
+                                        default:
+                                            break;
                                     }
                                 }
-                                if (t3.getSpecId() == 4) {
-                                    getC().setDesignador(t3.getDesignator().getValue());
-                                }
-//                            }
-                        });
-                    });
-                });
-            });
+                            }
+                        }
+                    }
+                }
+            }
         }
-        
-        if (getC().getDesignador().equalsIgnoreCase(getC().getInstancia()) || getC().getDesignador().isEmpty()) {
+
+        if (getC()
+                .getDesignador().equalsIgnoreCase(getC().getInstancia()) || getC().getDesignador().isEmpty()) {
             throw new ClienteSemBandaException();
         }
     }
-    
 }

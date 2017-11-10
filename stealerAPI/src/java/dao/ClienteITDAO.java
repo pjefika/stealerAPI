@@ -10,6 +10,8 @@ import bean.ossturbonet.oss.gvt.com.GetInfoOut;
 import br.net.gvt.efika.customer.EfikaCustomer;
 import br.net.gvt.efika.customer.InventarioRede;
 import br.net.gvt.efika.customer.InventarioServico;
+import br.net.gvt.efika.enums.TecnologiaLinha;
+import br.net.gvt.efika.enums.TecnologiaTv;
 import com.gvt.ws.eai.oss.inventory.api.Account;
 import com.gvt.ws.eai.oss.inventory.api.InventoryAccountResponse;
 import com.gvt.ws.eai.oss.inventory.api.InventoryDesignatorsResponse;
@@ -161,12 +163,18 @@ public class ClienteITDAO extends AbstractOssDAO implements ConsultaEfikaCustome
                         for (com.gvt.ws.eai.oss.inventory.api.Param param : itn.getParam()) {
                             if (param.getName().equalsIgnoreCase("TecnologiaVoz")) {
                                 if (param.getValue().toUpperCase().contains("SIP")) {
-                                    i.setIsSip(Boolean.TRUE);
+                                    i.setTipoLinha(TecnologiaLinha.SIP);
                                 }
                                 if (param.getValue().toUpperCase().contains("TDM")) {
-                                    i.setIsSip(Boolean.FALSE);
+                                    i.setTipoLinha(TecnologiaLinha.TDM);
                                 }
-                                if (i.getIsSip() != null) {
+                                if (param.getValue().toUpperCase().contains("V5")) {
+                                    i.setTipoLinha(TecnologiaLinha.IMS_V5);
+                                }
+                                if (param.getValue().toUpperCase().contains("IMS/H248")) {
+                                    i.setTipoLinha(TecnologiaLinha.IMS_H248);
+                                }
+                                if (i.getTipoLinha() != null) {
                                     break;
                                 }
                             }
@@ -176,10 +184,8 @@ public class ClienteITDAO extends AbstractOssDAO implements ConsultaEfikaCustome
             });
         });
 
-        if (i.getIsSip() == null || i.getIsSip()) {
-            i.setIsSip(Boolean.TRUE);
-        } else {
-            i.setIsSip(Boolean.FALSE);
+        if (i.getTipoLinha() == null) {
+            i.setTipoLinha(TecnologiaLinha.SIP);
         }
 
     }
@@ -193,15 +199,16 @@ public class ClienteITDAO extends AbstractOssDAO implements ConsultaEfikaCustome
                             if (param.getName().equalsIgnoreCase("TecnologiaTV")) {
                                 if (param.getValue() != null) {
                                     if (param.getValue().toUpperCase().contains("BRID")) {
-                                        i.setIsHib(true);
+                                        i.setTipoTv(TecnologiaTv.HIBRIDA);
                                         return;
                                     }
                                     if (param.getValue().toUpperCase().contains("DTH")) {
-                                        i.setIsHib(false);
+                                        i.setTipoTv(TecnologiaTv.DTH);
                                         return;
                                     }
-                                    if (i.getIsHib() != null) {
-                                        break;
+                                    if (param.getValue().toUpperCase().contains("IPTV")) {
+                                        i.setTipoTv(TecnologiaTv.IPTV);
+                                        return;
                                     }
                                 }
                             }
@@ -211,9 +218,6 @@ public class ClienteITDAO extends AbstractOssDAO implements ConsultaEfikaCustome
             });
         });
 
-        if (i.getIsHib() == null) {
-            i.setIsHib(Boolean.FALSE);
-        }
 
     }
 

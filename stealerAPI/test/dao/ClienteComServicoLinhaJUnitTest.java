@@ -5,6 +5,8 @@
  */
 package dao;
 
+import br.net.gvt.efika.enums.TecnologiaLinha;
+import br.net.gvt.efika.enums.TecnologiaTv;
 import input.TestValues;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -43,7 +45,7 @@ public class ClienteComServicoLinhaJUnitTest {
     @Test
     public void sip() {
         try {
-            assertEquals(true, dao.consultar(TestValues.SIP).getServicos().getIsSip());
+            assertEquals(TecnologiaLinha.SIP, dao.consultar(TestValues.SIP).getServicos().getTipoLinha());
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -52,7 +54,7 @@ public class ClienteComServicoLinhaJUnitTest {
     @Test
     public void tdm() {
         try {
-            assertEquals(false, dao.consultar(TestValues.TDM).getServicos().getIsSip());
+            assertEquals(TecnologiaLinha.TDM, dao.consultar(TestValues.TDM).getServicos().getTipoLinha());
         } catch (Exception e) {
             fail(e.getMessage());
         }
