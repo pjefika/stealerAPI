@@ -9,10 +9,14 @@ package model.service;
  *
  * @author G0042204
  */
-public class FactoryEfikaService {
+public class FactoryService {
 
     public static EfikaCustomerService create(){
         return new EfikaCustomerServiceImpl();
+    }
+    
+    public static ChamadaBillingService createChamadaBillingService(){
+        return new ChamadaBillingServiceImpl();
     }
     
 }

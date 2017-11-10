@@ -43,6 +43,7 @@ public class TratativaAssociatedDesignators extends TratativaEfikaCustomer {
         if (r.getDesignator().size() > 2) {
             for (Designator designator : r.getDesignator()) {
 //                System.out.println("type->" + designator.getDesignatorType().getValue() + "_val->" + designator.getValue());
+
                 // Designador de Acesso
                 if (designator.getDesignatorType().getValue().equals(1)) {
                     getC().setDesignadorAcesso(designator.getValue());

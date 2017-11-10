@@ -34,6 +34,15 @@ public class AbstractHibernateDAO {
         return em;
     }
 
+    public EntityManager getEmCdrDS() {
+        if (emf == null) {
+            emf = Persistence.createEntityManagerFactory("cdrPU");
+            em = emf.createEntityManager();
+        }
+        return em;
+    }
+    
+
     public void close() {
         try {
             em.close();

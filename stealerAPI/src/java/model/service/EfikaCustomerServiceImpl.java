@@ -27,6 +27,7 @@ import util.EfikaThread;
 import dao.InventarioLinhaDAO;
 import dao.InventarioLinhaDAOPnAdminImpl;
 import dao.exception.ImpossivelIdentificarDesignadoresException;
+import util.GsonUtil;
 
 public class EfikaCustomerServiceImpl implements EfikaCustomerService {
 
@@ -43,6 +44,7 @@ public class EfikaCustomerServiceImpl implements EfikaCustomerService {
 //        ec.setInstancia(designador);
 //        ec.setDesignador(designador);
         InventoryAccountResponse accountItems = dao.getAccountItems(designador);
+        System.out.println("");
         InventoryDesignatorsResponse associatedDesignators = dao.getAssociatedDesignators(designador);
         
         
