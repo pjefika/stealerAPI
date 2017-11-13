@@ -9,6 +9,10 @@ import bean.ossturbonet.oss.gvt.com.GetInfoOut;
 import br.net.gvt.efika.customer.InventarioRede;
 import br.net.gvt.efika.customer.OrigemRede;
 import br.net.gvt.efika.customer.TipoRede;
+import com.gvt.ws.eai.oss.inventory.api.Account;
+import com.gvt.ws.eai.oss.inventory.api.Address;
+import com.gvt.ws.eai.oss.inventory.api.InventoryAccountResponse;
+import com.gvt.ws.eai.oss.inventory.api.Item;
 
 /**
  *
@@ -30,6 +34,8 @@ public class InventarioRedeAdapter {
         } catch (Exception e) {
             r.setTipo(null);
         }
+
+        
 
         r.setVendorDslam(out.getInfoTBS().getDslamModel());
         r.setModeloDslam(out.getInfoTBS().getDslamVendor());

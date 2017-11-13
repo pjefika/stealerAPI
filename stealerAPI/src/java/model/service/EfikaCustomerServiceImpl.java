@@ -7,11 +7,11 @@ package model.service;
 
 import bean.ossturbonet.oss.gvt.com.GetInfoOut;
 import br.net.gvt.efika.customer.EfikaCustomer;
+import br.net.gvt.efika.customer.OrigemPlanta;
 import com.gvt.ws.eai.oss.inventory.api.InventoryAccountResponse;
 import com.gvt.ws.eai.oss.inventory.api.InventoryDesignatorsResponse;
 import com.gvt.www.ws.eai.oss.OSSTurbonetStatusConexao.OSSTurbonetStatusConexaoOut;
 import com.gvt.www.ws.eai.oss.gpon.ConsultInfoGponOut;
-import dao.ClienteITDAO;
 import dao.FactoryDAO;
 import dao.exception.ClienteSemBandaException;
 import dao.exception.InstanciaInvalidaException;
@@ -27,7 +27,6 @@ import util.EfikaThread;
 import dao.InventarioLinhaDAO;
 import dao.InventarioLinhaDAOPnAdminImpl;
 import dao.exception.ImpossivelIdentificarDesignadoresException;
-import util.GsonUtil;
 
 public class EfikaCustomerServiceImpl implements EfikaCustomerService {
 
@@ -46,27 +45,24 @@ public class EfikaCustomerServiceImpl implements EfikaCustomerService {
         InventoryAccountResponse accountItems = dao.getAccountItems(designador);
         System.out.println("");
         InventoryDesignatorsResponse associatedDesignators = dao.getAssociatedDesignators(designador);
-        
-        
+
         EfikaThread t0 = new EfikaThread(new TratativaAssociatedDesignators(associatedDesignators, ec, accountItems));
 
-        while(t0.isAlive()){
+        while (t0.isAlive()) {
             Thread.sleep(2000);
         }
-        
 
         try {
             t0.possuiException();
-            EfikaThread t1 = new EfikaThread(new TratativaInventarioRede(getInfo(), ec));
-            System.out.println("eee"+ec.getDesignadorTv());
             EfikaThread t2 = new EfikaThread(new TratativaInventarioServicos(accountItems, ec));
-            EfikaThread t3 = new EfikaThread(new TratativaInventarioLinha(linha.consultar(ec.getInstancia()), ec));
-
-            t1.join();
             t2.join();
-            t3.join();
-
-            ec.setAsserts(new AssertFacadeFulltestCRM(getInfo()).assertThese());
+            if (ec.getRede().getPlanta() == OrigemPlanta.VIVO2) {
+                EfikaThread t1 = new EfikaThread(new TratativaInventarioRede(getInfo(), ec));
+                EfikaThread t3 = new EfikaThread(new TratativaInventarioLinha(linha.consultar(ec.getInstancia()), ec));
+                t1.join();
+                t3.join();
+                ec.setAsserts(new AssertFacadeFulltestCRM(getInfo()).assertThese());
+            }
 
         } catch (Exception e) {
 

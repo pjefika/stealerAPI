@@ -13,7 +13,7 @@ import model.domain.InventarioRedeAdapter;
  *
  * @author G0042204
  */
-public class TratativaInventarioRede extends TratativaEfikaCustomer{
+public class TratativaInventarioRede extends TratativaEfikaCustomer {
 
     private final GetInfoOut info;
 

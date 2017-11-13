@@ -6,6 +6,7 @@
 package model.service.tratativa;
 
 import br.net.gvt.efika.customer.EfikaCustomer;
+import com.gvt.ws.eai.oss.inventory.api.InventoryAccountResponse;
 
 /**
  *
@@ -14,6 +15,8 @@ import br.net.gvt.efika.customer.EfikaCustomer;
 public abstract class TratativaEfikaCustomer implements Tratativa, Runnable {
 
     private EfikaCustomer c;
+    
+    protected InventoryAccountResponse account;
 
     public TratativaEfikaCustomer(EfikaCustomer c) {
         this.c = c;
