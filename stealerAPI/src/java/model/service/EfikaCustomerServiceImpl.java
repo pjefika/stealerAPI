@@ -33,34 +33,30 @@ import dao.exception.ImpossivelIdentificarDesignadoresException;
 
 public class EfikaCustomerServiceImpl implements EfikaCustomerService {
 
-    private EfikaCustomer ec = new EfikaCustomer();
+    private EfikaCustomer ec;
 
-    private OSSGenericDAO dao = FactoryDAO.createOSS();
+    private OSSGenericDAO dao;
 
-    private InventarioLinhaDAO linha = new InventarioLinhaDAOPnAdminImpl();
+    private InventarioLinhaDAO linha;
 
     private GetInfoOut info;
 
     @Override
     public synchronized EfikaCustomer consultar(String designador) throws Exception {
-//        ec.setInstancia(designador);
-//        ec.setDesignador(designador);
+        ec = new EfikaCustomer();
+        dao = FactoryDAO.createOSS();
         InventoryAccountResponse accountItems = dao.getAccountItems(designador);
         InventoryDesignatorsResponse associatedDesignators = dao.getAssociatedDesignators(designador);
 
         EfikaThread t0 = new EfikaThread(new TratativaAssociatedDesignators(associatedDesignators, ec, accountItems));
-
-        while (t0.isAlive()) {
-            Thread.sleep(2000);
-        }
-
         try {
+            t0.join();
             t0.possuiException();
             EfikaThread t2 = new EfikaThread(new TratativaInventarioServicos(accountItems, ec));
             t2.join();
             if (ec.getRede().getPlanta() == OrigemPlanta.VIVO2) {
                 EfikaThread t1 = new EfikaThread(new TratativaInventarioRede(getInfo(), ec));
-                EfikaThread t3 = new EfikaThread(new TratativaInventarioLinha(linha.consultar(ec.getInstancia()), ec));
+                EfikaThread t3 = new EfikaThread(new TratativaInventarioLinha(linha().consultar(ec.getInstancia()), ec));
                 t1.join();
                 t3.join();
                 ec.setAsserts(new AssertFacadeFulltestCRM(getInfo()).assertThese());
@@ -76,20 +72,25 @@ public class EfikaCustomerServiceImpl implements EfikaCustomerService {
             }
 
         } catch (Exception e) {
-
             if (e.getCause() instanceof InstanciaInvalidaException || e.getCause() instanceof ImpossivelIdentificarDesignadoresException) {
                 throw e;
             }
-
             if (e.getCause() instanceof ClienteSemBandaException) {
                 EfikaThread t2 = new EfikaThread(new TratativaInventarioServicos(dao.getAccountItems(ec.getDesignador()), ec));
-                EfikaThread t3 = new EfikaThread(new TratativaInventarioLinha(linha.consultar(ec.getInstancia()), ec));
+                EfikaThread t3 = new EfikaThread(new TratativaInventarioLinha(linha().consultar(ec.getInstancia()), ec));
                 t2.join();
                 t3.join();
             }
         }
 
         return ec;
+    }
+
+    public InventarioLinhaDAO linha() {
+        if (linha == null) {
+            linha = new InventarioLinhaDAOPnAdminImpl();
+        }
+        return linha;
     }
 
     public GetInfoOut getInfo() {
