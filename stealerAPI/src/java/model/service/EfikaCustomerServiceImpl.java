@@ -7,6 +7,7 @@ package model.service;
 
 import bean.ossturbonet.oss.gvt.com.GetInfoOut;
 import br.net.gvt.efika.customer.EfikaCustomer;
+import br.net.gvt.efika.customer.InventarioRede;
 import br.net.gvt.efika.customer.OrigemPlanta;
 import com.gvt.ws.eai.oss.inventory.api.InventoryAccountResponse;
 import com.gvt.ws.eai.oss.inventory.api.InventoryDesignatorsResponse;
@@ -26,6 +27,8 @@ import model.service.tratativa.TratativaInventarioServicos;
 import util.EfikaThread;
 import dao.InventarioLinhaDAO;
 import dao.InventarioLinhaDAOPnAdminImpl;
+import dao.NetworkInventoryDAO;
+import dao.NetworkInventoryDAOImpl;
 import dao.exception.ImpossivelIdentificarDesignadoresException;
 
 public class EfikaCustomerServiceImpl implements EfikaCustomerService {
@@ -43,7 +46,6 @@ public class EfikaCustomerServiceImpl implements EfikaCustomerService {
 //        ec.setInstancia(designador);
 //        ec.setDesignador(designador);
         InventoryAccountResponse accountItems = dao.getAccountItems(designador);
-        System.out.println("");
         InventoryDesignatorsResponse associatedDesignators = dao.getAssociatedDesignators(designador);
 
         EfikaThread t0 = new EfikaThread(new TratativaAssociatedDesignators(associatedDesignators, ec, accountItems));
@@ -62,6 +64,15 @@ public class EfikaCustomerServiceImpl implements EfikaCustomerService {
                 t1.join();
                 t3.join();
                 ec.setAsserts(new AssertFacadeFulltestCRM(getInfo()).assertThese());
+            } else {
+                EfikaThread t4 = new EfikaThread(() -> {
+                    try {
+                        NetworkInventoryDAO instance = new NetworkInventoryDAOImpl();
+                        ec.setRede(instance.consultar(ec.getInstancia()));
+                    } catch (Exception ex) {
+                        Logger.getLogger(EfikaCustomerServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                });
             }
 
         } catch (Exception e) {
