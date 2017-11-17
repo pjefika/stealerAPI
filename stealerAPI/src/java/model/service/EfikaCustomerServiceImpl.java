@@ -9,6 +9,7 @@ import bean.ossturbonet.oss.gvt.com.GetInfoOut;
 import br.net.gvt.efika.customer.EfikaCustomer;
 import br.net.gvt.efika.customer.InventarioRede;
 import br.net.gvt.efika.customer.OrigemPlanta;
+import br.net.gvt.efika.customer.OrigemRede;
 import com.gvt.ws.eai.oss.inventory.api.InventoryAccountResponse;
 import com.gvt.ws.eai.oss.inventory.api.InventoryDesignatorsResponse;
 import com.gvt.www.ws.eai.oss.OSSTurbonetStatusConexao.OSSTurbonetStatusConexaoOut;
@@ -64,11 +65,14 @@ public class EfikaCustomerServiceImpl implements EfikaCustomerService {
                 EfikaThread t4 = new EfikaThread(() -> {
                     try {
                         NetworkInventoryDAO instance = new NetworkInventoryDAOImpl();
-                        ec.setRede(instance.consultar(ec.getInstancia()));
+                        InventarioRede rede = instance.consultar(ec.getInstancia());
+                        rede.setOrigem(OrigemRede.ONLINE);
+                        ec.setRede(rede);
                     } catch (Exception ex) {
                         Logger.getLogger(EfikaCustomerServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 });
+                t4.join();
             }
 
         } catch (Exception e) {
