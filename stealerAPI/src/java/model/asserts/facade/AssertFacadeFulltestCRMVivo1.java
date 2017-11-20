@@ -26,8 +26,8 @@ public class AssertFacadeFulltestCRMVivo1 extends AbstractAssertFacade {
     public void afirmar() {
         try {
             adicionarAssert(new AssertInventarioRede(cust.getRede()).claim());
-            adicionarAssert(new CustomerAssert(AssertsEnum.DIVERGENCIA_TBS_RADIUS, Boolean.TRUE));
-            adicionarAssert(new CustomerAssert(AssertsEnum.HAS_BLOQUEIO_RADIUS, Boolean.TRUE));
+            adicionarAssert(new CustomerAssert(AssertsEnum.DIVERGENCIA_TBS_RADIUS, Boolean.FALSE));
+            adicionarAssert(new CustomerAssert(AssertsEnum.HAS_BLOQUEIO_RADIUS, Boolean.FALSE));
         } catch (Exception e) {
         }
     }
