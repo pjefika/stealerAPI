@@ -5,7 +5,6 @@
  */
 package model.asserts;
 
-import bean.ossturbonet.oss.gvt.com.InfoRadius;
 import br.net.gvt.efika.asserts.AssertsEnum;
 import br.net.gvt.efika.asserts.EfikaAssertable;
 import br.net.gvt.efika.customer.CustomerAssert;
@@ -26,15 +25,13 @@ public class AssertInventarioRede extends AssertAbstract implements EfikaAsserta
 
     @Override
     public CustomerAssert claim() {
-
-        try {
-            if (rede != null) {
-                return new CustomerAssert(as, Boolean.TRUE);
-            } else {
+        if (rede == null) {
+            return new CustomerAssert(as, Boolean.FALSE);
+        } else {
+            if (rede.getIpDslam() == null || rede.getModeloDslam() == null) {
                 return new CustomerAssert(as, Boolean.FALSE);
             }
-        } catch (NullPointerException e) {
-            return new CustomerAssert(as, Boolean.FALSE);
+            return new CustomerAssert(as, Boolean.TRUE);
         }
     }
 }
