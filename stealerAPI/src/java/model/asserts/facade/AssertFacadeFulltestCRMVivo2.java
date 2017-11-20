@@ -14,11 +14,11 @@ import model.asserts.AssertTbsRadiusDivergencia;
  *
  * @author G0042204
  */
-public class AssertFacadeFulltestCRM extends AbstractAssertFacade {
+public class AssertFacadeFulltestCRMVivo2 extends AbstractAssertFacade {
 
     private final GetInfoOut info;
 
-    public AssertFacadeFulltestCRM(GetInfoOut info) {
+    public AssertFacadeFulltestCRMVivo2(GetInfoOut info) {
         this.info = info;
     }
 

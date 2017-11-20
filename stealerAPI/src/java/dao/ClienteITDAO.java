@@ -20,7 +20,7 @@ import dao.exception.CircuitoNaoEncontradoException;
 import dao.exception.ClienteSemBandaException;
 import dao.exception.InstanciaInvalidaException;
 import exception.ossturbonet.oss.gvt.com.OSSTurbonetException;
-import model.asserts.facade.AssertFacadeFulltestCRM;
+import model.asserts.facade.AssertFacadeFulltestCRMVivo2;
 import model.domain.InventarioRedeAdapter;
 import model.service.tratativa.TratativaAssociatedDesignators;
 
@@ -54,7 +54,7 @@ public class ClienteITDAO extends AbstractOssDAO implements ConsultaEfikaCustome
         //bloco de try adicionado para que retorne cliente apenas com servicos ou apenas rede ao invés de extourar exception
         try {
             c.setRede(consultarInventarioRede(c.getDesignador()));
-            c.setAsserts(new AssertFacadeFulltestCRM(info).assertThese());
+            c.setAsserts(new AssertFacadeFulltestCRMVivo2(info).assertThese());
         } catch (OSSTurbonetException e) {
             e.printStackTrace();
             String erro = e.getFaultString();
