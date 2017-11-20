@@ -9,7 +9,7 @@ import br.net.gvt.efika.customer.CustomerAssert;
 import dao.FactoryDAO;
 import dao.OssTurbonetDAOInterface;
 import java.util.List;
-import model.asserts.facade.AssertFacadeFulltestCRM;
+import model.asserts.facade.AssertFacadeFulltestCRMVivo2;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -52,7 +52,7 @@ public class AssertITImplIT {
 
         try {
             System.out.println("get");
-            Assertter instance = new AssertFacadeFulltestCRM(oss.getInfo("VPIO-3019VQ1I6-013"));
+            Assertter instance = new AssertFacadeFulltestCRMVivo2(oss.getInfo("VPIO-3019VQ1I6-013"));
             List<CustomerAssert> expResult = null;
             List<CustomerAssert> result = instance.assertThese();
             System.out.println("dev");

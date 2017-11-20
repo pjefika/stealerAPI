@@ -20,7 +20,7 @@ import dao.exception.InstanciaInvalidaException;
 import dao.oss.OSSGenericDAO;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import model.asserts.facade.AssertFacadeFulltestCRM;
+import model.asserts.facade.AssertFacadeFulltestCRMVivo2;
 import model.service.tratativa.TratativaAssociatedDesignators;
 import model.service.tratativa.TratativaInventarioLinha;
 import model.service.tratativa.TratativaInventarioRede;
@@ -31,6 +31,7 @@ import dao.InventarioLinhaDAOPnAdminImpl;
 import dao.NetworkInventoryDAO;
 import dao.NetworkInventoryDAOImpl;
 import dao.exception.ImpossivelIdentificarDesignadoresException;
+import model.asserts.facade.AssertFacadeFulltestCRMVivo1;
 
 public class EfikaCustomerServiceImpl implements EfikaCustomerService {
 
@@ -60,7 +61,7 @@ public class EfikaCustomerServiceImpl implements EfikaCustomerService {
                 EfikaThread t3 = new EfikaThread(new TratativaInventarioLinha(linha().consultar(ec.getInstancia()), ec));
                 t1.join();
                 t3.join();
-                ec.setAsserts(new AssertFacadeFulltestCRM(getInfo()).assertThese());
+                ec.setAsserts(new AssertFacadeFulltestCRMVivo2(getInfo()).assertThese());
             } else {
                 EfikaThread t4 = new EfikaThread(() -> {
                     try {
@@ -73,6 +74,7 @@ public class EfikaCustomerServiceImpl implements EfikaCustomerService {
                     }
                 });
                 t4.join();
+                ec.setAsserts(new AssertFacadeFulltestCRMVivo1(ec).assertThese());
             }
 
         } catch (Exception e) {

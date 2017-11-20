@@ -13,6 +13,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import util.GsonUtil;
 
 /**
  *
@@ -47,10 +48,10 @@ public class WorkOrderDAOInterfaceIT {
 
         try {
             System.out.println("getWorkOrder");
-            String workOrderId = "8-2Q6NY8OG";
+            String workOrderId = "8-3MA0LO5H";
             WorkOrderDAOInterface instance = new WorkOrderDAO();
             WorkOrder result = instance.getWorkOrder(workOrderId);
-            System.out.println("");
+            System.out.println(GsonUtil.serialize(result));
             assertTrue(!result.getStatus().isEmpty());
         } catch (Exception e) {
             fail(e.getMessage());
@@ -63,10 +64,10 @@ public class WorkOrderDAOInterfaceIT {
 
         try {
             System.out.println("getWorkDetails");
-            String workOrderId = "43079135";
+            String workOrderId = "50348353";
             WorkOrderDAOInterface instance = new WorkOrderDAO();
             GetWorkDetailsOut result = instance.getWorkDetails(workOrderId);
-            System.out.println("");
+            System.out.println(GsonUtil.serialize(result));
         } catch (Exception e) {
             fail(e.getMessage());
         }
