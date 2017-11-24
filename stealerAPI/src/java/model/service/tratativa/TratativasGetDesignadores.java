@@ -71,7 +71,7 @@ public class TratativasGetDesignadores {
                     }
                     for (Item item1 : item.getItems()) {
                         if (item1.getStatusName().equalsIgnoreCase("ACTIVE") || item1.getStatusName().equalsIgnoreCase("PENDING")) {
-//                                System.out.println("type->" + item1.getDesignator().getDesignatorType().getValue() + "_des->" + item1.getDesignator().getValue());
+//                                System.out.println("letype->" + item1.getDesignator().getDesignatorType().getValue() + "_des->" + item1.getDesignator().getValue());
                             if (null != item1.getDesignator().getDesignatorType().getValue()) {
                                 switch (item1.getDesignator().getDesignatorType().getValue()) {
                                     case 2:

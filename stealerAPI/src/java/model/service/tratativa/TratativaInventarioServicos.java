@@ -48,13 +48,15 @@ public class TratativaInventarioServicos extends TratativaEfikaCustomer {
         for (Account account1 : account.getAccounts()) {
             for (Address addres : account1.getAddress()) {
                 for (Item item : addres.getItems()) {
-                    for (Param param : item.getParam()) {
-                        if (param.getName().equalsIgnoreCase("NetworkOwner")) {
-                            OrigemPlanta planta = param.getValue().equalsIgnoreCase("VIVO1") ? OrigemPlanta.VIVO1 : OrigemPlanta.VIVO2;
-                            getC().getRede().setPlanta(planta);
-                        }
-                        if (param.getName().equalsIgnoreCase("NetworkOwnerId")) {
-                            getC().setInstancia(param.getValue());
+                    if (item.getStatusName().equalsIgnoreCase("ACTIVE") || item.getStatusName().equalsIgnoreCase("PENDING")) {
+                        for (Param param : item.getParam()) {
+                            if (param.getName().equalsIgnoreCase("NetworkOwner")) {
+                                OrigemPlanta planta = param.getValue().equalsIgnoreCase("VIVO1") ? OrigemPlanta.VIVO1 : OrigemPlanta.VIVO2;
+                                getC().getRede().setPlanta(planta);
+                            }
+                            if (param.getName().equalsIgnoreCase("NetworkOwnerId")) {
+                                getC().setInstancia(param.getValue());
+                            }
                         }
                     }
                 }
