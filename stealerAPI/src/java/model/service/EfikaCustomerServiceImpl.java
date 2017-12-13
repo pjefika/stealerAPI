@@ -112,12 +112,20 @@ public class EfikaCustomerServiceImpl implements EfikaCustomerService {
 
     @Override
     public OSSTurbonetStatusConexaoOut getAutenticacaoByMacOrIp(String str) throws Exception {
-        return dao.getAuth(str);
+        return getDao().getAuth(str);
     }
 
     @Override
     public ConsultInfoGponOut getInfoGpon(String instancia) throws Exception {
-        return dao.getInfoGpon(instancia);
+        return getDao().getInfoGpon(instancia);
+    }
+
+    public OSSGenericDAO getDao() {
+        return dao == null ? FactoryDAO.createOSS() : dao;
+    }
+
+    public void setDao(OSSGenericDAO dao) {
+        this.dao = dao;
     }
 
 }
