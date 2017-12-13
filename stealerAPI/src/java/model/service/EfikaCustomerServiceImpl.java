@@ -112,7 +112,20 @@ public class EfikaCustomerServiceImpl implements EfikaCustomerService {
 
     @Override
     public OSSTurbonetStatusConexaoOut getAutenticacaoByMacOrIp(String str) throws Exception {
-        return getDao().getAuth(str);
+
+        OSSTurbonetStatusConexaoOut auth = getDao().getAuth(str);
+        int i = 0;
+        while (auth == null) {
+            auth = getDao().getAuth(str);
+            i++;
+            System.out.println(i);
+            if (i > 5) {
+                throw new Exception("Falha na consulta autenticação via OSS.");
+            }
+        }
+
+        return auth;
+
     }
 
     @Override
