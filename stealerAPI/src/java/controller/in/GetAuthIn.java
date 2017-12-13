@@ -13,14 +13,14 @@ import model.entity.LoggerIn;
  */
 public class GetAuthIn extends LoggerIn {
 
-    private String mac;
+    private String macOrIp;
 
     public GetAuthIn() {
     }
 
     @Override
     public String getInput() {
-        return "{\"macOrIp\":\"" + mac + "\"}";
+        return "{\"macOrIp\":\"" + macOrIp + "\"}";
     }
 
     @Override
@@ -29,11 +29,11 @@ public class GetAuthIn extends LoggerIn {
     }
 
     public String getMacOrIp() {
-        return mac;
+        return macOrIp;
     }
 
     public void setMacOrIp(String macOrIp) {
-        this.mac = macOrIp;
+        this.macOrIp = macOrIp;
     }
 
 }
