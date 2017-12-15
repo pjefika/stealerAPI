@@ -12,6 +12,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import util.GsonUtil;
 
 /**
  *
@@ -48,6 +49,7 @@ public class EfikaCustomerInterfaceIT {
             String param1 = "CTA-81MMWYSLO-013";
             ConsultaEfikaCustomer instance = FactoryDAO.createClienteDAO();
             EfikaCustomer result = instance.consultar(param1);
+            System.out.println(GsonUtil.serialize(result));
             assertTrue(result != null);
         } catch (Exception e) {
             fail(e.getMessage());

@@ -8,6 +8,7 @@ package dao;
 
 import bean.ossturbonet.oss.gvt.com.GetInfoOut;
 import br.net.gvt.efika.customer.EfikaCustomer;
+import br.net.gvt.efika.customer.InventarioRadius;
 import br.net.gvt.efika.customer.InventarioRede;
 import br.net.gvt.efika.customer.InventarioServico;
 import br.net.gvt.efika.enums.TecnologiaLinha;
@@ -21,6 +22,7 @@ import dao.exception.ClienteSemBandaException;
 import dao.exception.InstanciaInvalidaException;
 import exception.ossturbonet.oss.gvt.com.OSSTurbonetException;
 import model.asserts.facade.AssertFacadeFulltestCRMVivo2;
+import model.domain.InventarioRadiusAdapter;
 import model.domain.InventarioRedeAdapter;
 import model.service.tratativa.TratativaAssociatedDesignators;
 
@@ -54,6 +56,7 @@ public class ClienteITDAO extends AbstractOssDAO implements ConsultaEfikaCustome
         //bloco de try adicionado para que retorne cliente apenas com servicos ou apenas rede ao invés de extourar exception
         try {
             c.setRede(consultarInventarioRede(c.getDesignador()));
+            c.setRadius(consultarInventarioRadius(c.getDesignador()));
             c.setAsserts(new AssertFacadeFulltestCRMVivo2(info).assertThese());
         } catch (OSSTurbonetException e) {
             e.printStackTrace();
@@ -218,12 +221,16 @@ public class ClienteITDAO extends AbstractOssDAO implements ConsultaEfikaCustome
             });
         });
 
-
     }
 
     @Override
     public InventarioRede consultarInventarioRede(String param1) throws Exception {
         return InventarioRedeAdapter.adapter(getInfo(param1));
+    }
+
+    @Override
+    public InventarioRadius consultarInventarioRadius(String instancia) throws Exception {
+        return InventarioRadiusAdapter.adapter(getInfo(instancia));
     }
 
 }
