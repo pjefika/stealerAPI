@@ -5,14 +5,14 @@
  */
 package dao;
 
-import br.net.gvt.efika.customer.EfikaCustomer;
+import br.net.gvt.efika.customer.InventarioRadius;
 
 /**
  *
  * @author G0042204
  */
-public interface ConsultaEfikaCustomer extends InventarioRedeDAO, InventarioServicoDAO, InventarioRadiusDAO {
+public interface InventarioRadiusDAO {
 
-    public EfikaCustomer consultar(String param1) throws Exception;
+    public InventarioRadius consultarInventarioRadius(String instancia) throws Exception;
 
 }
