@@ -32,6 +32,7 @@ import dao.NetworkInventoryDAO;
 import dao.NetworkInventoryDAOImpl;
 import dao.exception.ImpossivelIdentificarDesignadoresException;
 import model.asserts.facade.AssertFacadeFulltestCRMVivo1;
+import model.service.tratativa.TratativaInventarioRadius;
 
 public class EfikaCustomerServiceImpl implements EfikaCustomerService {
 
@@ -58,9 +59,11 @@ public class EfikaCustomerServiceImpl implements EfikaCustomerService {
             t2.join();
             if (ec.getRede().getPlanta() == OrigemPlanta.VIVO2) {
                 EfikaThread t1 = new EfikaThread(new TratativaInventarioRede(getInfo(), ec));
+                EfikaThread t5 = new EfikaThread(new TratativaInventarioRadius(getInfo(), ec));
                 EfikaThread t3 = new EfikaThread(new TratativaInventarioLinha(linha().consultar(ec.getInstancia()), ec));
                 t1.join();
                 t3.join();
+                t5.join();
                 ec.setAsserts(new AssertFacadeFulltestCRMVivo2(getInfo()).assertThese());
             } else {
                 EfikaThread t4 = new EfikaThread(() -> {

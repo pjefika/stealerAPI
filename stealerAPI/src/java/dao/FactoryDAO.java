@@ -15,10 +15,6 @@ import model.entity.Log;
  */
 public class FactoryDAO {
 
-    public static ConsultaEfikaCustomer createClienteDAO() {
-        return new ClienteITDAO();
-    }
-
     public static InterfaceDAO<EfikaCustomer> createInterfaceClienteDAO() {
         return null;
     }
