@@ -51,14 +51,15 @@ public class NetworkInventoryDAOImpl implements NetworkInventoryDAO {
             throw new Exception("Cadastro não encontrado na networkInventory");
         }
 
-        InputStream instream1 = response1.getEntity().getContent();
-        BufferedReader rd1 = new BufferedReader(new InputStreamReader(response1.getEntity().getContent()));
-        StringBuffer result1 = new StringBuffer();
-        String line1 = "";
-        while ((line1 = rd1.readLine()) != null) {
-            result1.append(line1);
+        StringBuffer result1;
+        try (InputStream instream1 = response1.getEntity().getContent()) {
+            BufferedReader rd1 = new BufferedReader(new InputStreamReader(response1.getEntity().getContent()));
+            result1 = new StringBuffer();
+            String line1 = "";
+            while ((line1 = rd1.readLine()) != null) {
+                result1.append(line1);
+            }
         }
-        instream1.close();
 
         Gson g1 = new Gson();
         EfikaCustomer ec1 = g1.fromJson(result1.toString(), EfikaCustomer.class);
