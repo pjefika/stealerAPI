@@ -49,7 +49,7 @@ public class EventosMassivosDAOImplIT {
     @Test
     public void testConsultar() throws Exception {
         System.out.println("consultar");
-        String param1 = "1126685505";
+        String param1 = "1110226652";
         EfikaCustomerService instance0 = new EfikaCustomerServiceImpl();
         EfikaCustomer cust = instance0.consultar(param1);
         EventosMassivosDAOImpl instance = new EventosMassivosDAOImpl();

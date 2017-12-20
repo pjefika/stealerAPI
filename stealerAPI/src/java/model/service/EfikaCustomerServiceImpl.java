@@ -80,16 +80,16 @@ public class EfikaCustomerServiceImpl implements EfikaCustomerService {
                         Logger.getLogger(EfikaCustomerServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 });
+                t4.join();
                 EfikaThread t6 = new EfikaThread(() -> {
                     try {
-                        EventosMassivosDAO instance = new EventosMassivosDAOImpl();
-                        List<EventoMassivo> lEm = instance.consultar(ec);
+                        EventosMassivosDAO instance0 = new EventosMassivosDAOImpl();
+                        List<EventoMassivo> lEm = instance0.consultar(ec);
                         ec.setEventos(lEm);
                     } catch (Exception ex) {
                         Logger.getLogger(EfikaCustomerServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 });
-                t4.join();
                 t6.join();
                 ec.setAsserts(new AssertFacadeFulltestCRMVivo1(ec).assertThese());
             }
