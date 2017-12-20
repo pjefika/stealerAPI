@@ -63,9 +63,9 @@ public class EfikaCustomerController implements EfikaCustomerRestInter {
         try {
             EfikaCustomerService instance = new EfikaCustomerServiceImpl();
             OSSTurbonetStatusConexaoOut autenticacaoByMacOrIp = instance.getAutenticacaoByMacOrIp(in.getMacOrIp());
-            String persistOut = GsonUtil.serialize(autenticacaoByMacOrIp);
             try {
                 Log l = new Log(in);
+                String persistOut = GsonUtil.serialize(autenticacaoByMacOrIp);
                 l.setOuput(persistOut);
                 ldao = FactoryDAO.createLogDAO();
                 ldao.cadastrar(l);

@@ -13,10 +13,18 @@ import com.google.gson.Gson;
  */
 public class GsonUtil {
 
-    private static final Gson gson = new Gson();
+    private Gson gson;
+
+    public static Gson getGson() {
+        return new Gson();
+    }
+
+    public void setGson(Gson gson) {
+        this.gson = gson;
+    }
 
     public static String serialize(Object ob) {
-        return gson.toJson(ob, ob.getClass());
+        return getGson().toJson(ob, ob.getClass());
     }
 
 }

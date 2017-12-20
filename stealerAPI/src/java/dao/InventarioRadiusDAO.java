@@ -5,6 +5,7 @@
  */
 package dao;
 
+import bean.ossturbonet.oss.gvt.com.GetInfoOut;
 import br.net.gvt.efika.customer.InventarioRadius;
 
 /**
@@ -13,6 +14,6 @@ import br.net.gvt.efika.customer.InventarioRadius;
  */
 public interface InventarioRadiusDAO {
 
-    public InventarioRadius consultarInventarioRadius(String instancia) throws Exception;
+    public InventarioRadius consultarInventarioRadius(GetInfoOut info) throws Exception;
 
 }

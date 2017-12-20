@@ -25,7 +25,7 @@ public class InventarioRadiusAdapter {
         rad.setArmario(out.getInfoRadius().getCabinet());
         rad.setIpFixo(out.getInfoRadius().getIpProfissional());
         rad.setIsIpFixo(out.getInfoRadius().isProfissional());
-        rad.setPorta(out.getInfoRadius().getRadiusPort());
+        rad.setPorta(new Integer(out.getInfoRadius().getRadiusPort()).toString());
         rad.setProfile(out.getInfoRadius().getRadiusProfile());
         rad.setRin(out.getInfoRadius().getRin());
         rad.setStatus(out.getInfoRadius().getStatus());

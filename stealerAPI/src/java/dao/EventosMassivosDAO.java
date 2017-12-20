@@ -6,13 +6,15 @@
 package dao;
 
 import br.net.gvt.efika.customer.EfikaCustomer;
+import br.net.gvt.efika.customer.EventoMassivo;
+import java.util.List;
 
 /**
  *
  * @author G0042204
  */
-public interface ConsultaEfikaCustomer extends InventarioRedeDAO, InventarioServicoDAO, InventarioRadiusDAO {
+public interface EventosMassivosDAO {
 
-    public EfikaCustomer consultar(String param1) throws Exception;
+    public List<EventoMassivo> consultar(EfikaCustomer cust) throws Exception;
 
 }
