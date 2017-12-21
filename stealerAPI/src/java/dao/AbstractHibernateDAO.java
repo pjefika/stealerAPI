@@ -27,11 +27,17 @@ public class AbstractHibernateDAO {
     }
 
     public EntityManager getEm() {
-        if (emf == null) {
-            emf = Persistence.createEntityManagerFactory("stealerAPIPU");
-            em = emf.createEntityManager();
+        if (em == null) {
+            em = getEmf().createEntityManager();
         }
         return em;
+    }
+
+    public EntityManagerFactory getEmf() {
+        if (emf == null) {
+            emf = Persistence.createEntityManagerFactory("stealerAPIPU");
+        }
+        return emf;
     }
 
     public EntityManager getEmCdrDS() {
@@ -41,21 +47,15 @@ public class AbstractHibernateDAO {
         }
         return em;
     }
-    
 
     public void close() {
         try {
             em.close();
-           
         } catch (Exception e) {
-            System.out.println("EMCLOSE");
-            e.printStackTrace();
         }
         try {
-             emf.close();
+            emf.close();
         } catch (Exception e) {
-            System.out.println("EMFCLOSE");
-            e.printStackTrace();
         }
     }
 
