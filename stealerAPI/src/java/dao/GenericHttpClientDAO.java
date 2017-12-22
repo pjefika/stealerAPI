@@ -33,7 +33,7 @@ public class GenericHttpClientDAO {
             PoolingHttpClientConnectionManager cm = new PoolingHttpClientConnectionManager();
             cm.setMaxTotal(1);
             cm.setDefaultMaxPerRoute(1);
-            HttpHost ip = new HttpHost("10.40.195.81", 8080);
+            HttpHost ip = new HttpHost("10.200.35.67", 80);
             cm.setMaxPerRoute(new HttpRoute(ip), 50);
 
             // Cookies
@@ -46,7 +46,7 @@ public class GenericHttpClientDAO {
                     .setDefaultRequestConfig(globalConfig)
                     .build();
 
-            HttpGet httpget = new HttpGet("http://10.40.195.81:8080/networkInventoryAPI/networkInventory/" + instancia);
+            HttpGet httpget = new HttpGet("http://10.200.35.67:80/networkInventoryAPI/networkInventory/" + instancia);
             httpget.setHeader(HttpHeaders.CONTENT_TYPE, "text/html");
             CloseableHttpResponse response = httpclient.execute(httpget);
             InputStream instream = response.getEntity().getContent();

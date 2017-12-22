@@ -12,7 +12,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.List;
 import model.entity.EventosMassivos;
-import oracle.net.aso.g;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -27,7 +26,7 @@ public class EventosMassivosDAOImpl extends HttpDAO implements EventosMassivosDA
     @Override
     public List<EventoMassivo> consultar(EfikaCustomer cust) throws Exception {
         HttpClient httpcliente = HttpClients.createDefault();
-        HttpPost httppost = new HttpPost("http://10.40.195.81:8080/plrestAPI/eventosMassivos/afetaCliente");
+        HttpPost httppost = new HttpPost("http://10.200.35.67:80/plrestAPI/eventosMassivos/afetaCliente");
 
         // Request parameters and other properties.
         StringEntity param = new StringEntity("{\"cust\": " + GsonUtil.serialize(cust) + " , \"executor\": \"stealerAPI\"}");
