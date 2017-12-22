@@ -12,7 +12,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.List;
 import model.entity.EventosMassivos;
-import oracle.net.aso.g;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -49,10 +48,8 @@ public class EventosMassivosDAOImpl extends HttpDAO implements EventosMassivosDA
         }
         System.out.println("leResult->"+result.toString());
         instream.close();
-        ObjectMapper mapper = new ObjectMapper();
         
-        EventosMassivos evM = mapper.readValue(result.toString(), EventosMassivos.class);
-
+        EventosMassivos evM = new ObjectMapper().readValue(result.toString(), EventosMassivos.class);
         return evM.getEventos();
     }
 

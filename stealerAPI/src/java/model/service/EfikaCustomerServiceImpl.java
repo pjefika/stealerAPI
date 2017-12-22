@@ -73,9 +73,10 @@ public class EfikaCustomerServiceImpl implements EfikaCustomerService {
                 EfikaThread t4 = new EfikaThread(() -> {
                     try {
                         NetworkInventoryDAO instance = new NetworkInventoryDAOImpl();
-                        InventarioRede rede = instance.consultar(ec.getInstancia());
-                        rede.setOrigem(OrigemRede.ONLINE);
-                        ec.setRede(rede);
+                        EfikaCustomer cst2 = instance.consultar(ec.getInstancia());
+                        cst2.getRede().setOrigem(OrigemRede.ONLINE);
+                        ec.setRede(cst2.getRede());
+                        ec.setRedeExterna(cst2.getRedeExterna());
                     } catch (Exception ex) {
                         Logger.getLogger(EfikaCustomerServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
                     }

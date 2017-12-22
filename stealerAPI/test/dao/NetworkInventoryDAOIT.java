@@ -5,6 +5,7 @@
  */
 package dao;
 
+import br.net.gvt.efika.customer.EfikaCustomer;
 import br.net.gvt.efika.customer.InventarioRede;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -48,7 +49,7 @@ public class NetworkInventoryDAOIT {
             System.out.println("consultar");
             String instancia = "110002021394401";
             NetworkInventoryDAO instance = new NetworkInventoryDAOImpl();
-            InventarioRede result = instance.consultar(instancia);
+            EfikaCustomer result = instance.consultar(instancia);
             System.out.println(GsonUtil.serialize(result));
             assertTrue(result != null);
         } catch (Exception e) {
