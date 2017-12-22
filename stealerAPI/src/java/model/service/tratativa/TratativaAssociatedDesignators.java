@@ -55,12 +55,18 @@ public class TratativaAssociatedDesignators extends TratativaEfikaCustomer {
             getC().setDesignadorAcesso(cust.getDesignadorAcesso());
             getC().setDesignadorTv(cust.getDesignadorTv());
         }
+        if (getC().getDesignador() == null) {
+            cust = TratativasGetDesignadores.tratativaInventoryResponse(a, getC());
+            getC().setDesignador(cust.getDesignador());
+            getC().setInstancia(cust.getInstancia());
+            getC().setDesignadorAcesso(cust.getDesignadorAcesso());
+            getC().setDesignadorTv(cust.getDesignadorTv());
+        }
 
-        if (getC()
-                .getDesignador().equalsIgnoreCase(getC().getInstancia()) || getC().getDesignador().isEmpty()) {
+        if (getC().getDesignador().equalsIgnoreCase(getC().getInstancia())
+                || getC().getDesignador().isEmpty()) {
             throw new ClienteSemBandaException();
         }
     }
 
-    
 }

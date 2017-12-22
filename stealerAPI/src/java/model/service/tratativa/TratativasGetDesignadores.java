@@ -58,7 +58,7 @@ public class TratativasGetDesignadores {
     public static EfikaCustomer tratativaInventoryResponse(InventoryAccountResponse invResp, EfikaCustomer cust) throws Exception {
         EfikaCustomer customer = cust;
         if (invResp.getAccounts().size() > 0) {
-            if (invResp.getAccounts().get(0).getAddress().size() > 1 || invResp.getAccounts().size() > 1) {
+            if (invResp.getAccounts().size() > 1) {
                 throw new ImpossivelIdentificarDesignadoresException();
             }
         }

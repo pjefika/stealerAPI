@@ -95,6 +95,7 @@ public class EfikaCustomerServiceImpl implements EfikaCustomerService {
             }
             
         } catch (Exception e) {
+            e.printStackTrace();
             if (e.getCause() instanceof InstanciaInvalidaException || e.getCause() instanceof ImpossivelIdentificarDesignadoresException) {
                 throw e;
             }
