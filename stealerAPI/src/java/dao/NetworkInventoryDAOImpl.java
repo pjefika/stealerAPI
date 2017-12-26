@@ -12,6 +12,8 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import model.entity.EventosMassivos;
+import model.environment.EfikaEnvironment;
+import model.environment.EnvironmentSingleton;
 import org.apache.http.HttpHeaders;
 import org.apache.http.HttpHost;
 import org.apache.http.client.config.CookieSpecs;
@@ -26,13 +28,15 @@ import org.codehaus.jackson.map.ObjectMapper;
 
 public class NetworkInventoryDAOImpl implements NetworkInventoryDAO {
 
+    private final EfikaEnvironment environment = EnvironmentSingleton.getInstance().getEnv();
+
     @Override
     public EfikaCustomer consultar(String instancia) throws Exception {
 
         PoolingHttpClientConnectionManager cm = new PoolingHttpClientConnectionManager();
         cm.setMaxTotal(1);
         cm.setDefaultMaxPerRoute(1);
-        HttpHost ip = new HttpHost("10.40.195.81", 80);
+        HttpHost ip = new HttpHost(environment.getIp(), environment.getPorta());
         cm.setMaxPerRoute(new HttpRoute(ip), 50);
 
         // Cookies
@@ -45,7 +49,7 @@ public class NetworkInventoryDAOImpl implements NetworkInventoryDAO {
                 .setDefaultRequestConfig(globalConfig)
                 .build();
 
-        HttpGet httpget = new HttpGet("http://10.40.195.81:8080/networkInventoryAPI/networkInventory/" + instancia);
+        HttpGet httpget = new HttpGet(environment.getURL() + "/networkInventoryAPI/networkInventory/" + instancia);
         httpget.setHeader(HttpHeaders.CONTENT_TYPE, "application/json");
         CloseableHttpResponse response1 = httpclient.execute(httpget);
 

@@ -13,6 +13,7 @@ import dao.InventarioLinhaDAO;
 import org.junit.After;
 import org.junit.AfterClass;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -24,6 +25,8 @@ import util.GsonUtil;
  * @author G0042204
  */
 public class EfikaCustomerServiceImplIT {
+
+    private final String param = "4130886762";
 
     public EfikaCustomerServiceImplIT() {
     }
@@ -51,11 +54,12 @@ public class EfikaCustomerServiceImplIT {
     public void testConsultar() {
         try {
             System.out.println("consultar");
-            String param1 = "1110226652";
             EfikaCustomerService instance = new EfikaCustomerServiceImpl();
-            EfikaCustomer result = instance.consultar(param1);
+            EfikaCustomer result = instance.consultar(param);
+            assertTrue("nulo", result != null);
+            assertTrue("rede externa", result.getRedeExterna() != null);
+            assertTrue("rede", result.getRede() != null);
             System.out.println(GsonUtil.serialize(result));
-            System.out.println("");
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -91,7 +95,8 @@ public class EfikaCustomerServiceImplIT {
     }
 
     /**
-     * Test of getAutenticacaoByMacOrIp method, of class EfikaCustomerServiceImpl.
+     * Test of getAutenticacaoByMacOrIp method, of class
+     * EfikaCustomerServiceImpl.
      */
     @Test
     public void testGetAutenticacaoByMacOrIp() throws Exception {
