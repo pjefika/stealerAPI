@@ -37,23 +37,23 @@ import java.util.List;
 import model.asserts.facade.AssertFacadeFulltestCRMVivo1;
 import model.service.tratativa.TratativaInventarioRadius;
 
-public class EfikaCustomerServiceImpl implements EfikaCustomerService {
-    
+public abstract class SophiaCustomerService implements EfikaCustomerService {
+
     private EfikaCustomer ec;
-    
+
     private OSSGenericDAO dao;
-    
+
     private InventarioLinhaDAO linha;
-    
+
     private GetInfoOut info;
-    
+
     @Override
     public synchronized EfikaCustomer consultar(String designador) throws Exception {
         ec = new EfikaCustomer();
         dao = FactoryDAO.createOSS();
         InventoryAccountResponse accountItems = dao.getAccountItems(designador);
         InventoryDesignatorsResponse associatedDesignators = dao.getAssociatedDesignators(designador);
-        
+
         EfikaThread t0 = new EfikaThread(new TratativaAssociatedDesignators(associatedDesignators, ec, accountItems));
         try {
             t0.join();
@@ -77,7 +77,7 @@ public class EfikaCustomerServiceImpl implements EfikaCustomerService {
                         ec.setRede(cst2.getRede());
                         ec.setRedeExterna(cst2.getRedeExterna());
                     } catch (Exception ex) {
-                        Logger.getLogger(EfikaCustomerServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(SophiaCustomerService.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 });
                 t4.join();
@@ -87,13 +87,13 @@ public class EfikaCustomerServiceImpl implements EfikaCustomerService {
                         List<EventoMassivo> lEm = instance0.consultar(ec);
                         ec.setEventos(lEm);
                     } catch (Exception ex) {
-                        Logger.getLogger(EfikaCustomerServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(SophiaCustomerService.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 });
                 t6.join();
                 ec.setAsserts(new AssertFacadeFulltestCRMVivo1(ec).assertThese());
             }
-            
+
         } catch (Exception e) {
             e.printStackTrace();
             if (e.getCause() instanceof InstanciaInvalidaException || e.getCause() instanceof ImpossivelIdentificarDesignadoresException) {
@@ -106,31 +106,31 @@ public class EfikaCustomerServiceImpl implements EfikaCustomerService {
                 t3.join();
             }
         }
-        
+
         return ec;
     }
-    
+
     public InventarioLinhaDAO linha() {
         if (linha == null) {
             linha = new InventarioLinhaDAOPnAdminImpl();
         }
         return linha;
     }
-    
+
     public GetInfoOut getInfo() {
         if (info == null) {
             try {
                 info = dao.getInfo(ec.getDesignador(), ec.getDesignadorAcesso());
             } catch (Exception ex) {
-                Logger.getLogger(EfikaCustomerServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(SophiaCustomerService.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return info;
     }
-    
+
     @Override
     public OSSTurbonetStatusConexaoOut getAutenticacaoByMacOrIp(String str) throws Exception {
-        
+
         OSSTurbonetStatusConexaoOut auth = getDao().getAuth(str);
         int i = 0;
         while (auth == null) {
@@ -141,22 +141,22 @@ public class EfikaCustomerServiceImpl implements EfikaCustomerService {
                 throw new Exception("Falha na consulta autenticação via OSS.");
             }
         }
-        
+
         return auth;
-        
+
     }
-    
+
     @Override
     public ConsultInfoGponOut getInfoGpon(String instancia) throws Exception {
         return getDao().getInfoGpon(instancia);
     }
-    
+
     public OSSGenericDAO getDao() {
         return dao == null ? FactoryDAO.createOSS() : dao;
     }
-    
+
     public void setDao(OSSGenericDAO dao) {
         this.dao = dao;
     }
-    
+
 }

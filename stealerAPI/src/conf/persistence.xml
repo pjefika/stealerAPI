@@ -9,6 +9,7 @@
             <property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect"/>
             <property name="hibernate.id.new_generator_mappings" value="false"/>
             <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.connection.release_mode" value="after_transaction"/>
         </properties>
     </persistence-unit>
     <persistence-unit name="cdrPU" transaction-type="RESOURCE_LOCAL">
