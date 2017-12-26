@@ -8,7 +8,6 @@ package model.service;
 import bean.ossturbonet.oss.gvt.com.GetInfoOut;
 import br.net.gvt.efika.customer.EfikaCustomer;
 import br.net.gvt.efika.customer.EventoMassivo;
-import br.net.gvt.efika.customer.InventarioRede;
 import br.net.gvt.efika.customer.OrigemPlanta;
 import br.net.gvt.efika.customer.OrigemRede;
 import com.gvt.ws.eai.oss.inventory.api.InventoryAccountResponse;
