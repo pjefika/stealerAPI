@@ -17,7 +17,7 @@ public class EnvironmentSingleton {
 
     public static EnvironmentSingleton getInstance() {
         if (instance == null) {
-            instance = new EnvironmentSingleton(EfikaEnvironment.QA);
+            instance = new EnvironmentSingleton(EfikaEnvironment.PROD);
         }
         return instance;
     }
