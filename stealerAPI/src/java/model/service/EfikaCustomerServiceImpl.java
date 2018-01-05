@@ -107,8 +107,6 @@ public class EfikaCustomerServiceImpl implements EfikaCustomerService {
                     TratativaConsultaPorOrdem trat = new TratativaConsultaPorOrdem(designador, ec);
                     trat.run();
                     ec = trat.getC();
-                } else if (StringUtils.isNumeric(designador)) {
-
                 }
             }
             if (e.getCause() instanceof ClienteSemBandaException) {
