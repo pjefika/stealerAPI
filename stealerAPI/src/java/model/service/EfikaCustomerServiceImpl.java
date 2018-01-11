@@ -32,13 +32,11 @@ import dao.InventarioLinhaDAO;
 import dao.InventarioLinhaDAOPnAdminImpl;
 import dao.NetworkInventoryDAO;
 import dao.NetworkInventoryDAOImpl;
-import dao.WorkOrderDAO;
 import dao.exception.ImpossivelIdentificarDesignadoresException;
 import java.util.List;
 import model.asserts.facade.AssertFacadeFulltestCRMVivo1;
 import model.service.tratativa.TratativaConsultaPorOrdem;
 import model.service.tratativa.TratativaInventarioRadius;
-import org.apache.commons.lang3.StringUtils;
 
 public class EfikaCustomerServiceImpl implements EfikaCustomerService {
 
