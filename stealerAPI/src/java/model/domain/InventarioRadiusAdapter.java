@@ -8,6 +8,7 @@ package model.domain;
 import bean.ossturbonet.oss.gvt.com.GetInfoOut;
 import br.net.gvt.efika.customer.InventarioRadius;
 
+
 /**
  *
  * @author G0042204

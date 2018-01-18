@@ -55,24 +55,16 @@ public class ntlmDAOJUnitTest {
     public void test() throws IOException {
 
         CloseableHttpClient httpclient = HttpClients.createSystem();
-
         CredentialsProvider credsProvider = new BasicCredentialsProvider();
-
         InetAddress localMachine = InetAddress.getLocalHost();
-
         credsProvider.setCredentials(AuthScope.ANY,
-                new NTCredentials("G0042204", "D20m08.11820020", localMachine.getHostName(), "gvt.net.br"));
-
-        HttpHost target = new HttpHost("pnadmin.gvt.com.br", 80, "http");
-
+                new NTCredentials("G0042204", "D20m08.118201023", localMachine.getHostName(), "gvt.net.br"));
+        HttpHost target = new HttpHost("sv2kpsan1.gvt.net.br");
         HttpClientContext context = HttpClientContext.create();
         context.setCredentialsProvider(credsProvider);
-
-        HttpGet httpget = new HttpGet("http://pnadmin.gvt.com.br/pn/pn.jsp?numero=4130886762");
+        HttpGet httpget = new HttpGet("http://sv2kpsan1.gvt.net.br/ChamadoSAN/");
         CloseableHttpResponse response1 = httpclient.execute(target, httpget, context);
-
         System.out.println(response1.getStatusLine().getStatusCode());
-
         InputStream instream = response1.getEntity().getContent();
         BufferedReader rd = new BufferedReader(new InputStreamReader(instream));
         StringBuffer result = new StringBuffer();
@@ -82,6 +74,5 @@ public class ntlmDAOJUnitTest {
             result.append(line);
         }
         instream.close();
-
     }
 }
