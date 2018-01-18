@@ -7,9 +7,10 @@ package model.domain;
 
 import bean.ossturbonet.oss.gvt.com.GetInfoOut;
 import br.net.gvt.efika.customer.InventarioRede;
-import br.net.gvt.efika.customer.OrigemPlanta;
-import br.net.gvt.efika.customer.OrigemRede;
 import br.net.gvt.efika.customer.TipoRede;
+import br.net.gvt.efika.enums.OrigemPlanta;
+import br.net.gvt.efika.enums.OrigemRede;
+
 
 /**
  *
