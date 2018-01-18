@@ -14,11 +14,11 @@ import br.net.gvt.efika.customer.InventarioRadius;
  * @author G0042204
  */
 public class InventarioRadiusAdapter {
-    
+
     public static InventarioRadius adapter(GetInfoOut out) {
-        
+
         InventarioRadius rad = new InventarioRadius();
-        
+
         rad.setArmario(out.getInfoRadius().getCabinet());
         rad.setIpFixo(out.getInfoRadius().getIpProfissional());
         rad.setIsIpFixo(out.getInfoRadius().isProfissional());
@@ -27,8 +27,8 @@ public class InventarioRadiusAdapter {
         rad.setRin(out.getInfoRadius().getRin());
         rad.setStatus(out.getInfoRadius().getStatus());
         rad.setVelocidade(out.getInfoRadius().getDownUp());
-        
+
         return rad;
     }
-    
+
 }

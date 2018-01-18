@@ -17,13 +17,13 @@ import br.net.gvt.efika.enums.OrigemRede;
  * @author G0042204
  */
 public class InventarioRedeAdapter {
-    
+
     public static InventarioRede adapter(GetInfoOut out) {
-        
+
         InventarioRede r = new InventarioRede();
         r.setOrigem(OrigemRede.ONLINE);
         r.setPlanta(OrigemPlanta.VIVO2);
-        
+
         try {
             if (out.getTechnology().equalsIgnoreCase("GPON")) {
                 r.setTipo(TipoRede.GPON);
@@ -33,7 +33,7 @@ public class InventarioRedeAdapter {
         } catch (Exception e) {
             r.setTipo(null);
         }
-        
+
         r.setVendorDslam(out.getInfoTBS().getDslamModel());
         r.setModeloDslam(out.getInfoTBS().getDslamVendor());
         r.setIpDslam(out.getInfoTBS().getIpDslam());
@@ -46,8 +46,8 @@ public class InventarioRedeAdapter {
         r.setVlanVod(out.getInfoTBS().getVlanVoD());
         r.setVlanVoip(out.getInfoTBS().getVlanVoIP());
         r.setCvlan(out.getInfoTBS().getPortAddrSeq().intValue() + 100);
-        
+
         return r;
     }
-    
+
 }
