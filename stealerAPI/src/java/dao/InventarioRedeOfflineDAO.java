@@ -6,7 +6,7 @@
 package dao;
 
 import br.net.gvt.efika.customer.InventarioRede;
-import br.net.gvt.efika.customer.OrigemRede;
+import br.net.gvt.efika.enums.OrigemRede;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 

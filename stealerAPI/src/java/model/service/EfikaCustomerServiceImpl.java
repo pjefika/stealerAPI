@@ -8,8 +8,8 @@ package model.service;
 import bean.ossturbonet.oss.gvt.com.GetInfoOut;
 import br.net.gvt.efika.customer.EfikaCustomer;
 import br.net.gvt.efika.customer.EventoMassivo;
-import br.net.gvt.efika.customer.OrigemPlanta;
-import br.net.gvt.efika.customer.OrigemRede;
+import br.net.gvt.efika.enums.OrigemPlanta;
+import br.net.gvt.efika.enums.OrigemRede;
 import com.gvt.ws.eai.oss.inventory.api.InventoryAccountResponse;
 import com.gvt.ws.eai.oss.inventory.api.InventoryDesignatorsResponse;
 import com.gvt.www.ws.eai.oss.OSSTurbonetStatusConexao.OSSTurbonetStatusConexaoOut;
@@ -35,25 +35,26 @@ import dao.NetworkInventoryDAOImpl;
 import dao.exception.ImpossivelIdentificarDesignadoresException;
 import java.util.List;
 import model.asserts.facade.AssertFacadeFulltestCRMVivo1;
+import model.service.tratativa.TratativaConsultaPorOrdem;
 import model.service.tratativa.TratativaInventarioRadius;
 
 public class EfikaCustomerServiceImpl implements EfikaCustomerService {
-    
+
     private EfikaCustomer ec;
-    
+
     private OSSGenericDAO dao;
-    
+
     private InventarioLinhaDAO linha;
-    
+
     private GetInfoOut info;
-    
+
     @Override
     public synchronized EfikaCustomer consultar(String designador) throws Exception {
         ec = new EfikaCustomer();
         dao = FactoryDAO.createOSS();
         InventoryAccountResponse accountItems = dao.getAccountItems(designador);
         InventoryDesignatorsResponse associatedDesignators = dao.getAssociatedDesignators(designador);
-        
+
         EfikaThread t0 = new EfikaThread(new TratativaAssociatedDesignators(associatedDesignators, ec, accountItems));
         try {
             t0.join();
@@ -93,11 +94,18 @@ public class EfikaCustomerServiceImpl implements EfikaCustomerService {
                 t6.join();
                 ec.setAsserts(new AssertFacadeFulltestCRMVivo1(ec).assertThese());
             }
-            
+
         } catch (Exception e) {
             e.printStackTrace();
-            if (e.getCause() instanceof InstanciaInvalidaException || e.getCause() instanceof ImpossivelIdentificarDesignadoresException) {
+            if (e.getCause() instanceof ImpossivelIdentificarDesignadoresException) {
                 throw e;
+            }
+            if (e.getCause() instanceof InstanciaInvalidaException) {
+                if (designador.contains("8-")) {
+                    TratativaConsultaPorOrdem trat = new TratativaConsultaPorOrdem(designador, ec);
+                    trat.run();
+                    ec = trat.getC();
+                }
             }
             if (e.getCause() instanceof ClienteSemBandaException) {
                 EfikaThread t2 = new EfikaThread(new TratativaInventarioServicos(dao.getAccountItems(ec.getDesignador()), ec));
@@ -106,17 +114,17 @@ public class EfikaCustomerServiceImpl implements EfikaCustomerService {
                 t3.join();
             }
         }
-        
+
         return ec;
     }
-    
+
     public InventarioLinhaDAO linha() {
         if (linha == null) {
             linha = new InventarioLinhaDAOPnAdminImpl();
         }
         return linha;
     }
-    
+
     public GetInfoOut getInfo() {
         if (info == null) {
             try {
@@ -127,10 +135,10 @@ public class EfikaCustomerServiceImpl implements EfikaCustomerService {
         }
         return info;
     }
-    
+
     @Override
     public OSSTurbonetStatusConexaoOut getAutenticacaoByMacOrIp(String str) throws Exception {
-        
+
         OSSTurbonetStatusConexaoOut auth = getDao().getAuth(str);
         int i = 0;
         while (auth == null) {
@@ -141,22 +149,22 @@ public class EfikaCustomerServiceImpl implements EfikaCustomerService {
                 throw new Exception("Falha na consulta autenticação via OSS.");
             }
         }
-        
+
         return auth;
-        
+
     }
-    
+
     @Override
     public ConsultInfoGponOut getInfoGpon(String instancia) throws Exception {
         return getDao().getInfoGpon(instancia);
     }
-    
+
     public OSSGenericDAO getDao() {
         return dao == null ? FactoryDAO.createOSS() : dao;
     }
-    
+
     public void setDao(OSSGenericDAO dao) {
         this.dao = dao;
     }
-    
+
 }

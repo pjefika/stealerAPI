@@ -7,7 +7,7 @@ package model.service.tratativa;
 
 import br.net.gvt.efika.customer.EfikaCustomer;
 import br.net.gvt.efika.customer.InventarioServico;
-import br.net.gvt.efika.customer.OrigemPlanta;
+import br.net.gvt.efika.enums.OrigemPlanta;
 import br.net.gvt.efika.enums.TecnologiaLinha;
 import br.net.gvt.efika.enums.TecnologiaTv;
 import com.gvt.ws.eai.oss.inventory.api.Account;
