@@ -102,28 +102,28 @@ public class TratativaInventarioServicos extends TratativaEfikaCustomer {
                     for (Item item1 : item.getItems()) {
 //                        if (item1.getStatusName().equalsIgnoreCase("ACTIVE") || item1.getStatusName().equalsIgnoreCase("PENDING")) {
                         System.out.println("item1->" + item1.getDesignator().getValue() + "status->" + item1.getStatusName());
-//                            if (item1.getDesignator().getValue().equalsIgnoreCase(getC().getInstancia())) {
-                        for (com.gvt.ws.eai.oss.inventory.api.Param param : item1.getParam()) {
-                            System.out.println("param->" + param.getName() + "_val->" + param.getValue() + "_modDate->" + param.getModifiedDate().getValue().normalize());
-                            if (param.getName().equalsIgnoreCase("TecnologiaVoz")) {
-                                if (param.getValue().toUpperCase().contains("SIP")) {
-                                    i.setTipoLinha(TecnologiaLinha.SIP);
-                                }
-                                if (param.getValue().toUpperCase().contains("TDM")) {
-                                    i.setTipoLinha(TecnologiaLinha.TDM);
-                                }
-                                if (param.getValue().toUpperCase().contains("V5")) {
-                                    i.setTipoLinha(TecnologiaLinha.IMS_V5);
-                                }
-                                if (param.getValue().toUpperCase().contains("IMS/H248")) {
-                                    i.setTipoLinha(TecnologiaLinha.IMS_H248);
-                                }
-                                if (i.getTipoLinha() != null) {
-                                    break;
+                        if (item1.getDesignator().getValue().equalsIgnoreCase(getC().getInstancia())) {
+                            for (com.gvt.ws.eai.oss.inventory.api.Param param : item1.getParam()) {
+                                System.out.println("param->" + param.getName() + "_val->" + param.getValue() + "_modDate->" + param.getModifiedDate().getValue().normalize());
+                                if (param.getName().equalsIgnoreCase("TecnologiaVoz")) {
+                                    if (param.getValue().toUpperCase().contains("SIP")) {
+                                        i.setTipoLinha(TecnologiaLinha.SIP);
+                                    }
+                                    if (param.getValue().toUpperCase().contains("TDM")) {
+                                        i.setTipoLinha(TecnologiaLinha.TDM);
+                                    }
+                                    if (param.getValue().toUpperCase().contains("V5")) {
+                                        i.setTipoLinha(TecnologiaLinha.IMS_V5);
+                                    }
+                                    if (param.getValue().toUpperCase().contains("IMS/H248")) {
+                                        i.setTipoLinha(TecnologiaLinha.IMS_H248);
+                                    }
+                                    if (i.getTipoLinha() != null) {
+                                        break;
+                                    }
                                 }
                             }
                         }
-//                            }
 
 //                        }
                     }

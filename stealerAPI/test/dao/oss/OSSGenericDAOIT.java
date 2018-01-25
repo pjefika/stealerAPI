@@ -19,6 +19,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import util.GsonUtil;
+import util.JacksonMapper;
 
 /**
  *
@@ -107,31 +108,34 @@ public class OSSGenericDAOIT {
      * Test of getAccountItems method, of class OSSGenericDAO.
      */
     @Test
-    public void testGetAccountItems() {
+    public void testGetAccountItems() throws Exception {
         System.out.println("getAccountItems");
-        String designator = "SGO-813QW9FNYO-013";
+        String designator = "4130776101";
         OSSGenericDAO instance = new OSSGenericDAO();
         InventoryAccountResponse result = instance.getAccountItems(designator);
-        result.getAccounts().forEach((t) -> {
-            t.getAddress().forEach((th) -> {
-                th.getItems().forEach((thi) -> {
-
-                    System.out.println("thi->" + thi.getDesignator().getValue());
-                    System.out.println("thi->" + thi.getStatusName());
-                    System.out.println("spec->" + thi.getSpecId());
-                    thi.getItems().forEach((t1) -> {
-                        System.out.println("des_" + t1.getDesignator().getValue());
-                        System.out.println("specId-" + t1.getSpecId());
-                        System.out.println("stat->" + t1.getStatusName());
-                        t1.getItems().forEach((t2) -> {
-                            System.out.println("des_2" + t2.getDesignator().getValue());
-                            System.out.println("specId-2" + t2.getSpecId());
-                            System.out.println("stat->2" + t2.getStatusName());
-                        });
-                    });
-                });
-            });
-        });
+        
+        System.out.println("RESULT -> "+new JacksonMapper(InventoryAccountResponse.class).serialize(result));
+        
+//        result.getAccounts().forEach((t) -> {
+//            t.getAddress().forEach((th) -> {
+//                th.getItems().forEach((thi) -> {
+//
+//                    System.out.println("thi->" + thi.getDesignator().getValue());
+//                    System.out.println("thi->" + thi.getStatusName());
+//                    System.out.println("spec->" + thi.getSpecId());
+//                    thi.getItems().forEach((t1) -> {
+//                        System.out.println("des_" + t1.getDesignator().getValue());
+//                        System.out.println("specId-" + t1.getSpecId());
+//                        System.out.println("stat->" + t1.getStatusName());
+//                        t1.getItems().forEach((t2) -> {
+//                            System.out.println("des_2" + t2.getDesignator().getValue());
+//                            System.out.println("specId-2" + t2.getSpecId());
+//                            System.out.println("stat->2" + t2.getStatusName());
+//                        });
+//                    });
+//                });
+//            });
+//        });
     }
 
     /**

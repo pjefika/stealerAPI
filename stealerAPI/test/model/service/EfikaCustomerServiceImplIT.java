@@ -26,7 +26,7 @@ import util.GsonUtil;
  */
 public class EfikaCustomerServiceImplIT {
 
-    private final String param = "4130886762";
+    private final String param = "CTA-301CA4208-013";
 
     public EfikaCustomerServiceImplIT() {
     }
