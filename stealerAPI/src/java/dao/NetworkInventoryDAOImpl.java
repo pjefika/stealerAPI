@@ -6,12 +6,10 @@
 package dao;
 
 import br.net.gvt.efika.customer.EfikaCustomer;
-import br.net.gvt.efika.customer.InventarioRede;
-import com.google.gson.Gson;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import model.entity.EventosMassivos;
 import model.environment.EfikaEnvironment;
 import model.environment.EnvironmentSingleton;
 import org.apache.http.HttpHeaders;
@@ -24,7 +22,7 @@ import org.apache.http.conn.routing.HttpRoute;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
-import org.codehaus.jackson.map.ObjectMapper;
+
 
 public class NetworkInventoryDAOImpl implements NetworkInventoryDAO {
 

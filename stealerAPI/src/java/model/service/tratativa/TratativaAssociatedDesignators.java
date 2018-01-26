@@ -40,7 +40,7 @@ public class TratativaAssociatedDesignators extends TratativaEfikaCustomer {
             throw new InstanciaInvalidaException();
         }
 
-        new TratativaAssociatedDesignators(r, getC(), a).getC();
+//        new TratativaAssociatedDesignators(r, getC(), a).getC();
         EfikaCustomer cust;
         if (r.getDesignator().size() > 2) {
             cust = TratativasGetDesignadores.tratativaDesignatorResponse(r, getC());
