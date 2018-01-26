@@ -38,7 +38,8 @@ public class TratativaInventarioServicos extends TratativaEfikaCustomer {
     protected InventarioServico consultarInventarioServico() throws Exception {
 
         InventarioServico serv = new InventarioServico();
-
+        this.setAddress();
+        
         this.getBanda(serv);
         this.getLinha(serv);
         this.getTv(serv);
