@@ -9,6 +9,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.InetAddress;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHeaders;
@@ -57,27 +58,31 @@ public abstract class HttpDAO {
     public String get(String url) throws Exception {
         HttpGet http = new HttpGet(url);
 
+        http.setHeader("Content-Type", "text/html;charset=ISO-8859-1");
+        http.setHeader("Accept-Language", "pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7");
         http.setHeader(HttpHeaders.ACCEPT, "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8");
-        http.setHeader("Cookie", "JSESSIONID=997B592C29AAB987D5533DF8D6F7E773; SID=846218; GVT_USER_LOGIN=G0041775; GVT_AUTH_TYPE=NTLM; ACEPNADMIN=R2630205373");
+        http.setHeader("Cookie", "PN_PREF=rO0ABXNyABFqYXZhLnV0aWwuSGFzaE1hcAUH2sHDFmDRAwACRgAKbG9hZEZhY3RvckkACXRocmVzaG9sZHhwP0AAAAAAAAx3CAAAABAAAAAHdAAPQkRPcyBjb20gZmFsaGFzdAABRXQAA0JET3EAfgADdAAUQmlsaGV0ZSBkZSBBdGl2aWRhZGVxAH4AA3QADVBvcnRhYmlsaWRhZGVxAH4AA3QAAkNYcQB+AAN0AANUQlNxAH4AA3QAGVByb2Nlc3NvIGRhIFBvcnRhYmlsaWRhZGVxAH4AA3g=; ACEPNADMIN=R2630205373; JSESSIONID=997B592C29AAB987D5533DF8D6F7E773; BACKURL=http://pnadmin.gvt.com.br:80/pn/index.jsp; SID=846218; GVT_USER_LOGIN=G0041775; GVT_AUTH_TYPE=NTLM");
         HttpEntity response = client(url).execute(http, context()).getEntity();
         InputStream instream = response.getContent();
         BufferedReader rd = new BufferedReader(new InputStreamReader(instream));
         StringBuffer result = new StringBuffer();
         String line;
         while ((line = rd.readLine()) != null) {
-//            System.out.println(line);
+            
             result.append(line);
         }
         instream.close();
+        System.out.println("RESULTTOSTRING->"+result.toString());
         return result.toString();
     }
 
     public static HttpClientContext context() throws Exception {
         HttpHost targetHost = new HttpHost("192.168.25.89", 8080, "http");
+        InetAddress localMachine = InetAddress.getLocalHost();
         CredentialsProvider credsProvider = new BasicCredentialsProvider();
         credsProvider.setCredentials(
                 new AuthScope(targetHost.getHostName(), targetHost.getPort()),
-                new NTCredentials(EfikaResourceBundle.getString("cred", "login"), EfikaResourceBundle.getString("cred", "senha"), "gvt", "gvt.net.br"));
+                new NTCredentials(EfikaResourceBundle.getString("cred", "login"), EfikaResourceBundle.getString("cred", "senha"), localMachine.getHostName(), "gvt.net.br"));
 
         HttpClientContext context = HttpClientContext.create();
         context.setCredentialsProvider(credsProvider);

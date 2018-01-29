@@ -26,7 +26,7 @@ import javax.ws.rs.POST;
 @Path("/linha")
 public class LinhaController{
 
-    private InterfaceDAO<Log> ldao;
+//    private InterfaceDAO<Log> ldao;
 
     @POST
     @Path("/")
@@ -35,15 +35,15 @@ public class LinhaController{
         try {
             InventarioLinhaDAO linha = new InventarioLinhaDAOPnAdminImpl();
             InventarioLinha out = linha.consultar(in.getInstancia());
-            String persistOut = GsonUtil.serialize(out);
-            try {
-                Log l = new Log(in);
-                l.setOuput(persistOut);
-                ldao = FactoryDAO.createLogDAO();
-                ldao.cadastrar(l);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+//            String persistOut = GsonUtil.serialize(out);
+//            try {
+////                Log l = new Log(in);
+//////                l.setOuput(persistOut);
+////                InterfaceDAO<Log> ldao = FactoryDAO.createLogDAO();
+////                ldao.cadastrar(l);
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
             return Response.status(200).entity(out).build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e).build();

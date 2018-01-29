@@ -41,15 +41,15 @@ public class EfikaCustomerController implements EfikaCustomerRestInter {
             EfikaCustomerService instance = new EfikaCustomerServiceImpl();
 
             EfikaCustomer out = instance.consultar(in.getInstancia());
-            String persistOut = GsonUtil.serialize(out);
-            try {
-                Log l = new Log(in);
-                l.setOuput(persistOut);
-                ldao = FactoryDAO.createLogDAO();
-                ldao.cadastrar(l);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+//            String persistOut = GsonUtil.serialize(out);
+//            try {
+//                Log l = new Log(in);
+//                l.setOuput(persistOut);
+//                ldao = FactoryDAO.createLogDAO();
+//                ldao.cadastrar(l);
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
             return Response.status(200).entity(out).build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e).build();
