@@ -29,6 +29,7 @@ import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
+import util.EfikaResourceBundle;
 
 /**
  *
@@ -53,11 +54,11 @@ public abstract class HttpDAO {
                 .build();
     }
 
-    public String get(String url) throws IOException {
+    public String get(String url) throws Exception {
         HttpGet http = new HttpGet(url);
 
         http.setHeader(HttpHeaders.ACCEPT, "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8");
-        http.setHeader("Cookie", "JSESSIONID=A588C80B5F44EA0BFE462326555AE387; SID=163436; GVT_USER_LOGIN=G0042204; GVT_AUTH_TYPE=NTLM; ACEPNADMIN=R2630205373");
+        http.setHeader("Cookie", "JSESSIONID=997B592C29AAB987D5533DF8D6F7E773; SID=846218; GVT_USER_LOGIN=G0041775; GVT_AUTH_TYPE=NTLM; ACEPNADMIN=R2630205373");
         HttpEntity response = client(url).execute(http, context()).getEntity();
         InputStream instream = response.getContent();
         BufferedReader rd = new BufferedReader(new InputStreamReader(instream));
@@ -71,9 +72,12 @@ public abstract class HttpDAO {
         return result.toString();
     }
 
-    public static HttpClientContext context() {
+    public static HttpClientContext context() throws Exception {
+        HttpHost targetHost = new HttpHost("192.168.25.89", 8080, "http");
         CredentialsProvider credsProvider = new BasicCredentialsProvider();
-        credsProvider.setCredentials(AuthScope.ANY, new NTCredentials("G0042204", "D20m08.11820020", "gvt", "gvt.net.br"));
+        credsProvider.setCredentials(
+                new AuthScope(targetHost.getHostName(), targetHost.getPort()),
+                new NTCredentials(EfikaResourceBundle.getString("cred", "login"), EfikaResourceBundle.getString("cred", "senha"), "gvt", "gvt.net.br"));
 
         HttpClientContext context = HttpClientContext.create();
         context.setCredentialsProvider(credsProvider);
