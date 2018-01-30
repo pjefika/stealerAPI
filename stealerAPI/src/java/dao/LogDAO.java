@@ -11,12 +11,15 @@ import model.entity.Log;
  *
  * @author G0042204
  */
-public class LogDAO extends AbstractHibernateDAO implements InterfaceDAO<Log> {
+public class LogDAO extends AbstractMongoDAO<Log> implements InterfaceDAO<Log> {
+
+    public LogDAO() {
+        super("10.200.35.67", "stealerAPI", Log.class);
+    }
 
     @Override
     public void cadastrar(Log t) throws Exception {
-        super.persist(t);
-//        this.close();
+        save(t);
     }
 
 }

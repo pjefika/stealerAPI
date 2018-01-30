@@ -19,7 +19,6 @@ import javax.ws.rs.core.Response;
 import model.asserts.Assertter;
 import model.asserts.facade.AssertsManobra;
 import model.entity.Log;
-import util.GsonUtil;
 
 /**
  *
@@ -38,9 +37,9 @@ public class ManobraController {
         try {
             Assertter as = new AssertsManobra(in.getCust(), in.getWorkOrderId());
             List<CustomerAssert> assertThese = as.assertThese();
-             try {
+            try {
                 Log l = new Log(in);
-                l.setOuput(GsonUtil.serialize(assertThese));
+                l.setOuput(assertThese);
                 ldao = FactoryDAO.createLogDAO();
                 ldao.cadastrar(l);
             } catch (Exception e) {

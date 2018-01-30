@@ -6,36 +6,24 @@
 package model.entity;
 
 import java.util.Calendar;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Lob;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.validation.constraints.NotNull;
+import org.mongodb.morphia.annotations.Entity;
 
 /**
  *
  * @author G0042204
  */
 @Entity
-@Table(name = "STEALERAPI_LOG")
 public class Log extends AbstractEntity {
 
     private String action;
 
-    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Calendar data;
-    
-    @Lob
-    @Column(columnDefinition = "LONGVARCHAR")
-    private String input;
 
-    @NotNull
+    private Object input;
+
     private String executor;
 
-    @Lob
-    @Column(columnDefinition = "LONGVARCHAR")
-    private String output;
+    private Object output;
 
     public Log() {
     }
@@ -68,19 +56,19 @@ public class Log extends AbstractEntity {
         this.data = data;
     }
 
-    public String getInput() {
+    public Object getInput() {
         return input;
     }
 
-    public void setInput(String input) {
+    public void setInput(Object input) {
         this.input = input;
     }
 
-    public String getOuput() {
+    public Object getOuput() {
         return output;
     }
 
-    public void setOuput(String ouput) {
+    public void setOuput(Object ouput) {
         this.output = ouput;
     }
 

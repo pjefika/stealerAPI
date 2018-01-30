@@ -18,10 +18,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import model.entity.Log;
-import util.GsonUtil;
 import javax.ws.rs.POST;
-import model.service.EfikaCustomerService;
-import model.service.EfikaCustomerServiceImpl;
+import model.service.FactoryService;
 
 /**
  *
@@ -38,18 +36,16 @@ public class EfikaCustomerController implements EfikaCustomerRestInter {
     @Override
     public Response getCliente(GetClienteIn in) {
         try {
-            EfikaCustomerService instance = new EfikaCustomerServiceImpl();
 
-            EfikaCustomer out = instance.consultar(in.getInstancia());
-//            String persistOut = GsonUtil.serialize(out);
-//            try {
-//                Log l = new Log(in);
-//                l.setOuput(persistOut);
-//                ldao = FactoryDAO.createLogDAO();
-//                ldao.cadastrar(l);
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
+            EfikaCustomer out = FactoryService.create().consultar(in.getInstancia());
+            try {
+                Log l = new Log(in);
+                l.setOuput(out);
+                ldao = FactoryDAO.createLogDAO();
+                ldao.cadastrar(l);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             return Response.status(200).entity(out).build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e).build();
@@ -61,12 +57,10 @@ public class EfikaCustomerController implements EfikaCustomerRestInter {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAuth(GetAuthIn in) {
         try {
-            EfikaCustomerService instance = new EfikaCustomerServiceImpl();
-            OSSTurbonetStatusConexaoOut autenticacaoByMacOrIp = instance.getAutenticacaoByMacOrIp(in.getMacOrIp());
+            OSSTurbonetStatusConexaoOut autenticacaoByMacOrIp = FactoryService.create().getAutenticacaoByMacOrIp(in.getMacOrIp());
             try {
                 Log l = new Log(in);
-                String persistOut = GsonUtil.serialize(autenticacaoByMacOrIp);
-                l.setOuput(persistOut);
+                l.setOuput(autenticacaoByMacOrIp);
                 ldao = FactoryDAO.createLogDAO();
                 ldao.cadastrar(l);
             } catch (Exception e) {
@@ -83,12 +77,10 @@ public class EfikaCustomerController implements EfikaCustomerRestInter {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getInfoGpon(GetInfoGponIn in) {
         try {
-            EfikaCustomerService instance = new EfikaCustomerServiceImpl();
-            ConsultInfoGponOut infoGpon = instance.getInfoGpon(in.getInstancia());
-            String persistOut = GsonUtil.serialize(infoGpon);
+            ConsultInfoGponOut infoGpon = FactoryService.create().getInfoGpon(in.getInstancia());
             try {
                 Log l = new Log(in);
-                l.setOuput(persistOut);
+                l.setOuput(infoGpon);
                 ldao = FactoryDAO.createLogDAO();
                 ldao.cadastrar(l);
             } catch (Exception e) {
