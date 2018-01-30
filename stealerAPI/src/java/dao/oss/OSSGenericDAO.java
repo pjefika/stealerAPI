@@ -14,7 +14,6 @@ import com.gvt.www.ws.eai.oss.gpon.ConsultInfoGponIn;
 import com.gvt.www.ws.eai.oss.gpon.ConsultInfoGponOut;
 import com.gvt.www.ws.eai.oss.ossturbonet.OSSTurbonet;
 import dao.FactoryITService;
-import java.util.Calendar;
 
 /**
  *
@@ -34,7 +33,7 @@ public class OSSGenericDAO {
     }
 
     protected InventoryImpl inventory() {
-        if (ws == null) {
+        if (port == null) {
             port = FactoryITService.createInvServ().getInventoryImplPort();
         }
         return port;
@@ -52,17 +51,17 @@ public class OSSGenericDAO {
     }
 
     public InventoryAccountResponse getAccountItems(String designator) {
-        return inventory().getAccountItems(null, null, designator, null, true);
+        return inventory().getAccountItems(null, null, designator, null, false);
     }
 
     public OSSTurbonetStatusConexaoOut getAuth(String mac) throws Exception {
-        
+
         return oss().getAuthenticationByIPorMac(mac);
     }
 
-    public ConsultInfoGponOut getInfoGpon(String instancia) throws Exception{
+    public ConsultInfoGponOut getInfoGpon(String instancia) throws Exception {
         ConsultInfoGponIn gponIn = new ConsultInfoGponIn(oss().getAccessDesignator(instancia));
         return oss().consultInfoGpon(gponIn);
     }
-    
+
 }
