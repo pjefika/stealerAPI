@@ -20,7 +20,7 @@ import util.JacksonMapper;
  */
 public class EfikaCustomerServiceImplIT {
 
-    private final String param = "4130776101";
+    private final String param = "4130403161";
 
     public EfikaCustomerServiceImplIT() {
     }

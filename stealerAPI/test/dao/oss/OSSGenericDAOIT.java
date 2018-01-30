@@ -97,7 +97,7 @@ public class OSSGenericDAOIT {
     @Test
     public void testGetInfo() throws Exception {
         System.out.println("getInfo");
-        String designador = "CTA-813X6RF8QI-013";
+        String designador = "CTA-81FJ1GEG9-013";
         String designadorAcesso = "";
         OSSGenericDAO instance = new OSSGenericDAO();
         GetInfoOut result = instance.getInfo(designador, designadorAcesso);
