@@ -19,11 +19,6 @@ public class ConsultarLinhaIn extends LoggerIn {
     }
 
     @Override
-    public String getInput() {
-        return "{\"instancia\":\"" + instancia + "\"}";
-    }
-
-    @Override
     public String getAcao() {
         return "LinhaController.consultar";
     }

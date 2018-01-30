@@ -19,11 +19,6 @@ public class GetInfoGponIn extends LoggerIn {
     }
 
     @Override
-    public String getInput() {
-        return "{\"instancia\":\"" + instancia + "\"}";
-    }
-
-    @Override
     public String getAcao() {
         return "ClienteController.getInfoGpon";
     }

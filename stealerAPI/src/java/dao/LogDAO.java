@@ -14,6 +14,8 @@ import model.entity.Log;
 public class LogDAO extends AbstractMongoDAO<Log> implements InterfaceDAO<Log> {
 
     public LogDAO() {
+        //10.40.197.137
+        //10.200.35.67
         super("10.40.197.137", "stealerAPI", Log.class);
     }
 

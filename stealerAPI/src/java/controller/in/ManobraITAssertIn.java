@@ -13,7 +13,7 @@ import util.GsonUtil;
  *
  * @author G0042204
  */
-public class ManobraITAssertIn extends LoggerIn{
+public class ManobraITAssertIn extends LoggerIn {
 
     private EfikaCustomer cust;
 
@@ -25,14 +25,9 @@ public class ManobraITAssertIn extends LoggerIn{
     public EfikaCustomer getCust() {
         return cust;
     }
-    
+
     @Override
-    public String getInput(){
-        return "{\"ordem\":\""+workOrderId+"\", \"cust\": \""+GsonUtil.serialize(cust)+"\"}";
-    }
-    
-    @Override
-    public String getAcao(){
+    public String getAcao() {
         return "ControllerManobra.asserts";
     }
 

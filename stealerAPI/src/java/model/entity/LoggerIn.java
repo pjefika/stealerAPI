@@ -10,12 +10,14 @@ package model.entity;
  * @author G0041775
  */
 public abstract class LoggerIn {
-    
+
     private String executor;
-    
+
     public abstract String getAcao();
-    
-    public abstract String getInput();
+
+    public Object getInput() {
+        return this;
+    }
 
     public String getExecutor() {
         return executor;
@@ -24,5 +26,5 @@ public abstract class LoggerIn {
     public void setExecutor(String executor) {
         this.executor = executor;
     }
-    
+
 }

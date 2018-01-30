@@ -19,11 +19,6 @@ public class GetAuthIn extends LoggerIn {
     }
 
     @Override
-    public String getInput() {
-        return "{\"macOrIp\":\"" + macOrIp + "\"}";
-    }
-
-    @Override
     public String getAcao() {
         return "ClienteController.getAuth";
     }
