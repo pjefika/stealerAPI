@@ -58,9 +58,10 @@ public class EfikaCustomerServiceImpl implements EfikaCustomerService {
         EfikaThread t0 = new EfikaThread(new TratativaAssociatedDesignators(associatedDesignators, ec, accountItems));
         try {
             t0.join();
-            t0.possuiException();
+//            t0.possuiException();
             EfikaThread t2 = new EfikaThread(new TratativaInventarioServicos(accountItems, ec));
             t2.join();
+//            t2.possuiException();
             /**
              * Refatorar!
              */

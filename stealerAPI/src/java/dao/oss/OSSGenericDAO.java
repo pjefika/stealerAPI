@@ -51,7 +51,7 @@ public class OSSGenericDAO {
     }
 
     public InventoryAccountResponse getAccountItems(String designator) {
-        return inventory().getAccountItems(null, null, designator, null, false);
+        return inventory().getAccountItems(null, null, designator, null, true);
     }
 
     public OSSTurbonetStatusConexaoOut getAuth(String mac) throws Exception {
