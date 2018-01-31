@@ -27,31 +27,31 @@ public class InventarioLinhaDAOPnAdminImpl extends HttpDAO implements Inventario
             resp = get("http://" + EfikaResourceBundle.getString(bundle, "login")
                     + ":" + EfikaResourceBundle.getString(bundle, "senha") 
                     + "@pnadmin.gvt.com.br/pn/pn.jsp?numero=" + instancia);
-            System.out.println("PIRACEMA0");
+//            System.out.println("PIRACEMA0");
             Matcher m = Pattern.compile("(?:Registro no Sisnum)(?:.*)(\\d{10})(?:.*)(?!Hist)").matcher(resp);
             if (m.find()) {
                 i.setDn(m.group(1).trim());
             }
         } catch (Exception e) {
-            System.out.println("ERROSETDN->");
+//            System.out.println("ERROSETDN->");
             e.printStackTrace();
             i.setDn(instancia);
         }
 
         try {
-            System.out.println("PIRACEMA1");
+//            System.out.println("PIRACEMA1");
             Matcher m = Pattern.compile("(?:Registro no Sisnum)(?:.*)(.{5}_.{3}\\d{2})(?:.*)(Hist)").matcher(resp);
 //            System.out.println(resp);fix regex crazy
             if (m.find()) {
                 i.setCentral(m.group(1).trim());
             }
         } catch (Exception e) {
-            System.out.println("ERROsetCentral->");
+//            System.out.println("ERROsetCentral->");
             e.printStackTrace();
             i.setCentral(null);
         }
 
-            System.out.println("PIRACEMA2");
+//            System.out.println("PIRACEMA2");
         try {
             i.setTipo(TipoCentral.valueOf(ni.getSwitchInfo(i.getCentral()).getSwitches(0).getSwitchType()));
         } catch (Exception e) {

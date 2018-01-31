@@ -61,12 +61,16 @@ public class EfikaCustomerServiceImpl implements EfikaCustomerService {
             t0.possuiException();
             EfikaThread t2 = new EfikaThread(new TratativaInventarioServicos(accountItems, ec));
             t2.join();
-            if (ec.getRede().getPlanta() == OrigemPlanta.VIVO2) {
+            /**
+             * Refatorar!
+             */
+            if (ec.getRede().getPlanta() != OrigemPlanta.VIVO1) {
+                EfikaThread t3 = new EfikaThread(new TratativaInventarioLinha(linha().consultar(ec.getInstancia()), ec));
                 EfikaThread t1 = new EfikaThread(new TratativaInventarioRede(getInfo(), ec));
                 EfikaThread t5 = new EfikaThread(new TratativaInventarioRadius(getInfo(), ec));
-                EfikaThread t3 = new EfikaThread(new TratativaInventarioLinha(linha().consultar(ec.getInstancia()), ec));
-                t1.join();
                 t3.join();
+                t1.join();
+                t1.possuiException();
                 t5.join();
                 ec.setAsserts(new AssertFacadeFulltestCRMVivo2(getInfo()).assertThese());
             } else {

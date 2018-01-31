@@ -44,9 +44,9 @@ public class EventosMassivosDAOImpl extends HttpDAO implements EventosMassivosDA
         String line = "";
         while ((line = rd.readLine()) != null) {
             result.append(line);
-            System.out.println("leLine->"+line);
+//            System.out.println("leLine->"+line);
         }
-        System.out.println("leResult->"+result.toString());
+//        System.out.println("leResult->"+result.toString());
         instream.close();
         
         EventosMassivos evM = new ObjectMapper().readValue(result.toString(), EventosMassivos.class);

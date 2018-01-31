@@ -96,12 +96,18 @@ public class OSSGenericDAOIT {
      */
     @Test
     public void testGetInfo() throws Exception {
-        System.out.println("getInfo");
-        String designador = "CTA-81FJ1GEG9-013";
-        String designadorAcesso = "";
-        OSSGenericDAO instance = new OSSGenericDAO();
-        GetInfoOut result = instance.getInfo(designador, designadorAcesso);
-        System.out.println(GsonUtil.serialize(result));
+        try {
+            System.out.println("getInfo");
+            String designador = "CTA-814OUESD1D-013";
+            String designadorAcesso = "CTA-20325394-069";
+            OSSGenericDAO instance = new OSSGenericDAO();
+            GetInfoOut result = instance.getInfo(designador, designadorAcesso);
+            System.out.println(GsonUtil.serialize(result));
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail(e.getMessage());
+        }
+
     }
 
     /**
@@ -113,9 +119,9 @@ public class OSSGenericDAOIT {
         String designator = "4130776101";
         OSSGenericDAO instance = new OSSGenericDAO();
         InventoryAccountResponse result = instance.getAccountItems(designator);
-        
-        System.out.println("RESULT -> "+new JacksonMapper(InventoryAccountResponse.class).serialize(result));
-        
+
+        System.out.println("RESULT -> " + new JacksonMapper(InventoryAccountResponse.class).serialize(result));
+
 //        result.getAccounts().forEach((t) -> {
 //            t.getAddress().forEach((th) -> {
 //                th.getItems().forEach((thi) -> {

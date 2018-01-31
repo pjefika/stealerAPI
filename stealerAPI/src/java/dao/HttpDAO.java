@@ -68,11 +68,10 @@ public abstract class HttpDAO {
         StringBuffer result = new StringBuffer();
         String line;
         while ((line = rd.readLine()) != null) {
-            
             result.append(line);
         }
         instream.close();
-        System.out.println("RESULTTOSTRING->"+result.toString());
+//        System.out.println("RESULTTOSTRING->"+result.toString());
         return result.toString();
     }
 
