@@ -21,32 +21,32 @@ import com.gvt.ws.eai.oss.inventory.api.Param;
  * @author G0042204
  */
 public class TratativaInventarioServicos extends TratativaEfikaCustomer {
-    
+
     private transient String address;
-    
+
     public TratativaInventarioServicos(InventoryAccountResponse account, EfikaCustomer c) {
         super(c);
         this.account = account;
     }
-    
+
     @Override
     public void tratar() throws Exception {
         getC().setServicos(this.consultarInventarioServico());
         getNetworkSpecifics();
     }
-    
+
     protected InventarioServico consultarInventarioServico() throws Exception {
-        
+
         InventarioServico serv = new InventarioServico();
         this.setAddress();
-        
+
         this.getBanda(serv);
         this.getLinha(serv);
         this.getTv(serv);
-        
+
         return serv;
     }
-    
+
     private void setAddress() {
         for (Account account1 : account.getAccounts()) {
             for (Address addres : account1.getAddress()) {
@@ -59,14 +59,14 @@ public class TratativaInventarioServicos extends TratativaEfikaCustomer {
             }
         }
     }
-    
+
     private void getNetworkSpecifics() {
         for (Account account1 : account.getAccounts()) {
             for (Address addres : account1.getAddress()) {
                 if (addres.getExternalId().equalsIgnoreCase(address)) {
                     for (Item item : addres.getItems()) {
-                        if ((item.getStatusName().equalsIgnoreCase("ACTIVE") || item.getStatusName().equalsIgnoreCase("PENDING")) 
-                                && item.getSpecIdName().equalsIgnoreCase("Wired Access")) {
+                        if ((item.getStatusName().equalsIgnoreCase("ACTIVE") || item.getStatusName().equalsIgnoreCase("PENDING"))
+                                && (item.getSpecIdName().equalsIgnoreCase("Wired Access") || item.getSpecIdName().equalsIgnoreCase("Fiber Access"))) {
                             for (Param param : item.getParam()) {
                                 if (param.getName().equalsIgnoreCase("NetworkOwner")) {
                                     System.out.println("NetworkOwner" + param.getName());
@@ -83,7 +83,7 @@ public class TratativaInventarioServicos extends TratativaEfikaCustomer {
             }
         }
     }
-    
+
     private void getBanda(InventarioServico i) {
         for (Account account1 : account.getAccounts()) {
             for (Address addres : account1.getAddress()) {
@@ -107,16 +107,16 @@ public class TratativaInventarioServicos extends TratativaEfikaCustomer {
                                 }
                             }
                         }
-                        
+
                     }
                 }
             }
         }
-        
+
     }
-    
+
     private void getLinha(InventarioServico i) {
-        
+
         for (Account account1 : account.getAccounts()) {
             for (Address addres : account1.getAddress()) {
                 if (addres.getExternalId().equalsIgnoreCase(address)) {
@@ -149,19 +149,19 @@ public class TratativaInventarioServicos extends TratativaEfikaCustomer {
 
 //                        }
                         }
-                        
+
                     }
                 }
             }
         }
-        
+
         if (i.getTipoLinha() == null) {
             i.setTipoLinha(TecnologiaLinha.SIP);
         }
     }
-    
+
     private void getTv(InventarioServico i) {
-        
+
         for (Account account1 : account.getAccounts()) {
             for (Address addres : account1.getAddress()) {
                 if (addres.getExternalId().equalsIgnoreCase(address)) {
@@ -169,7 +169,7 @@ public class TratativaInventarioServicos extends TratativaEfikaCustomer {
                         for (Item item1 : item.getItems()) {
 //                        System.out.println("paramTV->" + item1.getDesignator().getValue() + "status->" + item1.getStatusName());
                             if (item1.getStatusName().equalsIgnoreCase("ACTIVE") || item1.getStatusName().equalsIgnoreCase("PENDING")) {
-                                
+
                                 for (com.gvt.ws.eai.oss.inventory.api.Param param : item1.getParam()) {
 //                                System.out.println("paramTV->" + param.getName());
                                     if (param.getName().equalsIgnoreCase("TecnologiaTV")) {
@@ -181,7 +181,7 @@ public class TratativaInventarioServicos extends TratativaEfikaCustomer {
                                             }
                                         }
                                         if (item1.getDesignator().getValue().equalsIgnoreCase(getC().getDesignadorTv())) {
-                                            
+
                                             if (param.getValue() != null) {
                                                 System.out.println("paramTV->" + param.getValue());
                                                 if (param.getValue().toUpperCase().contains("BRID")) {
@@ -200,15 +200,15 @@ public class TratativaInventarioServicos extends TratativaEfikaCustomer {
                                         }
                                     }
                                 }
-                                
+
                             }
                         }
-                        
+
                     }
                 }
             }
         }
-        
+
     }
-    
+
 }
