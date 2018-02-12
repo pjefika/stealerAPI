@@ -26,7 +26,7 @@
     </dependencyManagement>
 
     <build>
-        <finalName>fulltestAPI</finalName>
+        <finalName>stealerAPI</finalName>
         <plugins>
             <plugin>
                 <groupId>org.wildfly.swarm</groupId>
@@ -43,7 +43,7 @@
                 
                 <configuration>
                     <properties>
-                        <swarm.http.port>7172</swarm.http.port>
+                        <swarm.http.port>7173</swarm.http.port>
                     </properties>
                 </configuration>
             </plugin>
@@ -51,9 +51,9 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.12.4</version>
-                <configuration>
+<!--                <configuration>
                     <skipTests>true</skipTests>
-                </configuration>
+                </configuration>-->
             </plugin>
         </plugins>
         
@@ -110,10 +110,11 @@
         </dependency>
         
         <dependency>
-            <groupId>br.com.gvt.oss</groupId>
+            <groupId>com.gvt.ws.eai.oss</groupId>
             <artifactId>inventory</artifactId>
             <version>1.0.0</version>
         </dependency>
+        
         
         <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
         <dependency>
@@ -129,6 +130,13 @@
             <version>1.8.3</version>
         </dependency>
         
+        <!-- https://mvnrepository.com/artifact/org.apache.axis/axis -->
+        <dependency>
+            <groupId>org.apache.axis</groupId>
+            <artifactId>axis</artifactId>
+            <version>1.4</version>
+        </dependency>
+
         <!-- https://mvnrepository.com/artifact/org.mongodb.morphia/morphia -->
         <dependency>
             <groupId>org.mongodb.morphia</groupId>
