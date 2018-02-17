@@ -5,8 +5,8 @@
  */
 package br.net.gvt.efika.stealerAPI.dao;
 
-import br.net.gvt.efika.customer.InventarioRede;
-import br.net.gvt.efika.enums.OrigemRede;
+import br.net.gvt.efika.customer.model.customer.InventarioRede;
+import br.net.gvt.efika.customer.model.customer.enums.OrigemRede;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 

@@ -5,8 +5,8 @@
  */
 package br.net.gvt.efika.stealerAPI.dao;
 
-import br.net.gvt.efika.customer.InventarioLinha;
-import br.net.gvt.efika.customer.TipoCentral;
+import br.net.gvt.efika.customer.model.customer.InventarioLinha;
+import br.net.gvt.efika.customer.model.customer.enums.TipoCentral;
 
 /**
  *

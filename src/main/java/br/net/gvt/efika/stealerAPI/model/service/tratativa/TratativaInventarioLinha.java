@@ -5,12 +5,8 @@
  */
 package br.net.gvt.efika.stealerAPI.model.service.tratativa;
 
-import br.net.gvt.efika.customer.EfikaCustomer;
-import br.net.gvt.efika.customer.InventarioLinha;
-import br.net.gvt.efika.customer.InventarioServico;
-import com.gvt.ws.eai.oss.inventory.api.Account;
-import com.gvt.ws.eai.oss.inventory.api.InventoryAccountResponse;
-import com.gvt.ws.eai.oss.inventory.api.Item;
+import br.net.gvt.efika.customer.model.customer.EfikaCustomer;
+import br.net.gvt.efika.customer.model.customer.InventarioLinha;
 
 /**
  *

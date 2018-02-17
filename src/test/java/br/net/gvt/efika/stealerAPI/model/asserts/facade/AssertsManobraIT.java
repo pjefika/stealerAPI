@@ -5,8 +5,7 @@
  */
 package br.net.gvt.efika.stealerAPI.model.asserts.facade;
 
-import br.net.gvt.efika.stealerAPI.model.asserts.facade.AssertsManobra;
-import br.net.gvt.efika.customer.CustomerAssert;
+import br.net.gvt.efika.customer.model.customer.CustomerAssert;
 import java.util.List;
 import br.net.gvt.efika.stealerAPI.model.asserts.Assertter;
 import org.junit.After;

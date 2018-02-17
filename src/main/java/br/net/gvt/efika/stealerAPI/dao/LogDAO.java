@@ -5,7 +5,7 @@
  */
 package br.net.gvt.efika.stealerAPI.dao;
 
-import dao.AbstractMongoDAO;
+import br.net.gvt.efika.mongo.dao.AbstractMongoDAO;
 import br.net.gvt.efika.stealerAPI.model.entity.Log;
 
 /**

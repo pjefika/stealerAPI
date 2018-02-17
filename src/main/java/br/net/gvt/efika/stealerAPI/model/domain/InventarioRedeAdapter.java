@@ -6,10 +6,10 @@
 package br.net.gvt.efika.stealerAPI.model.domain;
 
 import bean.ossturbonet.oss.gvt.com.GetInfoOut;
-import br.net.gvt.efika.customer.InventarioRede;
-import br.net.gvt.efika.customer.TipoRede;
-import br.net.gvt.efika.enums.OrigemPlanta;
-import br.net.gvt.efika.enums.OrigemRede;
+import br.net.gvt.efika.customer.model.customer.InventarioRede;
+import br.net.gvt.efika.customer.model.customer.enums.OrigemPlanta;
+import br.net.gvt.efika.customer.model.customer.enums.OrigemRede;
+import br.net.gvt.efika.customer.model.customer.enums.TipoRede;
 
 
 /**

@@ -5,9 +5,9 @@
  */
 package br.net.gvt.efika.stealerAPI.model.asserts.facade;
 
-import br.net.gvt.efika.asserts.AssertsEnum;
-import br.net.gvt.efika.customer.CustomerAssert;
-import br.net.gvt.efika.customer.EfikaCustomer;
+import br.net.gvt.efika.customer.model.customer.CustomerAssert;
+import br.net.gvt.efika.customer.model.customer.EfikaCustomer;
+import br.net.gvt.efika.customer.model.customer.asserts.AssertsEnum;
 import br.net.gvt.efika.stealerAPI.model.asserts.AssertInventarioRede;
 
 /**

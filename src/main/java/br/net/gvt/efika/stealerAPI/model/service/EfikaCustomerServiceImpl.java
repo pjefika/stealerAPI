@@ -6,10 +6,10 @@
 package br.net.gvt.efika.stealerAPI.model.service;
 
 import bean.ossturbonet.oss.gvt.com.GetInfoOut;
-import br.net.gvt.efika.customer.EfikaCustomer;
-import br.net.gvt.efika.customer.EventoMassivo;
-import br.net.gvt.efika.enums.OrigemPlanta;
-import br.net.gvt.efika.enums.OrigemRede;
+import br.net.gvt.efika.customer.model.customer.EfikaCustomer;
+import br.net.gvt.efika.customer.model.customer.EventoMassivo;
+import br.net.gvt.efika.customer.model.customer.enums.OrigemPlanta;
+import br.net.gvt.efika.customer.model.customer.enums.OrigemRede;
 import com.gvt.ws.eai.oss.inventory.api.InventoryAccountResponse;
 import com.gvt.www.ws.eai.oss.OSSTurbonetStatusConexao.OSSTurbonetStatusConexaoOut;
 import com.gvt.www.ws.eai.oss.gpon.ConsultInfoGponOut;

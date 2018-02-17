@@ -5,7 +5,7 @@
  */
 package br.net.gvt.efika.stealerAPI.dao;
 
-import br.net.gvt.efika.customer.InventarioServico;
+import br.net.gvt.efika.customer.model.customer.InventarioServico;
 
 /**
  *

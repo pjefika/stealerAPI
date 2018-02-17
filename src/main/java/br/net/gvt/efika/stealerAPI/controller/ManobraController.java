@@ -5,7 +5,7 @@
  */
 package br.net.gvt.efika.stealerAPI.controller;
 
-import br.net.gvt.efika.customer.CustomerAssert;
+import br.net.gvt.efika.customer.model.customer.CustomerAssert;
 import br.net.gvt.efika.stealerAPI.controller.in.ManobraITAssertIn;
 import br.net.gvt.efika.stealerAPI.dao.FactoryDAO;
 import br.net.gvt.efika.stealerAPI.dao.InterfaceDAO;

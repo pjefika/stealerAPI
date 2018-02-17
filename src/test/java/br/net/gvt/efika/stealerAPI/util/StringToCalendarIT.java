@@ -5,8 +5,6 @@
  */
 package br.net.gvt.efika.stealerAPI.util;
 
-import br.net.gvt.efika.stealerAPI.util.StringToCalendar;
-import br.net.gvt.efika.customer.EfikaCustomer;
 import java.util.Calendar;
 import org.junit.After;
 import org.junit.AfterClass;

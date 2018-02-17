@@ -5,9 +5,7 @@
  */
 package br.net.gvt.efika.stealerAPI.model.service;
 
-import br.net.gvt.efika.stealerAPI.model.service.EfikaCustomerServiceImpl;
-import br.net.gvt.efika.stealerAPI.model.service.EfikaCustomerService;
-import br.net.gvt.efika.customer.EfikaCustomer;
+import br.net.gvt.efika.customer.model.customer.EfikaCustomer;
 import org.junit.After;
 import org.junit.AfterClass;
 import static org.junit.Assert.fail;

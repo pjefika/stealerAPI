@@ -5,8 +5,8 @@
  */
 package br.net.gvt.efika.stealerAPI.dao;
 
-import br.net.gvt.efika.customer.EfikaCustomer;
-import br.net.gvt.efika.customer.EventoMassivo;
+import br.net.gvt.efika.customer.model.customer.EfikaCustomer;
+import br.net.gvt.efika.customer.model.customer.EventoMassivo;
 import br.net.gvt.efika.util.util.json.JacksonMapper;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.BufferedReader;
