@@ -13,7 +13,7 @@ import com.gvt.www.ws.eai.oss.gpon.ConsultInfoGponOut;
  *
  * @author G0042204
  */
-public interface EfikaCustomerService {
+public interface EfikaCustomerServiceOld {
 
     public EfikaCustomer consultar(String param1) throws Exception;
     

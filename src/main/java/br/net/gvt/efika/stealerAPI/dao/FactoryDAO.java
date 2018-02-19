@@ -7,6 +7,8 @@ package br.net.gvt.efika.stealerAPI.dao;
 
 import br.net.gvt.efika.customer.model.customer.EfikaCustomer;
 import br.net.gvt.efika.stealerAPI.dao.oss.OSSGenericDAO;
+import br.net.gvt.efika.stealerAPI.dao.sigres.EfikaCustomerSigresDAO;
+import br.net.gvt.efika.stealerAPI.dao.sigres.EfikaCustomerSigresDAOImpl;
 import br.net.gvt.efika.stealerAPI.model.entity.Log;
 
 /**
@@ -37,6 +39,10 @@ public class FactoryDAO {
 
     public static ChamadaBillingDAO createChamadaBillingDAO() {
         return new ChamadaBillingDAOImpl();
+    }
+
+    public static EfikaCustomerSigresDAO createSigresDAO() {
+        return new EfikaCustomerSigresDAOImpl();
     }
 
 }

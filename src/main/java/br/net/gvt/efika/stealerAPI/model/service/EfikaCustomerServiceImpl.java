@@ -38,7 +38,7 @@ import br.net.gvt.efika.stealerAPI.model.service.tratativa.TratativaConsultaPorO
 import br.net.gvt.efika.stealerAPI.model.service.tratativa.TratativaInventarioRadius;
 import com.gvt.ws.eai.oss.inventory.api.InventoryDesignatorsResponse;
 
-public class EfikaCustomerServiceImpl implements EfikaCustomerService {
+public class EfikaCustomerServiceImpl implements EfikaCustomerServiceOld {
 
     private EfikaCustomer ec;
 
