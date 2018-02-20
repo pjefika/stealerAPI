@@ -8,7 +8,7 @@ package br.net.gvt.efika.stealerAPI.model.service.tratativa;
 import br.com.gvt.www.ResourceManagement.WorkforceManagement.WorkforceManagementReporting.workOrderReportingEntities.WorkOrder;
 import br.net.gvt.efika.customer.model.customer.EfikaCustomer;
 import br.net.gvt.efika.stealerAPI.dao.FactoryDAO;
-import br.net.gvt.efika.stealerAPI.model.service.FactoryService;
+import br.net.gvt.efika.stealerAPI.model.service.factory.FactoryService;
 
 /**
  *

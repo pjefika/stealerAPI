@@ -7,12 +7,9 @@ package br.net.gvt.efika.stealerAPI.dao.sigres;
 
 import br.net.gvt.efika.customer.model.customer.EfikaCustomer;
 import br.net.gvt.efika.customer.model.customer.InventarioRede;
-import br.net.gvt.efika.customer.model.customer.enums.OrigemPlanta;
-import br.net.gvt.efika.customer.model.customer.enums.OrigemRede;
-import br.net.gvt.efika.customer.model.customer.enums.TipoRede;
 import br.net.gvt.efika.stealerAPI.dao.InventarioRedeDAO;
-import br.net.gvt.efika.stealerAPI.dao.exception.InstanciaInvalidaException;
-import br.net.gvt.efika.util.regex.EfikaRegex;
+import br.net.gvt.efika.stealerAPI.util.jsoup.InvRedeFibraSigresTratativaImpl;
+import br.net.gvt.efika.stealerAPI.util.jsoup.InvRedeMetalicoSigresTratativaImpl;
 import org.jsoup.Connection;
 import org.jsoup.Connection.Response;
 import org.jsoup.Jsoup;
@@ -48,7 +45,7 @@ public class EfikaCustomerSigresDAOImpl implements EfikaCustomerSigresDAO, Inven
                     .header("Content-Type", "application/x-www-form-urlencoded")
                     .data("pagina_destino", "consulta_terminal")
                     .data("tipoConsulta", "porTerminal")
-                    .data("Lp", terminal)
+                    .data("terminal", terminal)
                     .cookies(getLogin().cookies())
                     .post();
             return doc.select("table td.bgform").get(18).text();
@@ -60,42 +57,17 @@ public class EfikaCustomerSigresDAOImpl implements EfikaCustomerSigresDAO, Inven
 
     @Override
     public EfikaCustomer consultar(EfikaCustomer cust) throws Exception {
-        String result = "";
-        if (cust.getInstancia().length() < 15) {
-            result = this.consultarPorTerminal(cust.getInstancia());
-        } else {
-            result = this.consultarPorIdFibra(cust.getInstancia());
-        }
-
-        System.out.println("result: " + result);
-        if (result.contains("Terminal não encontrado")) {
-            throw new InstanciaInvalidaException();
-        }
-
         try {
-            InventarioRede rede = new InventarioRede();
-            rede.setTipo(TipoRede.GPON);
-            rede.setOrigem(OrigemRede.ONLINE);
-            rede.setPlanta(OrigemPlanta.VIVO1);
-            rede.setNrc(EfikaRegex.capture(result, "(?:NRC.)(\\w{5,10})", 1));
-            rede.setIpDslam(EfikaRegex.capture(result, "(?:Equipamento.)(BR_\\w{10,20})", 1));
-            rede.setIdOnt(EfikaRegex.capture(result, "(?:Id ONT\\s{0,3})(.{10})", 1));
-            rede.setTerminal(EfikaRegex.capture(result, "(?:Terminal.)\\s{0,3}(\\d{10,20})", 1));
-            rede.setSlot(new Integer(EfikaRegex.capture(result, "(?:Cartão.{0,5}Cartão\\s{0,3})(\\d{0,2})", 1)));
-            rede.setPorta(new Integer(EfikaRegex.capture(result, "(?:Porta.{0,5}Porta\\s{0,3})(\\d{0,2})", 1)));
-            rede.setRin(new Integer(EfikaRegex.capture(result, "(?:VLan de Rede\\s{0,3})(\\d{0,4})", 1)));
-            rede.setCvlan(new Integer(EfikaRegex.capture(result, "(?:VLan do Usuário\\s{0,3})(\\d{0,3})", 1)));
-            rede.setBhs(EfikaRegex.capture(result, "(?:BHS/HGU Instalado\\s{0,3})(\\w{0,3})", 1).equalsIgnoreCase("SIM"));
-            rede.setLogica(new Integer(EfikaRegex.capture(result, "(?:Id do Cliente\\s{0,3})(\\w{0,3})", 1)));
-            rede.setSequencial(rede.getLogica());
-            cust.setRede(rede);
+            if (cust.getInstancia().length() < 15) {
+                cust.setRede(new InvRedeMetalicoSigresTratativaImpl().parse(this.consultarPorTerminal(cust.getInstancia())));
+            } else {
+                cust.setRede(new InvRedeFibraSigresTratativaImpl().parse(this.consultarPorIdFibra(cust.getInstancia())));
+            }
         } catch (Exception e) {
             e.printStackTrace();
             throw new Exception("Falha ao tratar informações do SIGRES!");
         }
-
         return cust;
-
     }
 
     protected Response getLogin() throws Exception {

@@ -10,7 +10,7 @@ import br.net.gvt.efika.customer.model.customer.CustomerAssert;
 import br.net.gvt.efika.customer.model.customer.asserts.AssertsEnum;
 import br.net.gvt.efika.customer.model.customer.asserts.EfikaAssertable;
 import br.net.gvt.efika.stealerAPI.model.service.ChamadaBillingService;
-import br.net.gvt.efika.stealerAPI.model.service.FactoryService;
+import br.net.gvt.efika.stealerAPI.model.service.factory.FactoryService;
 
 /**
  *

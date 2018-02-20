@@ -14,7 +14,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import br.net.gvt.efika.stealerAPI.model.entity.Log;
 import javax.ws.rs.POST;
-import br.net.gvt.efika.stealerAPI.model.service.FactoryService;
+import br.net.gvt.efika.stealerAPI.model.service.factory.FactoryService;
+import br.net.gvt.efika.stealerAPI.model.service.factory.FactoryServiceInventory;
 
 /**
  *
@@ -24,32 +25,10 @@ import br.net.gvt.efika.stealerAPI.model.service.FactoryService;
 public class ServiceInventoryController {
 
     @POST
-    @Path("/sophia")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getClienteSophia(GetClienteIn in) {
+    public Response getServiceInventory(GetClienteIn in) {
         try {
-
-            EfikaCustomer out = FactoryService.create().consultar(in.getInstancia());
-            try {
-                Log l = new Log(in);
-                l.setOuput(out);
-                FactoryDAO.createLogDAO().cadastrar(l);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return Response.status(200).entity(out).build();
-        } catch (Exception e) {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e).build();
-        }
-    }
-
-    @POST
-    @Path("/legado")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getClienteLegadoV1(GetClienteIn in) {
-        try {
-
-            EfikaCustomer out = FactoryService.create().consultar(in.getInstancia());
+            EfikaCustomer out = FactoryServiceInventory.createGatewayInventoryServiceImpl().consultar(in.getInstancia());
             try {
                 Log l = new Log(in);
                 l.setOuput(out);

@@ -3,8 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.net.gvt.efika.stealerAPI.model.service;
+package br.net.gvt.efika.stealerAPI.model.service.factory;
 
+import br.net.gvt.efika.stealerAPI.model.service.ChamadaBillingService;
+import br.net.gvt.efika.stealerAPI.model.service.ChamadaBillingServiceImpl;
+import br.net.gvt.efika.stealerAPI.model.service.EfikaCustomerServiceImpl;
+import br.net.gvt.efika.stealerAPI.model.service.EfikaCustomerServiceOld;
 import br.net.gvt.efika.stealerAPI.model.service.network_inventory.NetworkInventoryService;
 import br.net.gvt.efika.stealerAPI.model.service.network_inventory.SigresNetworkInventoryServiceImpl;
 import br.net.gvt.efika.stealerAPI.model.service.network_inventory.TbsNetworkInventoryServiceImpl;
@@ -22,16 +26,8 @@ public class FactoryService {
         return new EfikaCustomerServiceImpl();
     }
 
-    public static ServiceInventoryService createSophiaServiceInventoryServiceImpl() {
-        return new SophiaServiceInventoryServiceImpl();
-    }
-
     public static ChamadaBillingService createChamadaBillingService() {
         return new ChamadaBillingServiceImpl();
-    }
-
-    public static ServiceInventoryService createLegadoServiceInventoryServiceImpl() {
-        return new LegadoServiceInventoryServiceImpl();
     }
 
     public static NetworkInventoryService createSigresNetworkInventoryServiceImpl() {

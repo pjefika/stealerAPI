@@ -8,6 +8,7 @@ package br.net.gvt.efika.stealerAPI.model.service.service_inventory;
 import br.net.gvt.efika.customer.model.customer.EfikaCustomer;
 import br.net.gvt.efika.customer.model.customer.enums.OrigemInventarioServico;
 import br.net.gvt.efika.customer.model.customer.enums.OrigemPlanta;
+import br.net.gvt.efika.customer.model.customer.enums.TipoRede;
 import br.net.gvt.efika.util.util.json.JacksonMapper;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -40,17 +41,35 @@ public class LegadoServiceInventoryServiceImplIT {
      * Test of consultar method, of class LegadoServiceInventoryServiceImpl.
      */
     @Test
-    public void testConsultar() {
+    public void testConsultarIdFibra() {
         try {
-            System.out.println("consultar");
+            System.out.println("consultar - ID FIBRA");
             String instancia = "110002011309703";
             LegadoServiceInventoryServiceImpl instance = new LegadoServiceInventoryServiceImpl();
             EfikaCustomer result = instance.consultar(instancia);
             System.out.println(new JacksonMapper<>(EfikaCustomer.class).serialize(result));
             assertTrue("Inventário Rede - BHS", result.getRede().getBhs() != null);
             assertTrue("Inventário Rede - Origem", result.getRede().getPlanta() == OrigemPlanta.VIVO1);
+            assertTrue("Inventário Rede - Tipo", result.getRede().getTipo() == TipoRede.GPON);
         } catch (Exception e) {
             fail(e.getMessage());
         }
     }
+
+    @Test
+    public void testConsultarTerminal() {
+        try {
+            System.out.println("consultar - TERMINAL");
+            String instancia = "1120414633";
+            LegadoServiceInventoryServiceImpl instance = new LegadoServiceInventoryServiceImpl();
+            EfikaCustomer result = instance.consultar(instancia);
+            System.out.println(new JacksonMapper<>(EfikaCustomer.class).serialize(result));
+            assertTrue("Inventário Rede - Origem", result.getRede().getPlanta() == OrigemPlanta.VIVO1);
+            assertTrue("Inventário Rede - Tipo", result.getRede().getTipo() == TipoRede.METALICA);
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail(e.getMessage());
+        }
+    }
+
 }
