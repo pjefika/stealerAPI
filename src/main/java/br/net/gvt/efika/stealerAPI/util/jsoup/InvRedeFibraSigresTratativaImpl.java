@@ -12,7 +12,7 @@ import br.net.gvt.efika.customer.model.customer.enums.TipoRede;
 import br.net.gvt.efika.stealerAPI.dao.exception.InstanciaInvalidaException;
 import br.net.gvt.efika.util.regex.EfikaRegex;
 
-public class InvRedeFibraSigresTratativaImpl extends GenericTratativaImpl<InventarioRede> {
+public class InvRedeFibraSigresTratativaImpl extends GenericTratativaImpl<InventarioRede, String> {
 
     @Override
     public InventarioRede parse(String str) throws Exception {

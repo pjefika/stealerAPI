@@ -9,9 +9,10 @@ package br.net.gvt.efika.stealerAPI.util.jsoup;
  *
  * @author G0042204
  * @param <T>
+ * @param <E>
  */
-public interface Tratativa<T> {
+public interface Tratativa<T, E> {
 
-    public T parse(String str) throws Exception;
+    public T parse(E param) throws Exception;
 
 }

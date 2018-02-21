@@ -14,6 +14,8 @@ import org.jsoup.Connection;
 import org.jsoup.Connection.Response;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 public class EfikaCustomerSigresDAOImpl implements EfikaCustomerSigresDAO, InventarioRedeDAO {
 
@@ -38,7 +40,7 @@ public class EfikaCustomerSigresDAOImpl implements EfikaCustomerSigresDAO, Inven
         }
     }
 
-    protected String consultarPorTerminal(String terminal) throws Exception {
+    protected Elements consultarPorTerminal(String terminal) throws Exception {
         try {
             doc = Jsoup.connect("http://192.168.236.92/portal/consultacliente.do")
                     .timeout(10000)
@@ -48,7 +50,12 @@ public class EfikaCustomerSigresDAOImpl implements EfikaCustomerSigresDAO, Inven
                     .data("terminal", terminal)
                     .cookies(getLogin().cookies())
                     .post();
-            return doc.select("table td.bgform").get(18).text();
+            int i = 0;
+            for (Element element : doc.select("table td.conttabela")) {
+                System.out.println(i + element.text());
+                i++;
+            }
+            return doc.select("table td.conttabela");
         } catch (Exception e) {
             e.printStackTrace();
             throw new Exception("Falha ao consultar SIGRES!");

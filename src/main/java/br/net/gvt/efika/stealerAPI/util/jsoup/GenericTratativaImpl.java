@@ -5,7 +5,7 @@
  */
 package br.net.gvt.efika.stealerAPI.util.jsoup;
 
-public abstract class GenericTratativaImpl<T> implements Tratativa<T> {
+public abstract class GenericTratativaImpl<T, E> implements Tratativa<T, E> {
 
     protected T result;
 
