@@ -5,10 +5,10 @@
  */
 package br.net.gvt.efika.stealerAPI.util.jsoup;
 
-import br.net.gvt.efika.customer.model.customer.InventarioRede;
-import br.net.gvt.efika.customer.model.customer.enums.OrigemPlanta;
-import br.net.gvt.efika.customer.model.customer.enums.OrigemRede;
-import br.net.gvt.efika.customer.model.customer.enums.TipoRede;
+import br.net.gvt.efika.efika_customer.model.customer.InventarioRede;
+import br.net.gvt.efika.efika_customer.model.customer.enums.OrigemPlanta;
+import br.net.gvt.efika.efika_customer.model.customer.enums.OrigemRede;
+import br.net.gvt.efika.efika_customer.model.customer.enums.TipoRede;
 import br.net.gvt.efika.stealerAPI.dao.exception.InstanciaInvalidaException;
 import br.net.gvt.efika.util.regex.EfikaRegex;
 

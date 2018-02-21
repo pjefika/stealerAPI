@@ -5,10 +5,9 @@
  */
 package br.net.gvt.efika.stealerAPI.dao;
 
-import br.net.gvt.efika.stealerAPI.dao.NumberInventoryDAO;
 import br.com.gvt.www.eai.NumberInventoryServicesWS.GetNumberByFilterOut;
 import br.com.gvt.www.eai.NumberInventoryServicesWS.GetSwitchInfoByFilterOut;
-import br.net.gvt.efika.util.util.json.JacksonMapper;
+import br.net.gvt.efika.util.json.JacksonMapper;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

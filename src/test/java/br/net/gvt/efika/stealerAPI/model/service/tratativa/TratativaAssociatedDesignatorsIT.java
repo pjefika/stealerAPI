@@ -5,12 +5,12 @@
  */
 package br.net.gvt.efika.stealerAPI.model.service.tratativa;
 
-import br.net.gvt.efika.customer.model.customer.EfikaCustomer;
-import br.net.gvt.efika.util.util.json.JacksonMapper;
+import br.net.gvt.efika.efika_customer.model.customer.EfikaCustomer;
 import com.gvt.ws.eai.oss.inventory.api.InventoryAccountResponse;
 import com.gvt.ws.eai.oss.inventory.api.InventoryDesignatorsResponse;
 import br.net.gvt.efika.stealerAPI.dao.FactoryDAO;
 import br.net.gvt.efika.stealerAPI.dao.oss.OSSGenericDAO;
+import br.net.gvt.efika.util.json.JacksonMapper;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

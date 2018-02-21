@@ -5,7 +5,7 @@
  */
 package br.net.gvt.efika.stealerAPI.model.entity;
 
-import br.net.gvt.efika.customer.model.customer.EventoMassivo;
+import br.net.gvt.efika.efika_customer.model.customer.EventoMassivo;
 import java.util.List;
 
 /**

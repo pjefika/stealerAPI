@@ -5,7 +5,7 @@
  */
 package br.net.gvt.efika.stealerAPI.model.asserts;
 
-import br.net.gvt.efika.customer.model.customer.CustomerAssert;
+import br.net.gvt.efika.efika_customer.model.customer.CustomerAssert;
 import br.net.gvt.efika.stealerAPI.dao.FactoryDAO;
 import br.net.gvt.efika.stealerAPI.dao.OssTurbonetDAOInterface;
 import java.util.List;

@@ -5,21 +5,18 @@
  */
 package br.net.gvt.efika.stealerAPI.dao.oss;
 
-import br.net.gvt.efika.stealerAPI.dao.oss.OSSGenericDAO;
 import bean.ossturbonet.oss.gvt.com.GetInfoOut;
-import br.com.gvt.oss.inventory.service.impl.InventoryImpl;
 import com.gvt.ws.eai.oss.inventory.api.InventoryAccountResponse;
 import com.gvt.ws.eai.oss.inventory.api.InventoryDesignatorsResponse;
 import com.gvt.www.ws.eai.oss.OSSTurbonetStatusConexao.OSSTurbonetStatusConexaoOut;
 import com.gvt.www.ws.eai.oss.gpon.ConsultInfoGponOut;
-import com.gvt.www.ws.eai.oss.ossturbonet.OSSTurbonet;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import br.net.gvt.efika.stealerAPI.util.JacksonMapper;
+import br.net.gvt.efika.util.json.JacksonMapper;
 
 /**
  *

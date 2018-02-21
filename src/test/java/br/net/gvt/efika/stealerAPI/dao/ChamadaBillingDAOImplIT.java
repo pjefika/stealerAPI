@@ -5,8 +5,6 @@
  */
 package br.net.gvt.efika.stealerAPI.dao;
 
-import br.net.gvt.efika.stealerAPI.dao.ChamadaBillingDAOImpl;
-import br.net.gvt.efika.util.util.json.JacksonMapper;
 import java.util.Calendar;
 import java.util.List;
 import br.net.gvt.efika.stealerAPI.model.entity.ChamadaBilling;
@@ -16,7 +14,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import br.net.gvt.efika.stealerAPI.util.StringToCalendar;
+import br.net.gvt.efika.util.json.JacksonMapper;
+import br.net.gvt.efika.util.string.StringToCalendar;
 
 /**
  *

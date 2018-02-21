@@ -5,6 +5,8 @@
  */
 package br.net.gvt.efika.stealerAPI.util;
 
+import br.net.gvt.efika.util.json.JacksonMapper;
+import br.net.gvt.efika.util.string.StringToCalendar;
 import java.util.Calendar;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -50,7 +52,7 @@ public class StringToCalendarIT {
         String dia = diaMes + "/11/2017";
         Calendar expResult = null;
         Calendar result = StringToCalendar.parse(dia);
-        System.out.println("GsonUtil.serialize(result): " + new br.net.gvt.efika.util.util.json.JacksonMapper(Calendar.class).serialize(result));
+        System.out.println("GsonUtil.serialize(result): " + new JacksonMapper(Calendar.class).serialize(result));
         assertEquals(diaMes, result.get(Calendar.DAY_OF_MONTH));
         
         

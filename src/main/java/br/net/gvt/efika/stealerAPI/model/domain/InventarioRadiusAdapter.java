@@ -6,7 +6,7 @@
 package br.net.gvt.efika.stealerAPI.model.domain;
 
 import bean.ossturbonet.oss.gvt.com.GetInfoOut;
-import br.net.gvt.efika.customer.model.customer.InventarioRadius;
+import br.net.gvt.efika.efika_customer.model.customer.InventarioRadius;
 
 
 /**

@@ -6,10 +6,10 @@
 package br.net.gvt.efika.stealerAPI.model.service;
 
 import bean.ossturbonet.oss.gvt.com.GetInfoOut;
-import br.net.gvt.efika.customer.model.customer.EfikaCustomer;
-import br.net.gvt.efika.customer.model.customer.EventoMassivo;
-import br.net.gvt.efika.customer.model.customer.enums.OrigemPlanta;
-import br.net.gvt.efika.customer.model.customer.enums.OrigemRede;
+import br.net.gvt.efika.efika_customer.model.customer.EfikaCustomer;
+import br.net.gvt.efika.efika_customer.model.customer.EventoMassivo;
+import br.net.gvt.efika.efika_customer.model.customer.enums.OrigemPlanta;
+import br.net.gvt.efika.efika_customer.model.customer.enums.OrigemRede;
 import com.gvt.ws.eai.oss.inventory.api.InventoryAccountResponse;
 import com.gvt.www.ws.eai.oss.OSSTurbonetStatusConexao.OSSTurbonetStatusConexaoOut;
 import com.gvt.www.ws.eai.oss.gpon.ConsultInfoGponOut;
@@ -26,7 +26,6 @@ import br.net.gvt.efika.stealerAPI.model.service.tratativa.TratativaAssociatedDe
 import br.net.gvt.efika.stealerAPI.model.service.tratativa.TratativaInventarioLinha;
 import br.net.gvt.efika.stealerAPI.model.service.tratativa.TratativaInventarioRede;
 import br.net.gvt.efika.stealerAPI.model.service.tratativa.TratativaInventarioServicos;
-import br.net.gvt.efika.stealerAPI.util.EfikaThread;
 import br.net.gvt.efika.stealerAPI.dao.InventarioLinhaDAO;
 import br.net.gvt.efika.stealerAPI.dao.InventarioLinhaDAOPnAdminImpl;
 import br.net.gvt.efika.stealerAPI.dao.NetworkInventoryDAO;
@@ -36,6 +35,7 @@ import java.util.List;
 import br.net.gvt.efika.stealerAPI.model.asserts.facade.AssertFacadeFulltestCRMVivo1;
 import br.net.gvt.efika.stealerAPI.model.service.tratativa.TratativaConsultaPorOrdem;
 import br.net.gvt.efika.stealerAPI.model.service.tratativa.TratativaInventarioRadius;
+import br.net.gvt.efika.util.thread.EfikaThread;
 import com.gvt.ws.eai.oss.inventory.api.InventoryDesignatorsResponse;
 
 public class EfikaCustomerServiceImpl implements EfikaCustomerServiceOld {

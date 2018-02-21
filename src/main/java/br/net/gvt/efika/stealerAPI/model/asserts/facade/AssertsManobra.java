@@ -7,7 +7,7 @@ package br.net.gvt.efika.stealerAPI.model.asserts.facade;
 
 import bean.ossturbonet.oss.gvt.com.GetInfoOut;
 import br.com.gvt.www.ResourceManagement.WorkforceManagement.WorkforceManagementReporting.workOrderReportingEntities.WorkOrder;
-import br.net.gvt.efika.customer.model.customer.EfikaCustomer;
+import br.net.gvt.efika.efika_customer.model.customer.EfikaCustomer;
 import br.net.gvt.efika.stealerAPI.dao.exception.OrdemInvalidaException;
 import br.net.gvt.efika.stealerAPI.model.asserts.AssertAutenticacaoAposOrdem;
 import br.net.gvt.efika.stealerAPI.model.asserts.AssertOrdemReparo;

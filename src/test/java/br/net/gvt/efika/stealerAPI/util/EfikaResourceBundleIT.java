@@ -5,7 +5,7 @@
  */
 package br.net.gvt.efika.stealerAPI.util;
 
-import br.net.gvt.efika.stealerAPI.util.EfikaResourceBundle;
+import br.net.gvt.efika.util.bundle.EfikaResourceBundle;
 import org.junit.After;
 import org.junit.AfterClass;
 import static org.junit.Assert.assertTrue;

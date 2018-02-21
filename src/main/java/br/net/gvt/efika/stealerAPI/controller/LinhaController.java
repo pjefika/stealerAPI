@@ -5,7 +5,7 @@
  */
 package br.net.gvt.efika.stealerAPI.controller;
 
-import br.net.gvt.efika.customer.model.customer.InventarioLinha;
+import br.net.gvt.efika.efika_customer.model.customer.InventarioLinha;
 import br.net.gvt.efika.stealerAPI.controller.in.ConsultarLinhaIn;
 import br.net.gvt.efika.stealerAPI.dao.FactoryDAO;
 import javax.ws.rs.Path;

@@ -5,11 +5,11 @@
  */
 package br.net.gvt.efika.stealerAPI.model.service.tratativa;
 
-import br.net.gvt.efika.customer.model.customer.EfikaCustomer;
-import br.net.gvt.efika.customer.model.customer.InventarioServico;
-import br.net.gvt.efika.customer.model.customer.enums.OrigemPlanta;
-import br.net.gvt.efika.customer.model.customer.enums.TecnologiaLinha;
-import br.net.gvt.efika.customer.model.customer.enums.TecnologiaTv;
+import br.net.gvt.efika.efika_customer.model.customer.EfikaCustomer;
+import br.net.gvt.efika.efika_customer.model.customer.InventarioServico;
+import br.net.gvt.efika.efika_customer.model.customer.enums.OrigemPlanta;
+import br.net.gvt.efika.efika_customer.model.customer.enums.TecnologiaLinha;
+import br.net.gvt.efika.efika_customer.model.customer.enums.TecnologiaTv;
 import com.gvt.ws.eai.oss.inventory.api.Account;
 import com.gvt.ws.eai.oss.inventory.api.Address;
 import com.gvt.ws.eai.oss.inventory.api.InventoryAccountResponse;

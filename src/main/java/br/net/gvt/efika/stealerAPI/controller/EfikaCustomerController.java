@@ -5,7 +5,7 @@
  */
 package br.net.gvt.efika.stealerAPI.controller;
 
-import br.net.gvt.efika.customer.model.customer.EfikaCustomer;
+import br.net.gvt.efika.efika_customer.model.customer.EfikaCustomer;
 import com.gvt.www.ws.eai.oss.OSSTurbonetStatusConexao.OSSTurbonetStatusConexaoOut;
 import com.gvt.www.ws.eai.oss.gpon.ConsultInfoGponOut;
 import br.net.gvt.efika.stealerAPI.controller.in.GetAuthIn;

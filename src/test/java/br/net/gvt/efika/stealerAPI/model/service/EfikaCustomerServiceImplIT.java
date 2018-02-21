@@ -5,14 +5,14 @@
  */
 package br.net.gvt.efika.stealerAPI.model.service;
 
-import br.net.gvt.efika.customer.model.customer.EfikaCustomer;
+import br.net.gvt.efika.efika_customer.model.customer.EfikaCustomer;
 import org.junit.After;
 import org.junit.AfterClass;
 import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import br.net.gvt.efika.stealerAPI.util.JacksonMapper;
+import br.net.gvt.efika.util.json.JacksonMapper;
 
 /**
  *

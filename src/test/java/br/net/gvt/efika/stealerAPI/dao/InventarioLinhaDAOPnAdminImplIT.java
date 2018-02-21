@@ -5,8 +5,8 @@
  */
 package br.net.gvt.efika.stealerAPI.dao;
 
-import br.net.gvt.efika.customer.model.customer.InventarioLinha;
-import br.net.gvt.efika.util.util.json.JacksonMapper;
+import br.net.gvt.efika.efika_customer.model.customer.InventarioLinha;
+import br.net.gvt.efika.util.json.JacksonMapper;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

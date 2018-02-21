@@ -5,9 +5,8 @@
  */
 package br.net.gvt.efika.stealerAPI.dao;
 
-import br.net.gvt.efika.customer.model.customer.EfikaCustomer;
-import br.net.gvt.efika.customer.model.customer.EventoMassivo;
-import br.net.gvt.efika.util.util.json.JacksonMapper;
+import br.net.gvt.efika.efika_customer.model.customer.EfikaCustomer;
+import br.net.gvt.efika.efika_customer.model.customer.EventoMassivo;
 import java.util.List;
 import br.net.gvt.efika.stealerAPI.model.service.EfikaCustomerServiceImpl;
 import org.junit.After;
@@ -16,6 +15,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import br.net.gvt.efika.stealerAPI.model.service.EfikaCustomerServiceOld;
+import br.net.gvt.efika.util.json.JacksonMapper;
 
 /**
  *
