@@ -14,7 +14,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import br.net.gvt.efika.stealerAPI.model.entity.Log;
 import javax.ws.rs.POST;
-import br.net.gvt.efika.stealerAPI.model.service.factory.FactoryService;
 import br.net.gvt.efika.stealerAPI.model.service.factory.FactoryServiceInventory;
 
 /**
