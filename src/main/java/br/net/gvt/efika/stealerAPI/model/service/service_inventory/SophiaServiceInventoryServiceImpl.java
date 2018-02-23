@@ -5,20 +5,13 @@
  */
 package br.net.gvt.efika.stealerAPI.model.service.service_inventory;
 
-import bean.ossturbonet.oss.gvt.com.GetInfoOut;
 import br.net.gvt.efika.efika_customer.model.customer.EfikaCustomer;
 import br.net.gvt.efika.efika_customer.model.customer.enums.OrigemInventarioServico;
 import com.gvt.ws.eai.oss.inventory.api.InventoryAccountResponse;
 import com.gvt.ws.eai.oss.inventory.api.InventoryDesignatorsResponse;
-import br.net.gvt.efika.stealerAPI.dao.FactoryDAO;
 import br.net.gvt.efika.stealerAPI.dao.exception.InstanciaInvalidaException;
-import br.net.gvt.efika.stealerAPI.dao.oss.OSSGenericDAO;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import br.net.gvt.efika.stealerAPI.model.service.tratativa.TratativaAssociatedDesignators;
 import br.net.gvt.efika.stealerAPI.model.service.tratativa.TratativaInventarioServicos;
-import br.net.gvt.efika.stealerAPI.dao.InventarioLinhaDAO;
-import br.net.gvt.efika.stealerAPI.dao.InventarioLinhaDAOPnAdminImpl;
 import br.net.gvt.efika.stealerAPI.dao.exception.ImpossivelIdentificarDesignadoresException;
 import br.net.gvt.efika.stealerAPI.model.service.OssV2GenericService;
 

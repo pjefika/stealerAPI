@@ -10,7 +10,6 @@ import br.net.gvt.efika.efika_customer.model.customer.InventarioRede;
 import br.net.gvt.efika.stealerAPI.dao.InventarioRedeDAO;
 import br.net.gvt.efika.stealerAPI.util.jsoup.InvRedeFibraSigresTratativaImpl;
 import br.net.gvt.efika.stealerAPI.util.jsoup.InvRedeMetalicoSigresTratativaImpl;
-import org.jsoup.Connection;
 import org.jsoup.Connection.Response;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -18,8 +17,6 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 public class EfikaCustomerSigresDAOImpl implements EfikaCustomerSigresDAO, InventarioRedeDAO {
-
-    private Response login;
 
     private Document doc;
 
@@ -78,26 +75,7 @@ public class EfikaCustomerSigresDAOImpl implements EfikaCustomerSigresDAO, Inven
     }
 
     protected Response getLogin() throws Exception {
-        try {
-            if (login == null) {
-                login = Jsoup.connect("http://192.168.236.92/portal/homeLogar.do")
-                        .timeout(10000)
-                        .header("Content-Type", "application/x-www-form-urlencoded")
-                        .data("pagina_origem", "login")
-                        .data("login", "R3542204")
-                        .data("senha", "d20M08!")
-                        .method(Connection.Method.POST)
-                        .execute();
-            }
-            return login;
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new Exception("Falha ao Efetuar Login no SIGRES!");
-        }
-    }
-
-    protected void setLogin(Response login) {
-        this.login = login;
+        return LoginSigresSingleton.getInstance().getLogin();
     }
 
     @Override
