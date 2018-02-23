@@ -5,6 +5,7 @@
  */
 package br.net.gvt.efika.stealerAPI.dao.sigres;
 
+import br.net.gvt.efika.util.bundle.EfikaResourceBundle;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 
@@ -19,7 +20,6 @@ public class LoginSigresSingleton {
     private static LoginSigresSingleton instance = null;
 
     protected LoginSigresSingleton() {
-        // Exists only to defeat instantiation.
     }
 
     public static LoginSigresSingleton getInstance() {
@@ -36,8 +36,8 @@ public class LoginSigresSingleton {
                         .timeout(10000)
                         .header("Content-Type", "application/x-www-form-urlencoded")
                         .data("pagina_origem", "login")
-                        .data("login", "R3542204")
-                        .data("senha", "d20M08!")
+                        .data("login", EfikaResourceBundle.getString("cred", "sigre.login"))
+                        .data("senha", EfikaResourceBundle.getString("cred", "sigre.senha"))
                         .method(Connection.Method.POST)
                         .execute();
             }

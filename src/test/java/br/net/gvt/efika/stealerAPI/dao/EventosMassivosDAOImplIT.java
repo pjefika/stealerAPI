@@ -8,7 +8,7 @@ package br.net.gvt.efika.stealerAPI.dao;
 import br.net.gvt.efika.efika_customer.model.customer.EfikaCustomer;
 import br.net.gvt.efika.efika_customer.model.customer.EventoMassivo;
 import java.util.List;
-import br.net.gvt.efika.stealerAPI.model.service.EfikaCustomerServiceImpl;
+import br.net.gvt.efika.stealerAPI.model.service.EfikaCustomerServiceOldImpl;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -49,7 +49,7 @@ public class EventosMassivosDAOImplIT {
     public void testConsultar() throws Exception {
         System.out.println("consultar");
         String param1 = "1110226652";
-        EfikaCustomerServiceOld instance0 = new EfikaCustomerServiceImpl();
+        EfikaCustomerServiceOld instance0 = new EfikaCustomerServiceOldImpl();
         EfikaCustomer cust = instance0.consultar(param1);
         EventosMassivosDAOImpl instance = new EventosMassivosDAOImpl();
         List<EventoMassivo> result = instance.consultar(cust);

@@ -38,7 +38,7 @@ import br.net.gvt.efika.stealerAPI.model.service.tratativa.TratativaInventarioRa
 import br.net.gvt.efika.util.thread.EfikaThread;
 import com.gvt.ws.eai.oss.inventory.api.InventoryDesignatorsResponse;
 
-public class EfikaCustomerServiceImpl implements EfikaCustomerServiceOld {
+public class EfikaCustomerServiceOldImpl implements EfikaCustomerServiceOld {
 
     private EfikaCustomer ec;
 
@@ -61,7 +61,7 @@ public class EfikaCustomerServiceImpl implements EfikaCustomerServiceOld {
 //            t0.possuiException();
             EfikaThread t2 = new EfikaThread(new TratativaInventarioServicos(accountItems, ec));
             t2.join();
-//            t2.possuiException();
+            t2.possuiException();
             /**
              * Refatorar!
              */
@@ -83,7 +83,7 @@ public class EfikaCustomerServiceImpl implements EfikaCustomerServiceOld {
                         ec.setRede(cst2.getRede());
                         ec.setRedeExterna(cst2.getRedeExterna());
                     } catch (Exception ex) {
-                        Logger.getLogger(EfikaCustomerServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(EfikaCustomerServiceOldImpl.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 });
                 t4.join();
@@ -93,7 +93,7 @@ public class EfikaCustomerServiceImpl implements EfikaCustomerServiceOld {
                         List<EventoMassivo> lEm = instance0.consultar(ec);
                         ec.setEventos(lEm);
                     } catch (Exception ex) {
-                        Logger.getLogger(EfikaCustomerServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(EfikaCustomerServiceOldImpl.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 });
                 t6.join();
@@ -135,7 +135,7 @@ public class EfikaCustomerServiceImpl implements EfikaCustomerServiceOld {
             try {
                 info = dao.getInfo(ec.getDesignador(), ec.getDesignadorAcesso());
             } catch (Exception ex) {
-                Logger.getLogger(EfikaCustomerServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(EfikaCustomerServiceOldImpl.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return info;

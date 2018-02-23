@@ -13,7 +13,7 @@ import br.net.gvt.efika.util.bundle.EfikaResourceBundle;
 
 public class InventarioLinhaDAOPnAdminImpl extends HttpDAO implements InventarioLinhaDAO {
 
-    private NumberInventoryDAOInterface ni = new NumberInventoryDAO();
+    private NumberInventoryDAOInterface ni;
 
     @Override
     public InventarioLinha consultar(String instancia) {
@@ -25,7 +25,7 @@ public class InventarioLinhaDAOPnAdminImpl extends HttpDAO implements Inventario
 
         try {
             resp = get("http://" + EfikaResourceBundle.getString(bundle, "login")
-                    + ":" + EfikaResourceBundle.getString(bundle, "senha") 
+                    + ":" + EfikaResourceBundle.getString(bundle, "senha")
                     + "@pnadmin.gvt.com.br/pn/pn.jsp?numero=" + instancia);
 //            System.out.println("PIRACEMA0");
             Matcher m = Pattern.compile("(?:Registro no Sisnum)(?:.*)(\\d{10})(?:.*)(?!Hist)").matcher(resp);
@@ -53,6 +53,7 @@ public class InventarioLinhaDAOPnAdminImpl extends HttpDAO implements Inventario
 
 //            System.out.println("PIRACEMA2");
         try {
+            ni = new NumberInventoryDAO();
             i.setTipo(TipoCentral.valueOf(ni.getSwitchInfo(i.getCentral()).getSwitches(0).getSwitchType()));
         } catch (Exception e) {
             System.out.println("ERROsetTipo->");
@@ -60,7 +61,7 @@ public class InventarioLinhaDAOPnAdminImpl extends HttpDAO implements Inventario
             i.setTipo(null);
         }
 
-            System.out.println("PIRACEMA122");
+        System.out.println("PIRACEMA122");
         return i;
     }
 

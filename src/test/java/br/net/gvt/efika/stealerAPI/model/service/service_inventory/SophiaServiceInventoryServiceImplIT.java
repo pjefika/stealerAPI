@@ -7,6 +7,8 @@ package br.net.gvt.efika.stealerAPI.model.service.service_inventory;
 
 import br.net.gvt.efika.efika_customer.model.customer.EfikaCustomer;
 import br.net.gvt.efika.efika_customer.model.customer.enums.OrigemInventarioServico;
+import br.net.gvt.efika.stealerAPI.dao.exception.InstanciaInvalidaException;
+import br.net.gvt.efika.util.json.JacksonMapper;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -47,6 +49,19 @@ public class SophiaServiceInventoryServiceImplIT {
             assertTrue("Inventário é Sophia", result.getServicos().getOrigem() == OrigemInventarioServico.SOPHIA);
         } catch (Exception e) {
             fail(e.getMessage());
+        }
+    }
+
+    @Test
+    public void testConsultarLegado() {
+        try {
+            System.out.println("consultar Legado");
+            String instancia = "1161579901";
+            SophiaServiceInventoryServiceImpl instance = new SophiaServiceInventoryServiceImpl();
+            EfikaCustomer result = instance.consultar(instancia);
+            System.out.println(new JacksonMapper<>(EfikaCustomer.class).serialize(result));
+        } catch (Exception e) {
+            assertTrue(e instanceof InstanciaInvalidaException);
         }
     }
 

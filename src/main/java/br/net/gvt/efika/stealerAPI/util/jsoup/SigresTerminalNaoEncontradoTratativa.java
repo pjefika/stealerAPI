@@ -5,17 +5,17 @@
  */
 package br.net.gvt.efika.stealerAPI.util.jsoup;
 
-import br.net.gvt.efika.efika_customer.model.customer.InventarioRede;
 import br.net.gvt.efika.stealerAPI.dao.exception.InstanciaInvalidaException;
 import org.jsoup.select.Elements;
 
-public class InvRedeMetalicoSigresTratativaImpl extends GenericTratativaImpl<InventarioRede, Elements> {
+public class SigresTerminalNaoEncontradoTratativa extends GenericTratativaImpl<Elements, Elements> {
 
     @Override
-    public InventarioRede parse(Elements elem) throws Exception {
+    public Elements parse(Elements elem) throws Exception {
         if (elem.text().contains("Terminal não encontrado")) {
             throw new InstanciaInvalidaException();
         }
+        return elem;
 
 //        result = new InventarioRede();
 //        result.setTipo(TipoRede.GPON);
@@ -31,8 +31,7 @@ public class InvRedeMetalicoSigresTratativaImpl extends GenericTratativaImpl<Inv
 //        result.setBhs(EfikaRegex.capture(str, "(?:BHS/HGU Instalado\\s{0,3})(\\w{0,3})", 1).equalsIgnoreCase("SIM"));
 //        result.setLogica(new Integer(EfikaRegex.capture(str, "(?:Id do Cliente\\s{0,3})(\\w{0,3})", 1)));
 //        result.setSequencial(result.getLogica());
-        
-        return result;
+//        return result;
     }
 
 }

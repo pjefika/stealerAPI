@@ -48,7 +48,7 @@ public class EfikaCustomerServiceImplIT {
     public void testConsultar() {
         try {
             System.out.println("consultar");
-            EfikaCustomerServiceOld instance = new EfikaCustomerServiceImpl();
+            EfikaCustomerServiceOld instance = new EfikaCustomerServiceOldImpl();
             EfikaCustomer result = instance.consultar(param);
 //            assertTrue("nulo", result != null);
 //            assertTrue("rede externa", result.getRedeExterna() != null);

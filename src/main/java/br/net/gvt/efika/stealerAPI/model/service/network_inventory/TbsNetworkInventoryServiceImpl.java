@@ -5,14 +5,32 @@
  */
 package br.net.gvt.efika.stealerAPI.model.service.network_inventory;
 
+import bean.ossturbonet.oss.gvt.com.GetInfoOut;
 import br.net.gvt.efika.efika_customer.model.customer.InventarioRede;
-
+import br.net.gvt.efika.stealerAPI.model.domain.InventarioRedeAdapter;
 
 public class TbsNetworkInventoryServiceImpl implements NetworkInventoryService {
 
+    private GetInfoOut info;
+
+    public TbsNetworkInventoryServiceImpl() {
+    }
+
+    public TbsNetworkInventoryServiceImpl(GetInfoOut info) {
+        this.info = info;
+    }
+
+    public GetInfoOut getInfo() {
+        return info;
+    }
+
+    public void setInfo(GetInfoOut info) {
+        this.info = info;
+    }
+
     @Override
     public InventarioRede consultar(String instancia) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return InventarioRedeAdapter.adapter(info);
     }
-    
+
 }

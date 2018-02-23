@@ -18,7 +18,7 @@ import java.rmi.RemoteException;
  */
 public class NumberInventoryDAO implements NumberInventoryDAOInterface{
 
-    private final NumberInventoryServicesWSProxy ws = new NumberInventoryServicesWSProxy();
+    private NumberInventoryServicesWSProxy ws = new NumberInventoryServicesWSProxy();
     
     @Override
     public GetNumberByFilterOut getSwitchInfoByNumber(String instancia) throws RemoteException {

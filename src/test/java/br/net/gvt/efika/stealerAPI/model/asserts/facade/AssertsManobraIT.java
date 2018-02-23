@@ -14,7 +14,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import br.net.gvt.efika.stealerAPI.model.service.EfikaCustomerServiceImpl;
+import br.net.gvt.efika.stealerAPI.model.service.EfikaCustomerServiceOldImpl;
 import br.net.gvt.efika.stealerAPI.model.service.EfikaCustomerServiceOld;
 
 /**
@@ -23,7 +23,7 @@ import br.net.gvt.efika.stealerAPI.model.service.EfikaCustomerServiceOld;
  */
 public class AssertsManobraIT {
 
-    EfikaCustomerServiceOld serv = new EfikaCustomerServiceImpl();
+    EfikaCustomerServiceOld serv = new EfikaCustomerServiceOldImpl();
 
     public AssertsManobraIT() {
     }

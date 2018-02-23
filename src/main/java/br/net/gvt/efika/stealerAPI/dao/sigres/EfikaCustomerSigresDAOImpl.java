@@ -8,8 +8,11 @@ package br.net.gvt.efika.stealerAPI.dao.sigres;
 import br.net.gvt.efika.efika_customer.model.customer.EfikaCustomer;
 import br.net.gvt.efika.efika_customer.model.customer.InventarioRede;
 import br.net.gvt.efika.stealerAPI.dao.InventarioRedeDAO;
+import br.net.gvt.efika.stealerAPI.util.jsoup.GenericTratativaImpl;
+import br.net.gvt.efika.stealerAPI.util.jsoup.IdentTipoTratTratativa;
 import br.net.gvt.efika.stealerAPI.util.jsoup.InvRedeFibraSigresTratativaImpl;
 import br.net.gvt.efika.stealerAPI.util.jsoup.InvRedeMetalicoSigresTratativaImpl;
+import br.net.gvt.efika.stealerAPI.util.jsoup.Tratativa;
 import org.jsoup.Connection.Response;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -20,7 +23,7 @@ public class EfikaCustomerSigresDAOImpl implements EfikaCustomerSigresDAO, Inven
 
     private Document doc;
 
-    protected String consultarPorIdFibra(String idFibra) throws Exception {
+    protected Elements consultarPorIdFibra(String idFibra) throws Exception {
         try {
             doc = Jsoup.connect("http://192.168.236.92/portal/consultacliente.do")
                     .timeout(10000)
@@ -30,7 +33,7 @@ public class EfikaCustomerSigresDAOImpl implements EfikaCustomerSigresDAO, Inven
                     .data("Lp", idFibra)
                     .cookies(getLogin().cookies())
                     .post();
-            return doc.select("table td.bgform").get(18).text();
+            return doc.select("table td.bgform");
         } catch (Exception e) {
             e.printStackTrace();
             throw new Exception("Falha ao consultar SIGRES!");
@@ -62,16 +65,20 @@ public class EfikaCustomerSigresDAOImpl implements EfikaCustomerSigresDAO, Inven
     @Override
     public EfikaCustomer consultar(EfikaCustomer cust) throws Exception {
         try {
+            Elements ret;
             if (cust.getInstancia().length() < 15) {
-                cust.setRede(new InvRedeMetalicoSigresTratativaImpl().parse(this.consultarPorTerminal(cust.getInstancia())));
+                ret = this.consultarPorTerminal(cust.getInstancia());
             } else {
-                cust.setRede(new InvRedeFibraSigresTratativaImpl().parse(this.consultarPorIdFibra(cust.getInstancia())));
+                ret = this.consultarPorIdFibra(cust.getInstancia());
             }
+
+            GenericTratativaImpl<Tratativa, Elements> trat = new IdentTipoTratTratativa(cust.getInstancia());
+            Tratativa<EfikaCustomer, Elements> parse = trat.parse(this.consultarPorTerminal(cust.getInstancia()));
+            return parse.parse(ret);
         } catch (Exception e) {
             e.printStackTrace();
             throw new Exception("Falha ao tratar informações do SIGRES!");
         }
-        return cust;
     }
 
     protected Response getLogin() throws Exception {

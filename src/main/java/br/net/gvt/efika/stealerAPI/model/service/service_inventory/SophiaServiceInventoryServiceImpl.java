@@ -13,9 +13,9 @@ import br.net.gvt.efika.stealerAPI.dao.exception.InstanciaInvalidaException;
 import br.net.gvt.efika.stealerAPI.model.service.tratativa.TratativaAssociatedDesignators;
 import br.net.gvt.efika.stealerAPI.model.service.tratativa.TratativaInventarioServicos;
 import br.net.gvt.efika.stealerAPI.dao.exception.ImpossivelIdentificarDesignadoresException;
-import br.net.gvt.efika.stealerAPI.model.service.OssV2GenericService;
+import br.net.gvt.efika.stealerAPI.model.service.OSSV2GenericService;
 
-public class SophiaServiceInventoryServiceImpl extends OssV2GenericService implements ServiceInventoryService {
+public class SophiaServiceInventoryServiceImpl extends OSSV2GenericService implements ServiceInventoryService {
 
     private EfikaCustomer ec;
 
