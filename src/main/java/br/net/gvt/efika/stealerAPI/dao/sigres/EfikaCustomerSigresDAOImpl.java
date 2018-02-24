@@ -10,8 +10,7 @@ import br.net.gvt.efika.efika_customer.model.customer.InventarioRede;
 import br.net.gvt.efika.stealerAPI.dao.InventarioRedeDAO;
 import br.net.gvt.efika.stealerAPI.util.jsoup.GenericTratativaImpl;
 import br.net.gvt.efika.stealerAPI.util.jsoup.IdentTipoTratTratativa;
-import br.net.gvt.efika.stealerAPI.util.jsoup.InvRedeFibraSigresTratativaImpl;
-import br.net.gvt.efika.stealerAPI.util.jsoup.InvRedeMetalicoSigresTratativaImpl;
+import br.net.gvt.efika.stealerAPI.util.jsoup.SigresTerminalNaoEncontradoTratativa;
 import br.net.gvt.efika.stealerAPI.util.jsoup.Tratativa;
 import org.jsoup.Connection.Response;
 import org.jsoup.Jsoup;
@@ -22,11 +21,14 @@ import org.jsoup.select.Elements;
 public class EfikaCustomerSigresDAOImpl implements EfikaCustomerSigresDAO, InventarioRedeDAO {
 
     private Document doc;
+    private String url = "http://192.168.236.92/portal/consultacliente.do";
+    private int timeout = 1000;
 
     protected Elements consultarPorIdFibra(String idFibra) throws Exception {
+        System.out.println("consultarPorIdFibra");
         try {
-            doc = Jsoup.connect("http://192.168.236.92/portal/consultacliente.do")
-                    .timeout(10000)
+            doc = Jsoup.connect(url)
+                    .timeout(timeout)
                     .header("Content-Type", "application/x-www-form-urlencoded")
                     .data("pagina_destino", "consulta_terminal")
                     .data("tipoConsulta", "porLp")
@@ -41,9 +43,10 @@ public class EfikaCustomerSigresDAOImpl implements EfikaCustomerSigresDAO, Inven
     }
 
     protected Elements consultarPorTerminal(String terminal) throws Exception {
+        System.out.println("consultarPorTerminal");
         try {
-            doc = Jsoup.connect("http://192.168.236.92/portal/consultacliente.do")
-                    .timeout(10000)
+            doc = Jsoup.connect(url)
+                    .timeout(timeout)
                     .header("Content-Type", "application/x-www-form-urlencoded")
                     .data("pagina_destino", "consulta_terminal")
                     .data("tipoConsulta", "porTerminal")
@@ -51,11 +54,12 @@ public class EfikaCustomerSigresDAOImpl implements EfikaCustomerSigresDAO, Inven
                     .cookies(getLogin().cookies())
                     .post();
             int i = 0;
-            for (Element element : doc.select("table td.conttabela")) {
+            Elements select = doc.select("center");
+            for (Element element : select) {
                 System.out.println(i + element.text());
                 i++;
             }
-            return doc.select("table td.conttabela");
+            return select;
         } catch (Exception e) {
             e.printStackTrace();
             throw new Exception("Falha ao consultar SIGRES!");
@@ -72,9 +76,11 @@ public class EfikaCustomerSigresDAOImpl implements EfikaCustomerSigresDAO, Inven
                 ret = this.consultarPorIdFibra(cust.getInstancia());
             }
 
+            new SigresTerminalNaoEncontradoTratativa().parse(ret);
             GenericTratativaImpl<Tratativa, Elements> trat = new IdentTipoTratTratativa(cust.getInstancia());
-            Tratativa<EfikaCustomer, Elements> parse = trat.parse(this.consultarPorTerminal(cust.getInstancia()));
-            return parse.parse(ret);
+            Tratativa<InventarioRede, Elements> parse = trat.parse(ret);
+            cust.setRede(parse.parse(ret));
+            return cust;
         } catch (Exception e) {
             e.printStackTrace();
             throw new Exception("Falha ao tratar informações do SIGRES!");

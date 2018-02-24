@@ -9,16 +9,14 @@ import br.net.gvt.efika.efika_customer.model.customer.InventarioRede;
 import br.net.gvt.efika.efika_customer.model.customer.enums.OrigemPlanta;
 import br.net.gvt.efika.efika_customer.model.customer.enums.OrigemRede;
 import br.net.gvt.efika.efika_customer.model.customer.enums.TipoRede;
-import br.net.gvt.efika.stealerAPI.dao.exception.InstanciaInvalidaException;
 import br.net.gvt.efika.util.regex.EfikaRegex;
+import org.jsoup.select.Elements;
 
-public class InvRedeFibraSigresTratativaImpl extends GenericTratativaImpl<InventarioRede, String> {
+public class InvRedeFibraSigresTratativaImpl extends GenericTratativaImpl<InventarioRede, Elements> {
 
     @Override
-    public InventarioRede parse(String str) throws Exception {
-        if (str.contains("Terminal não encontrado")) {
-            throw new InstanciaInvalidaException();
-        }
+    public InventarioRede parse(Elements elem) throws Exception {
+        String str = elem.get(18).text();
         result = new InventarioRede();
         result.setTipo(TipoRede.GPON);
         result.setOrigem(OrigemRede.ONLINE);
@@ -34,7 +32,6 @@ public class InvRedeFibraSigresTratativaImpl extends GenericTratativaImpl<Invent
         result.setBhs(EfikaRegex.capture(str, "(?:BHS/HGU Instalado\\s{0,3})(\\w{0,3})", 1).equalsIgnoreCase("SIM"));
         result.setLogica(new Integer(EfikaRegex.capture(str, "(?:Id do Cliente\\s{0,3})(\\w{0,3})", 1)));
         result.setSequencial(result.getLogica());
-
         return result;
     }
 

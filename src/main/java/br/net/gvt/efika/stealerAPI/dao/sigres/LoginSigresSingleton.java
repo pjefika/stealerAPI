@@ -36,8 +36,8 @@ public class LoginSigresSingleton {
                         .timeout(10000)
                         .header("Content-Type", "application/x-www-form-urlencoded")
                         .data("pagina_origem", "login")
-                        .data("login", EfikaResourceBundle.getString("cred", "sigre.login"))
-                        .data("senha", EfikaResourceBundle.getString("cred", "sigre.senha"))
+                        .data("login", EfikaResourceBundle.getString("cred", "sigres.login"))
+                        .data("senha", EfikaResourceBundle.getString("cred", "sigres.senha"))
                         .method(Connection.Method.POST)
                         .execute();
             }
