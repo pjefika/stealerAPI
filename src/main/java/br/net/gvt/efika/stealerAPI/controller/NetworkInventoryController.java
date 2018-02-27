@@ -6,6 +6,7 @@
 package br.net.gvt.efika.stealerAPI.controller;
 
 import br.net.gvt.efika.efika_customer.model.customer.EfikaCustomer;
+import br.net.gvt.efika.efika_customer.model.customer.InventarioRede;
 import br.net.gvt.efika.stealerAPI.controller.in.GetClienteIn;
 import br.net.gvt.efika.stealerAPI.dao.FactoryDAO;
 import javax.ws.rs.Path;
@@ -31,7 +32,7 @@ public class NetworkInventoryController {
     public Response getClienteTBS(GetClienteIn in) {
         try {
 
-            EfikaCustomer out = FactoryService.create().consultar(in.getInstancia());
+            InventarioRede out = FactoryService.createTbsNetworkInventoryServiceImpl().consultar(in.getInstancia());
             try {
                 Log l = new Log(in);
                 l.setOuput(out);
@@ -52,7 +53,7 @@ public class NetworkInventoryController {
     public Response getClienteSigres(GetClienteIn in) {
         try {
 
-            EfikaCustomer out = FactoryService.create().consultar(in.getInstancia());
+            InventarioRede out = FactoryService.createSigresNetworkInventoryServiceImpl().consultar(in.getInstancia());
             try {
                 Log l = new Log(in);
                 l.setOuput(out);
