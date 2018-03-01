@@ -5,9 +5,8 @@
  */
 package br.net.gvt.efika.stealerAPI.controller;
 
+import br.net.gvt.efika.customer.model.dto.CustomerRequest;
 import br.net.gvt.efika.efika_customer.model.customer.EfikaCustomer;
-import br.net.gvt.efika.efika_customer.model.customer.InventarioRede;
-import br.net.gvt.efika.stealerAPI.controller.in.GetClienteIn;
 import br.net.gvt.efika.stealerAPI.dao.FactoryDAO;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -29,18 +28,9 @@ public class NetworkInventoryController {
     @Path("/tbs")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getClienteTBS(GetClienteIn in) {
+    public Response getClienteTBS(CustomerRequest body) {
         try {
-
-            InventarioRede out = FactoryService.createTbsNetworkInventoryServiceImpl().consultar(in.getInstancia());
-            try {
-                Log l = new Log(in);
-                l.setOuput(out);
-                FactoryDAO.createLogDAO().cadastrar(l);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return Response.status(200).entity(out).build();
+            return Response.ok(FactoryService.createTbsNetworkInventoryServiceImpl().consultar(body.getCust())).build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e).build();
         }
@@ -50,18 +40,10 @@ public class NetworkInventoryController {
     @Path("/sigres")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getClienteSigres(GetClienteIn in) {
+    public Response getClienteSigres(CustomerRequest body) {
         try {
 
-            InventarioRede out = FactoryService.createSigresNetworkInventoryServiceImpl().consultar(in.getInstancia());
-            try {
-                Log l = new Log(in);
-                l.setOuput(out);
-                FactoryDAO.createLogDAO().cadastrar(l);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return Response.status(200).entity(out).build();
+            return Response.ok(FactoryService.createSigresNetworkInventoryServiceImpl().consultar(body.getCust())).build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e).build();
         }

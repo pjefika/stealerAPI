@@ -17,12 +17,12 @@ public class IdentTipoTratTratativa extends GenericTratativaImpl<Tratativa, Elem
 
     @Override
     public Tratativa parse(Elements elem) throws Exception {
-        if (!elem.text().contains(terminal)) {
-            System.out.println("trat: InvRedeFibraSigresTratativaImpl");
-            return new InvRedeFibraSigresTratativaImpl();
-        } else {
+        if (terminal.length() < 15 && elem.text().contains(terminal)) {
             System.out.println("trat: InvRedeMetalicoSigresTratativaImpl");
             return new InvRedeMetalicoSigresTratativaImpl();
+        } else {
+            System.out.println("trat: InvRedeFibraSigresTratativaImpl");
+            return new InvRedeFibraSigresTratativaImpl();
         }
     }
 

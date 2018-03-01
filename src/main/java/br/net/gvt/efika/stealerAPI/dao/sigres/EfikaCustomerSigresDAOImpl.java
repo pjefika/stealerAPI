@@ -24,6 +24,27 @@ public class EfikaCustomerSigresDAOImpl implements EfikaCustomerSigresDAO, Inven
     private String url = "http://192.168.236.92/portal/consultacliente.do";
     private int timeout = 1000;
 
+    @Override
+    public EfikaCustomer consultar(EfikaCustomer cust) throws Exception {
+        try {
+            Elements ret;
+            if (cust.getInstancia().length() < 15) {
+                ret = this.consultarPorTerminal(cust.getInstancia());
+            } else {
+                ret = this.consultarPorIdFibra(cust.getInstancia());
+            }
+
+            new SigresTerminalNaoEncontradoTratativa().parse(ret);
+            GenericTratativaImpl<Tratativa, Elements> trat = new IdentTipoTratTratativa(cust.getInstancia());
+            Tratativa<InventarioRede, Elements> parse = trat.parse(ret);
+            cust.setRede(parse.parse(ret));
+            return cust;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new Exception("Falha ao tratar informações do SIGRES!");
+        }
+    }
+
     protected Elements consultarPorIdFibra(String idFibra) throws Exception {
         System.out.println("consultarPorIdFibra");
         try {
@@ -63,27 +84,6 @@ public class EfikaCustomerSigresDAOImpl implements EfikaCustomerSigresDAO, Inven
         } catch (Exception e) {
             e.printStackTrace();
             throw new Exception("Falha ao consultar SIGRES!");
-        }
-    }
-
-    @Override
-    public EfikaCustomer consultar(EfikaCustomer cust) throws Exception {
-        try {
-            Elements ret;
-            if (cust.getInstancia().length() < 15) {
-                ret = this.consultarPorTerminal(cust.getInstancia());
-            } else {
-                ret = this.consultarPorIdFibra(cust.getInstancia());
-            }
-
-            new SigresTerminalNaoEncontradoTratativa().parse(ret);
-            GenericTratativaImpl<Tratativa, Elements> trat = new IdentTipoTratTratativa(cust.getInstancia());
-            Tratativa<InventarioRede, Elements> parse = trat.parse(ret);
-            cust.setRede(parse.parse(ret));
-            return cust;
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new Exception("Falha ao tratar informações do SIGRES!");
         }
     }
 

@@ -5,14 +5,15 @@
  */
 package br.net.gvt.efika.stealerAPI.model.service.network_inventory;
 
+import br.net.gvt.efika.efika_customer.model.customer.EfikaCustomer;
 import br.net.gvt.efika.efika_customer.model.customer.InventarioRede;
 import br.net.gvt.efika.stealerAPI.model.service.factory.FactoryServiceInventory;
 
 public class SigresNetworkInventoryServiceImpl implements NetworkInventoryService {
 
     @Override
-    public InventarioRede consultar(String instancia) throws Exception {
-        return FactoryServiceInventory.createLegadoServiceInventoryServiceImpl().consultar(instancia).getRede();
+    public InventarioRede consultar(EfikaCustomer cust) throws Exception {
+        return FactoryServiceInventory.createLegadoServiceInventoryServiceImpl().consultar(cust.getInstancia()).getRede();
     }
 
 }

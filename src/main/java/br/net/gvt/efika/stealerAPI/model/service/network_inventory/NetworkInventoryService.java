@@ -5,6 +5,7 @@
  */
 package br.net.gvt.efika.stealerAPI.model.service.network_inventory;
 
+import br.net.gvt.efika.efika_customer.model.customer.EfikaCustomer;
 import br.net.gvt.efika.efika_customer.model.customer.InventarioRede;
 
 /**
@@ -13,6 +14,6 @@ import br.net.gvt.efika.efika_customer.model.customer.InventarioRede;
  */
 public interface NetworkInventoryService {
 
-    public InventarioRede consultar(String instancia) throws Exception;
+        public InventarioRede consultar(EfikaCustomer cust) throws Exception;
 
 }

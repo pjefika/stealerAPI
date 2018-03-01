@@ -5,32 +5,19 @@
  */
 package br.net.gvt.efika.stealerAPI.model.service.network_inventory;
 
-import bean.ossturbonet.oss.gvt.com.GetInfoOut;
+import br.net.gvt.efika.efika_customer.model.customer.EfikaCustomer;
 import br.net.gvt.efika.efika_customer.model.customer.InventarioRede;
+import br.net.gvt.efika.stealerAPI.dao.FactoryDAO;
 import br.net.gvt.efika.stealerAPI.model.domain.InventarioRedeAdapter;
 
 public class TbsNetworkInventoryServiceImpl implements NetworkInventoryService {
 
-    private GetInfoOut info;
-
     public TbsNetworkInventoryServiceImpl() {
     }
 
-    public TbsNetworkInventoryServiceImpl(GetInfoOut info) {
-        this.info = info;
-    }
-
-    public GetInfoOut getInfo() {
-        return info;
-    }
-
-    public void setInfo(GetInfoOut info) {
-        this.info = info;
-    }
-
     @Override
-    public InventarioRede consultar(String instancia) throws Exception {
-        return InventarioRedeAdapter.adapter(info);
+    public InventarioRede consultar(EfikaCustomer cust) throws Exception {
+        return InventarioRedeAdapter.adapter(FactoryDAO.createOSS().getInfo(cust.getInstancia(), cust.getDesignadorAcesso()));
     }
 
 }
