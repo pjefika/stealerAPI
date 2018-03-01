@@ -22,7 +22,7 @@ public class EfikaCustomerSigresDAOImpl implements EfikaCustomerSigresDAO, Inven
 
     private Document doc;
     private String url = "http://192.168.236.92/portal/consultacliente.do";
-    private int timeout = 1000;
+    private final int timeout = 10000;
 
     @Override
     public EfikaCustomer consultar(EfikaCustomer cust) throws Exception {
@@ -40,7 +40,7 @@ public class EfikaCustomerSigresDAOImpl implements EfikaCustomerSigresDAO, Inven
             cust.setRede(parse.parse(ret));
             return cust;
         } catch (Exception e) {
-            e.printStackTrace();
+//            e.printStackTrace();
             throw new Exception("Falha ao tratar informações do SIGRES!");
         }
     }
@@ -58,7 +58,7 @@ public class EfikaCustomerSigresDAOImpl implements EfikaCustomerSigresDAO, Inven
                     .post();
             return doc.select("table td.bgform");
         } catch (Exception e) {
-            e.printStackTrace();
+//            e.printStackTrace();
             throw new Exception("Falha ao consultar SIGRES!");
         }
     }

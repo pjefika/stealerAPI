@@ -16,6 +16,7 @@ public class GatewayInventoryServiceImpl implements ServiceInventoryService {
         try {
             return FactoryServiceInventory.createSophiaServiceInventoryServiceImpl().consultar(instancia);
         } catch (InstanciaInvalidaException e) {
+            System.out.println("Consulta Legado: " + instancia);
             return FactoryServiceInventory.createLegadoServiceInventoryServiceImpl().consultar(instancia);
         }
     }

@@ -31,7 +31,7 @@ public class SophiaServiceInventoryServiceImpl implements ServiceInventoryServic
             new TratativaInventarioServicos(accountItems, ec).run();
             ec.getServicos().setOrigem(OrigemInventarioServico.SOPHIA);
         } catch (Exception e) {
-            if (e.getCause() instanceof InstanciaInvalidaException || e.getCause() instanceof ImpossivelIdentificarDesignadoresException) {
+            if (e instanceof InstanciaInvalidaException) {
                 throw e;
             }
         }

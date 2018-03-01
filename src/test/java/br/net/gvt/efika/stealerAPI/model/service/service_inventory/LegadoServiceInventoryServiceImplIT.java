@@ -71,4 +71,20 @@ public class LegadoServiceInventoryServiceImplIT {
         }
     }
 
+    @Test
+    public void testConsultarIdfibra() {
+        try {
+            System.out.println("consultar - ID FIBRA: 116617519269601");
+            String instancia = "116617519269601";
+            LegadoServiceInventoryServiceImpl instance = new LegadoServiceInventoryServiceImpl();
+            EfikaCustomer result = instance.consultar(instancia);
+            System.out.println(new JacksonMapper<>(EfikaCustomer.class).serialize(result));
+            assertTrue("Inventário Rede - Origem", result.getRede().getPlanta() == OrigemPlanta.VIVO1);
+            assertTrue("Inventário Rede - Tipo", result.getRede().getTipo() == TipoRede.GPON);
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail(e.getMessage());
+        }
+    }
+
 }

@@ -58,13 +58,12 @@ public class GatewayInventoryServiceImplIT {
     public void testConsultarLegado() {
         try {
             System.out.println("consultar Legado");
-            String instancia = "1161579901";
+            String instancia = "1275192696";
             GatewayInventoryServiceImpl instance = new GatewayInventoryServiceImpl();
             EfikaCustomer result = instance.consultar(instancia);
             System.out.println(new JacksonMapper<>(EfikaCustomer.class).serialize(result));
-            assertTrue("Inventário Serviços - SOPHIA", result.getServicos().getOrigem() == OrigemInventarioServico.LEGADO_VIVO1);
+            assertTrue("Inventário Serviços - Legado", result.getServicos().getOrigem() == OrigemInventarioServico.LEGADO_VIVO1);
         } catch (Exception e) {
-            e.printStackTrace();
             fail(e.getMessage());
         }
     }
