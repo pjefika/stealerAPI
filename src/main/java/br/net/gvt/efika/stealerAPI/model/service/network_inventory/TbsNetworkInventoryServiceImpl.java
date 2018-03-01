@@ -17,7 +17,7 @@ public class TbsNetworkInventoryServiceImpl implements NetworkInventoryService {
 
     @Override
     public InventarioRede consultar(EfikaCustomer cust) throws Exception {
-        return InventarioRedeAdapter.adapter(FactoryDAO.createOSS().getInfo(cust.getInstancia(), cust.getDesignadorAcesso()));
+        return InventarioRedeAdapter.adapter(FactoryDAO.createOSS().getInfo(cust.getDesignador(), cust.getDesignadorAcesso()));
     }
 
 }

@@ -6,13 +6,11 @@
 package br.net.gvt.efika.stealerAPI.controller;
 
 import br.net.gvt.efika.customer.model.dto.CustomerRequest;
-import br.net.gvt.efika.efika_customer.model.customer.EfikaCustomer;
-import br.net.gvt.efika.stealerAPI.dao.FactoryDAO;
+import br.net.gvt.efika.stealerAPI.model.service.factory.FactoryNetworkInventoryService;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import br.net.gvt.efika.stealerAPI.model.entity.Log;
 import javax.ws.rs.POST;
 import br.net.gvt.efika.stealerAPI.model.service.factory.FactoryService;
 import javax.ws.rs.Consumes;
@@ -23,7 +21,18 @@ import javax.ws.rs.Consumes;
  */
 @Path("/networkInventory")
 public class NetworkInventoryController {
-
+    
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getCliente(CustomerRequest body) {
+        try {
+            return Response.ok(FactoryNetworkInventoryService.create(body.getCust().getRede().getPlanta()).consultar(body.getCust())).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e).build();
+        }
+    }
+    
     @POST
     @Path("/tbs")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -35,18 +44,18 @@ public class NetworkInventoryController {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e).build();
         }
     }
-
+    
     @POST
     @Path("/sigres")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response getClienteSigres(CustomerRequest body) {
         try {
-
+            
             return Response.ok(FactoryService.createSigresNetworkInventoryServiceImpl().consultar(body.getCust())).build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e).build();
         }
     }
-
+    
 }
