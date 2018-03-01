@@ -7,6 +7,7 @@ package br.net.gvt.efika.stealerAPI.model.service.network_inventory;
 
 import br.net.gvt.efika.efika_customer.model.customer.EfikaCustomer;
 import br.net.gvt.efika.efika_customer.model.customer.InventarioRede;
+import br.net.gvt.efika.util.json.JacksonMapper;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -43,9 +44,11 @@ public class TbsNetworkInventoryServiceImplIT {
             System.out.println("consultar");
             EfikaCustomer cust = new EfikaCustomer();
             cust.setInstancia("4130886762");
-            cust.setDesignadorAcesso("");
+            cust.setDesignador("CTA-81MMWYSLO-013");
+            cust.setDesignadorAcesso("CTA-17074589-069");
             TbsNetworkInventoryServiceImpl instance = new TbsNetworkInventoryServiceImpl();
             InventarioRede result = instance.consultar(cust);
+            System.out.println(new JacksonMapper<>(InventarioRede.class).serialize(result));
             assertTrue("Nuladade", result != null);
         } catch (Exception e) {
             fail(e.getMessage());
