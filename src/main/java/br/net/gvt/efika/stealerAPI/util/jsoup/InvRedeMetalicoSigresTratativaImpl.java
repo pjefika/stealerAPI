@@ -23,7 +23,7 @@ public class InvRedeMetalicoSigresTratativaImpl extends GenericTratativaImpl<Inv
         inv.setOrigem(OrigemRede.ONLINE);
         inv.setPlanta(OrigemPlanta.VIVO1);
         inv.setNrc(EfikaRegex.capture(str, "(?:NRC.)(\\w{5,10})", 1));
-        inv.setIpDslam(EfikaRegex.capture(str, "(?:Dslam.)(\\w{10,20})", 1));
+        inv.setIpDslam(EfikaRegex.capture(str, "(?:Shelf\\s{0,5})(.{10,50})\\s{0,2}(?:DSLAM ATIVO)", 1).trim());
         inv.setTerminal(EfikaRegex.capture(str, "(?:Terminal.)\\s{0,3}(\\d{8,20})", 1));
         inv.setSlot(new Integer(EfikaRegex.capture(str, "(?:-.{0,5}Cartão\\s{0,3})(\\d{0,2})", 1)));
         inv.setPorta(new Integer(EfikaRegex.capture(str, "(?:MaxBandWidth.{0,5}Porta\\s{0,3})(\\d{0,2})", 1)));

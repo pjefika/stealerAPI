@@ -61,7 +61,27 @@ public class NetworkInventoryControllerIT {
             e.printStackTrace();
             fail(e.getMessage());
         }
+    }
 
+    @Test
+    public void testGetClienteLegado() {
+        try {
+            System.out.println("getCliente");
+            CustomerRequest body = new CustomerRequest();
+            EfikaCustomer cust = new EfikaCustomer();
+            cust.setInstancia("1120414633");
+            InventarioRede rede = new InventarioRede();
+            rede.setPlanta(OrigemPlanta.VIVO1);
+            cust.setRede(rede);
+            body.setCust(cust);
+            NetworkInventoryController instance = new NetworkInventoryController();
+            Response result = instance.getCliente(body);
+            System.out.println(new JacksonMapper(Response.class).serialize(result));
+            assertTrue(result.getStatus() == 200);
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail(e.getMessage());
+        }
     }
 
     /**
