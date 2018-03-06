@@ -59,6 +59,21 @@ public class TratativaInventarioServicos extends TratativaEfikaCustomer {
                     }
                 }
             }
+
+            if (address == null) {
+                for (Address addres : account1.getAddress()) {
+                    for (Item item : addres.getItems()) {
+                        if (item.getStatusName().equalsIgnoreCase("INACTIVATING")) {
+                            if (getC().getDesignadorAcesso().equalsIgnoreCase(item.getDesignator().getValue())
+                                    || getC().getInstancia().equalsIgnoreCase(item.getDesignator().getValue())) {
+                                address = addres.getExternalId();
+                            }
+                        }
+                    }
+                }
+
+            }
+
         }
     }
 
