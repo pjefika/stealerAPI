@@ -6,6 +6,7 @@
 package br.net.gvt.efika.stealerAPI.dao;
 
 import br.net.gvt.efika.mongo.dao.AbstractMongoDAO;
+import br.net.gvt.efika.mongo.dao.MongoEndpointEnum;
 import br.net.gvt.efika.stealerAPI.model.entity.Log;
 
 /**
@@ -15,9 +16,7 @@ import br.net.gvt.efika.stealerAPI.model.entity.Log;
 public class LogDAO extends AbstractMongoDAO<Log> implements InterfaceDAO<Log> {
 
     public LogDAO() {
-        //10.40.197.137
-        //10.200.35.67
-        super("10.40.197.137", "stealerAPI", Log.class);
+        super(MongoEndpointEnum.MONGO.getIp(), "stealerAPI", Log.class);
     }
 
     @Override

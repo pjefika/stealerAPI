@@ -13,7 +13,6 @@ import com.gvt.ws.eai.oss.inventory.api.InventoryDesignatorsResponse;
 import br.net.gvt.efika.stealerAPI.dao.exception.InstanciaInvalidaException;
 import br.net.gvt.efika.stealerAPI.model.service.tratativa.TratativaAssociatedDesignators;
 import br.net.gvt.efika.stealerAPI.model.service.tratativa.TratativaInventarioServicos;
-import br.net.gvt.efika.stealerAPI.dao.exception.ImpossivelIdentificarDesignadoresException;
 import br.net.gvt.efika.stealerAPI.dao.oss.OSSGenericDAO;
 
 public class SophiaServiceInventoryServiceImpl implements ServiceInventoryService {

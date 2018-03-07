@@ -21,7 +21,7 @@ import org.jsoup.select.Elements;
 public class EfikaCustomerSigresDAOImpl implements EfikaCustomerSigresDAO, InventarioRedeDAO {
 
     private Document doc;
-    private String url = "http://192.168.236.92/portal/consultacliente.do";
+    private final String url = "http://192.168.236.92/portal/consultacliente.do";
     private final int timeout = 10000;
 
     @Override
