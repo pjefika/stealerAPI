@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.net.gvt.efika.stealerAPI.dao.sigres;
+package br.net.gvt.efika.stealerAPI.dao.webradius;
 
 import br.net.gvt.efika.util.bundle.EfikaResourceBundle;
 import org.jsoup.Connection;
@@ -13,39 +13,38 @@ import org.jsoup.Jsoup;
  *
  * @author G0042204
  */
-public class LoginSigresSingleton {
+public class LoginWebRadiusSingleton {
 
     private Connection.Response login;
 
-    private static LoginSigresSingleton instance = null;
+    private static LoginWebRadiusSingleton instance = null;
 
-    protected LoginSigresSingleton() {
+    protected LoginWebRadiusSingleton() {
     }
 
-    public static LoginSigresSingleton getInstance() {
+    public static LoginWebRadiusSingleton getInstance() {
         if (instance == null) {
-            instance = new LoginSigresSingleton();
+            instance = new LoginWebRadiusSingleton();
         }
         return instance;
     }
 
-    protected Connection.Response getLogin() throws Exception {
+    public Connection.Response getLogin() throws Exception {
         try {
             if (login == null) {
-                login = Jsoup.connect("http://192.168.236.92/portal/homeLogar.do")
+                login = Jsoup.connect("http://10.18.77.146/webradius/index.php")
                         .timeout(10000)
                         .header("Content-Type", "application/x-www-form-urlencoded")
-                        .data("pagina_origem", "login")
-                        .data("login", EfikaResourceBundle.getString("cred", "sigres.login"))
-                        .data("senha", EfikaResourceBundle.getString("cred", "sigres.senha"))
+                        .data("usuario", EfikaResourceBundle.getString("cred", "webradius.login"))
+                        .data("senha", EfikaResourceBundle.getString("cred", "webradius.senha"))
                         .method(Connection.Method.POST)
                         .execute();
+
             }
             return login;
         } catch (Exception e) {
-            e.printStackTrace();
             login = null;
-            throw new Exception("Falha ao efetuar login no SIGRES!");
+            throw new Exception("Falha ao efetuar login no WebRadius!");
         }
     }
 
