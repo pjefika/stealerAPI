@@ -40,7 +40,7 @@ public class EfikaCustomerSigresDAOImpl implements EfikaCustomerSigresDAO, Inven
             cust.setRede(parse.parse(ret));
             return cust;
         } catch (Exception e) {
-//            e.printStackTrace();
+            e.printStackTrace();
             throw new Exception("Falha ao tratar informações do SIGRES!");
         }
     }
