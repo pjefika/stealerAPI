@@ -48,7 +48,7 @@ public class SigresNetworkInventoryServiceImplIT {
             rede.setPlanta(OrigemPlanta.VIVO1);
             cust.setRede(rede);
             SigresNetworkInventoryServiceImpl instance = new SigresNetworkInventoryServiceImpl();
-            InventarioRede result = instance.consultar(cust);
+            InventarioRede result = instance.consultar(cust).getRede();
             assertFalse(result.getIpDslam().isEmpty());
         } catch (Exception e) {
             fail(e.getMessage());

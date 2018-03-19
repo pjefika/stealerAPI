@@ -47,7 +47,7 @@ public class TbsNetworkInventoryServiceImplIT {
             cust.setDesignador("CTA-81MMWYSLO-013");
             cust.setDesignadorAcesso("CTA-17074589-069");
             TbsNetworkInventoryServiceImpl instance = new TbsNetworkInventoryServiceImpl();
-            InventarioRede result = instance.consultar(cust);
+            InventarioRede result = instance.consultar(cust).getRede();
             System.out.println(new JacksonMapper<>(InventarioRede.class).serialize(result));
             assertTrue("Nuladade", result != null);
         } catch (Exception e) {
