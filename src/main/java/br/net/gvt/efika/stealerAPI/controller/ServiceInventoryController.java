@@ -5,14 +5,11 @@
  */
 package br.net.gvt.efika.stealerAPI.controller;
 
-import br.net.gvt.efika.efika_customer.model.customer.EfikaCustomer;
-import br.net.gvt.efika.stealerAPI.controller.in.GetClienteIn;
-import br.net.gvt.efika.stealerAPI.dao.FactoryDAO;
+import br.net.gvt.efika.customer.model.dto.GenericRequest;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import br.net.gvt.efika.stealerAPI.model.entity.Log;
 import javax.ws.rs.POST;
 import br.net.gvt.efika.stealerAPI.model.service.factory.FactoryServiceInventory;
 
@@ -25,19 +22,11 @@ public class ServiceInventoryController {
 
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getServiceInventory(GetClienteIn in) {
+    public Response getServiceInventory(GenericRequest in) {
         try {
-            EfikaCustomer out = FactoryServiceInventory.createGatewayInventoryServiceImpl().consultar(in.getInstancia());
-            try {
-                Log l = new Log(in);
-                l.setOuput(out);
-                FactoryDAO.createLogDAO().cadastrar(l);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return Response.status(200).entity(out).build();
+            return Response.ok().entity(FactoryServiceInventory.createGatewayInventoryServiceImpl().consultar(in.getParameter())).build();
         } catch (Exception e) {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e).build();
+            return Response.serverError().entity(e).build();
         }
     }
 
