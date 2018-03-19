@@ -27,7 +27,7 @@ public class NetworkInventoryController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getCliente(CustomerRequest body) {
         try {
-            return Response.ok(FactoryNetworkInventoryService.create(body.getCust().getRede().getPlanta()).consultar(body.getCust())).build();
+            return Response.ok(FactoryNetworkInventoryService.create(body.getCustomer().getRede().getPlanta()).consultar(body.getCustomer())).build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e).build();
         }
@@ -39,7 +39,7 @@ public class NetworkInventoryController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getClienteTBS(CustomerRequest body) {
         try {
-            return Response.ok(FactoryService.createTbsNetworkInventoryServiceImpl().consultar(body.getCust())).build();
+            return Response.ok(FactoryService.createTbsNetworkInventoryServiceImpl().consultar(body.getCustomer())).build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e).build();
         }
@@ -52,7 +52,7 @@ public class NetworkInventoryController {
     public Response getClienteSigres(CustomerRequest body) {
         try {
             
-            return Response.ok(FactoryService.createSigresNetworkInventoryServiceImpl().consultar(body.getCust())).build();
+            return Response.ok(FactoryService.createSigresNetworkInventoryServiceImpl().consultar(body.getCustomer())).build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e).build();
         }
