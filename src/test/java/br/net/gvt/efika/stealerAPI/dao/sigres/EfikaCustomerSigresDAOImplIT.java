@@ -89,6 +89,20 @@ public class EfikaCustomerSigresDAOImplIT {
     }
 
     @Test
+    public void testConsultarTeste3() throws Exception {
+        try {
+            System.out.println("consultar");
+            EfikaCustomer cust = new EfikaCustomer();
+            cust.setInstancia("110002010862603");
+            EfikaCustomer result = instance.consultar(cust);
+            assertTrue(result != null);
+            System.out.println(new JacksonMapper(EfikaCustomer.class).serialize(result));
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+    }
+
+    @Test
     public void testConsultarTerminalFibra() throws Exception {
         try {
             System.out.println("testConsultarTerminalFibra");
@@ -104,6 +118,20 @@ public class EfikaCustomerSigresDAOImplIT {
 
     @Test
     public void testConsultarTerminalMetalico() throws Exception {
+        try {
+            System.out.println("testConsultarTerminalMetalico");
+            EfikaCustomer cust = new EfikaCustomer();
+            cust.setInstancia("1120414633");
+            EfikaCustomer result = instance.consultar(cust);
+            assertTrue(result != null);
+            System.out.println(new JacksonMapper(EfikaCustomer.class).serialize(result));
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+    }
+
+    @Test
+    public void testConsultarTerminalMetalicoV1() throws Exception {
         try {
             System.out.println("testConsultarTerminalMetalico");
             EfikaCustomer cust = new EfikaCustomer();

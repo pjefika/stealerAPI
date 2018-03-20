@@ -12,7 +12,7 @@ public class SigresTerminalNaoEncontradoTratativa extends GenericTratativaImpl<E
 
     @Override
     public Elements parse(Elements elem) throws Exception {
-        if (elem.text().contains("Terminal não encontrado")) {
+        if (elem.text().contains("encontrado")) {
             throw new InstanciaInvalidaException();
         }
         return elem;
