@@ -5,13 +5,17 @@
  */
 package br.net.gvt.efika.stealerAPI.dao.sigres;
 
+import br.net.gvt.efika.customer.model.dto.GenericRequest;
 import br.net.gvt.efika.efika_customer.model.customer.EfikaCustomer;
 import br.net.gvt.efika.efika_customer.model.customer.InventarioRede;
+import br.net.gvt.efika.network_inventory.model.dto.OltDetailSigresFibraDTO;
 import br.net.gvt.efika.stealerAPI.dao.InventarioRedeDAO;
 import br.net.gvt.efika.stealerAPI.util.jsoup.GenericTratativaImpl;
 import br.net.gvt.efika.stealerAPI.util.jsoup.IdentTipoTratTratativa;
 import br.net.gvt.efika.stealerAPI.util.jsoup.SigresTerminalNaoEncontradoTratativa;
 import br.net.gvt.efika.stealerAPI.util.jsoup.Tratativa;
+import br.net.gvt.efika.util.dao.http.HttpDAOGenericNonProxyImpl;
+import br.net.gvt.efika.util.dao.http.Urls;
 import org.jsoup.Connection.Response;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -38,6 +42,14 @@ public class EfikaCustomerSigresDAOImpl implements EfikaCustomerSigresDAO, Inven
             GenericTratativaImpl<Tratativa, Elements> trat = new IdentTipoTratTratativa(cust.getInstancia());
             Tratativa<InventarioRede, Elements> parse = trat.parse(ret);
             cust.setRede(parse.parse(ret));
+            OltDetailSigresFibraDTO detail = null;
+            HttpDAOGenericNonProxyImpl<OltDetailSigresFibraDTO> d = new HttpDAOGenericNonProxyImpl<OltDetailSigresFibraDTO>(OltDetailSigresFibraDTO.class) {
+            };
+            GenericRequest r = new GenericRequest(cust.getRede().getIpDslam(), null);
+            OltDetailSigresFibraDTO det = d.post(Urls.NETWORK_INVENTORY_SIGRES_OLT_DETAIL.getUrl(), r);
+            cust.getRede().setModeloDslam(det.getModel());
+            cust.getRede().setVendorDslam(det.getVendor());
+//            cust.getRede().setVlanVoip();
             return cust;
         } catch (Exception e) {
 //            e.printStackTrace();

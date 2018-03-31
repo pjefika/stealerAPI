@@ -52,7 +52,7 @@ public class NetworkInventoryControllerIT {
             InventarioRede rede = new InventarioRede();
             rede.setPlanta(OrigemPlanta.VIVO2);
             cust.setRede(rede);
-            body.setCust(cust);
+            body.setCustomer(cust);
             NetworkInventoryController instance = new NetworkInventoryController();
             Response result = instance.getCliente(body);
             System.out.println(new JacksonMapper(Response.class).serialize(result));
@@ -73,7 +73,7 @@ public class NetworkInventoryControllerIT {
             InventarioRede rede = new InventarioRede();
             rede.setPlanta(OrigemPlanta.VIVO1);
             cust.setRede(rede);
-            body.setCust(cust);
+            body.setCustomer(cust);
             NetworkInventoryController instance = new NetworkInventoryController();
             Response result = instance.getCliente(body);
             System.out.println(new JacksonMapper(Response.class).serialize(result));
