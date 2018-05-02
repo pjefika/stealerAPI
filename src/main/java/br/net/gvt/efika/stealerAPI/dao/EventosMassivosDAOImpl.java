@@ -26,7 +26,7 @@ public class EventosMassivosDAOImpl extends HttpDAO implements EventosMassivosDA
     @Override
     public List<EventoMassivo> consultar(EfikaCustomer cust) throws Exception {
         HttpClient httpcliente = HttpClients.createDefault();
-        HttpPost httppost = new HttpPost("http://10.40.195.81:8080/plrestAPI/eventosMassivos/afetaCliente");
+        HttpPost httppost = new HttpPost("http://10.40.195.81:80/plrestAPI/eventosMassivos/afetaCliente");
 
         // Request parameters and other properties.
         StringEntity param = new StringEntity("{\"cust\": " + new JacksonMapper(EfikaCustomer.class).serialize(cust) + " , \"executor\": \"stealerAPI\"}");
