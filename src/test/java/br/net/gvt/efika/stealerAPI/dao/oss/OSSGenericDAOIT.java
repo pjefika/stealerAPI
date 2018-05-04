@@ -67,8 +67,8 @@ public class OSSGenericDAOIT {
     public void testGetInfo() throws Exception {
         try {
             System.out.println("getInfo");
-            String designador = "CTA-814OUESD1D-013";
-            String designadorAcesso = "CTA-20325394-069";
+            String designador = "CTA-813PE2SDIL-013";
+            String designadorAcesso = "CTA-15958501-069";
             OSSGenericDAO instance = new OSSGenericDAO();
             GetInfoOut result = instance.getInfo(designador, designadorAcesso);
             System.out.println(new JacksonMapper(GetInfoOut.class).serialize(result));

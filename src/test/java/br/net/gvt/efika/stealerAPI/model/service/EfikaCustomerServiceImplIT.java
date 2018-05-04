@@ -49,7 +49,7 @@ public class EfikaCustomerServiceImplIT {
         try {
             System.out.println("consultar");
             EfikaCustomerServiceOld instance = new EfikaCustomerServiceOldImpl();
-            EfikaCustomer result = instance.consultar(param);
+            EfikaCustomer result = instance.consultar("1110048523");
 //            assertTrue("nulo", result != null);
 //            assertTrue("rede externa", result.getRedeExterna() != null);
 //            assertTrue("rede", result.getRede() != null);

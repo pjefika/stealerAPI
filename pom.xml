@@ -43,7 +43,7 @@
                 
                 <configuration>
                     <properties>
-                        <swarm.http.port>7173</swarm.http.port>
+                        <swarm.http.port>7181</swarm.http.port>
                     </properties>
                 </configuration>
             </plugin>

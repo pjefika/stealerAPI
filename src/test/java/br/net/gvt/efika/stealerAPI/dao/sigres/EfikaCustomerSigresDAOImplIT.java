@@ -41,20 +41,17 @@ public class EfikaCustomerSigresDAOImplIT {
      * Test of consultar method, of class EfikaCustomerSigresDAOImpl.
      */
     @Test
-    public void testConsultar() {
-        try {
-            System.out.println("consultar");
-            EfikaCustomer cust = new EfikaCustomer();
-            cust.setInstancia("110001111270900");
-            EfikaCustomer result = instance.consultar(cust);
-            assertTrue(!result.getRede().getIpDslam().isEmpty());
-            assertTrue(result.getRede().getBhs() != null);
-            assertTrue(result.getRede().getCvlan() != null);
-            System.out.println(new JacksonMapper(InventarioRede.class).serialize(result.getRede()));
+    public void testConsultar() throws Exception {
 
-        } catch (Exception e) {
-            fail(e.getMessage());
-        }
+        System.out.println("consultar");
+        EfikaCustomer cust = new EfikaCustomer();
+        cust.setInstancia("110001111270900");
+        EfikaCustomer result = instance.consultar(cust);
+        System.out.println(new JacksonMapper(InventarioRede.class).serialize(result.getRede()));
+        assertTrue(!result.getRede().getIpDslam().isEmpty());
+        assertTrue(result.getRede().getBhs() != null);
+        assertTrue(result.getRede().getCvlan() != null);
+
     }
 
     /**
