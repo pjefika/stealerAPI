@@ -20,11 +20,10 @@ import java.rmi.RemoteException;
  */
 public class WorkOrderDAO implements WorkOrderDAOInterface {
 
-    private WorkOrderReportingProxy ws;
+    private static WorkOrderReportingProxy ws = new WorkOrderReportingProxy();
 
     @Override
     public WorkOrder getWorkOrder(String workOrderId) throws RemoteException {
-        ws = new WorkOrderReportingProxy();
         return ws.findWorkOrder(new FindWorkOrderIn(workOrderId, "", "", ""))[0];
     }
 
@@ -47,6 +46,10 @@ public class WorkOrderDAO implements WorkOrderDAOInterface {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public WorkOrderReportingProxy getWs() {
+        return ws;
     }
 
 }

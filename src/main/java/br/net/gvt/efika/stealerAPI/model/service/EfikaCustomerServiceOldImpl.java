@@ -5,7 +5,6 @@ package br.net.gvt.efika.stealerAPI.model.service;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 import bean.ossturbonet.oss.gvt.com.GetInfoOut;
 import br.net.gvt.efika.efika_customer.model.customer.EfikaCustomer;
 import br.net.gvt.efika.efika_customer.model.customer.EventoMassivo;
@@ -53,11 +52,19 @@ public class EfikaCustomerServiceOldImpl implements EfikaCustomerServiceOld {
     public synchronized EfikaCustomer consultar(String designador) throws Exception {
         ec = new EfikaCustomer();
         dao = FactoryDAO.createOSS();
-        InventoryAccountResponse accountItems = dao.getAccountItems(designador);
-        InventoryDesignatorsResponse associatedDesignators = dao.getAssociatedDesignators(designador);
 
-        EfikaThread t0 = new EfikaThread(new TratativaAssociatedDesignators(associatedDesignators, ec, accountItems));
         try {
+            InventoryAccountResponse accountItems = dao.getAccountItems(designador);
+            InventoryDesignatorsResponse associatedDesignators = dao.getAssociatedDesignators(designador);
+            if (accountItems.getAccounts().isEmpty() || associatedDesignators.getDesignator().isEmpty()) {
+                if (designador.contains("8-")) {
+                    TratativaConsultaPorOrdem trat = new TratativaConsultaPorOrdem(designador, ec);
+                    trat.run();
+                    return trat.getC();
+                }
+            }
+
+            EfikaThread t0 = new EfikaThread(new TratativaAssociatedDesignators(associatedDesignators, ec, accountItems));
             t0.join();
 //            t0.possuiException();
             EfikaThread t2 = new EfikaThread(new TratativaInventarioServicos(accountItems, ec));
@@ -105,13 +112,6 @@ public class EfikaCustomerServiceOldImpl implements EfikaCustomerServiceOld {
             e.printStackTrace();
             if (e.getCause() instanceof ImpossivelIdentificarDesignadoresException) {
                 throw e;
-            }
-            if (e.getCause() instanceof InstanciaInvalidaException) {
-                if (designador.contains("8-")) {
-                    TratativaConsultaPorOrdem trat = new TratativaConsultaPorOrdem(designador, ec);
-                    trat.run();
-                    ec = trat.getC();
-                }
             }
             if (e.getCause() instanceof ClienteSemBandaException) {
                 EfikaThread t2 = new EfikaThread(new TratativaInventarioServicos(dao.getAccountItems(ec.getDesignador()), ec));
