@@ -6,8 +6,6 @@
 package br.net.gvt.efika.stealerAPI.dao.oss;
 
 import bean.ossturbonet.oss.gvt.com.GetInfoOut;
-import com.gvt.ws.eai.oss.inventory.api.InventoryAccountResponse;
-import com.gvt.ws.eai.oss.inventory.api.InventoryDesignatorsResponse;
 import com.gvt.www.ws.eai.oss.OSSTurbonetStatusConexao.OSSTurbonetStatusConexaoOut;
 import com.gvt.www.ws.eai.oss.gpon.ConsultInfoGponOut;
 import org.junit.After;
@@ -17,6 +15,9 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import br.net.gvt.efika.util.json.JacksonMapper;
+import com.gvt.ws.eai.oss.inventory.api.Designator;
+import com.gvt.ws.eai.oss.inventory.api.InventoryAccountResponse;
+import com.gvt.ws.eai.oss.inventory.api.InventoryDesignatorsResponse;
 
 /**
  *
@@ -47,15 +48,16 @@ public class OSSGenericDAOIT {
      * Test of getAssociatedDesignators method, of class OSSGenericDAO.
      */
     @Test
-    public void testGetAssociatedDesignators() {
+    public void testGetAssociatedDesignators() throws Exception {
         System.out.println("getAssociatedDesignators");
-        String instancia = "4130935248";
+//        String instancia = "4130935248";
+        String instancia = "4130157784";
         OSSGenericDAO instance = new OSSGenericDAO();
 //        InventoryDesignatorsResponse expResult = null;
         InventoryDesignatorsResponse result = instance.getAssociatedDesignators(instancia);
-        result.getDesignator().forEach((t) -> {
-            System.out.println(t.getValue());
-        });
+
+        System.out.println(new JacksonMapper(InventoryDesignatorsResponse.class).serialize(result));
+
         // TODO review the generated test code and remove the default call to fail.
 //        fail("The test case is a prototype.");
     }
@@ -67,8 +69,8 @@ public class OSSGenericDAOIT {
     public void testGetInfo() throws Exception {
         try {
             System.out.println("getInfo");
-            String designador = "CTA-814OUESD1D-013";
-            String designadorAcesso = "CTA-20325394-069";
+            String designador = "CTA-813PE2SDIL-013";
+            String designadorAcesso = "CTA-15958501-069";
             OSSGenericDAO instance = new OSSGenericDAO();
             GetInfoOut result = instance.getInfo(designador, designadorAcesso);
             System.out.println(new JacksonMapper(GetInfoOut.class).serialize(result));
