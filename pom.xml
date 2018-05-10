@@ -52,7 +52,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.12.4</version>
                 <configuration>
-                    <!--<skipTests>true</skipTests>-->
+                    <skipTests>true</skipTests>
                 </configuration>
             </plugin>
         </plugins>
@@ -126,20 +126,20 @@
         <dependency>
             <groupId>com.gvt.www.ws.eai.oss</groupId>
             <artifactId>ossturbonet</artifactId>
-            <version>1.0.0</version>
+            <version>1.0.1</version>
         </dependency>
         
         <dependency>
             <groupId>br.com.gvt.www.eai</groupId>
             <artifactId>numberinventory</artifactId>
-            <version>1.0.0</version>
+            <version>1.0.1</version>
         </dependency>
         
         
         <dependency>
             <groupId>br.com.gvt.oss</groupId>
             <artifactId>inventory</artifactId>
-            <version>1.0.0</version>
+            <version>1.0.1</version>
         </dependency>
         
         
