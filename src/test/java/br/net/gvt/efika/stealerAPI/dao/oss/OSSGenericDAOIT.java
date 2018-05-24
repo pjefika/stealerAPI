@@ -15,7 +15,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import br.net.gvt.efika.util.json.JacksonMapper;
-import com.gvt.ws.eai.oss.inventory.api.Designator;
 import com.gvt.ws.eai.oss.inventory.api.InventoryAccountResponse;
 import com.gvt.ws.eai.oss.inventory.api.InventoryDesignatorsResponse;
 
@@ -139,8 +138,8 @@ public class OSSGenericDAOIT {
         String instancia = "";
         OSSGenericDAO instance = new OSSGenericDAO();
         ConsultInfoGponOut expResult = null;
-        ConsultInfoGponOut result = instance.getInfoGpon(instancia);
-        assertEquals(expResult, result);
+//        ConsultInfoGponOut result = instance.getInfoGpon(instancia);
+//        assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

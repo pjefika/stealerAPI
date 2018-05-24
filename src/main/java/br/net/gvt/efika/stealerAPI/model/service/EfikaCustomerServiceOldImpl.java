@@ -7,21 +7,16 @@ package br.net.gvt.efika.stealerAPI.model.service;
  */
 import bean.ossturbonet.oss.gvt.com.GetInfoOut;
 import br.net.gvt.efika.efika_customer.model.customer.EfikaCustomer;
-import br.net.gvt.efika.efika_customer.model.customer.EventoMassivo;
 import br.net.gvt.efika.efika_customer.model.customer.enums.OrigemPlanta;
 import br.net.gvt.efika.efika_customer.model.customer.enums.OrigemRede;
 import com.gvt.ws.eai.oss.inventory.api.InventoryAccountResponse;
 import com.gvt.www.ws.eai.oss.OSSTurbonetStatusConexao.OSSTurbonetStatusConexaoOut;
 import com.gvt.www.ws.eai.oss.gpon.ConsultInfoGponOut;
-import br.net.gvt.efika.stealerAPI.dao.EventosMassivosDAO;
-import br.net.gvt.efika.stealerAPI.dao.EventosMassivosDAOImpl;
 import br.net.gvt.efika.stealerAPI.dao.FactoryDAO;
 import br.net.gvt.efika.stealerAPI.dao.exception.ClienteSemBandaException;
-import br.net.gvt.efika.stealerAPI.dao.exception.InstanciaInvalidaException;
 import br.net.gvt.efika.stealerAPI.dao.oss.OSSGenericDAO;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import br.net.gvt.efika.stealerAPI.model.asserts.facade.AssertFacadeFulltestCRMVivo2;
 import br.net.gvt.efika.stealerAPI.model.service.tratativa.TratativaAssociatedDesignators;
 import br.net.gvt.efika.stealerAPI.model.service.tratativa.TratativaInventarioLinha;
 import br.net.gvt.efika.stealerAPI.model.service.tratativa.TratativaInventarioRede;
@@ -31,10 +26,7 @@ import br.net.gvt.efika.stealerAPI.dao.InventarioLinhaDAOPnAdminImpl;
 import br.net.gvt.efika.stealerAPI.dao.NetworkInventoryDAO;
 import br.net.gvt.efika.stealerAPI.dao.NetworkInventoryDAOImpl;
 import br.net.gvt.efika.stealerAPI.dao.exception.ImpossivelIdentificarDesignadoresException;
-import java.util.List;
-import br.net.gvt.efika.stealerAPI.model.asserts.facade.AssertFacadeFulltestCRMVivo1;
 import br.net.gvt.efika.stealerAPI.model.service.tratativa.TratativaConsultaPorOrdem;
-import br.net.gvt.efika.stealerAPI.model.service.tratativa.TratativaInventarioRadius;
 import br.net.gvt.efika.util.thread.EfikaThread;
 import com.gvt.ws.eai.oss.inventory.api.InventoryDesignatorsResponse;
 
@@ -76,12 +68,12 @@ public class EfikaCustomerServiceOldImpl implements EfikaCustomerServiceOld {
             if (ec.getRede().getPlanta() != OrigemPlanta.VIVO1) {
                 EfikaThread t3 = new EfikaThread(new TratativaInventarioLinha(linha().consultar(ec.getInstancia()), ec));
                 EfikaThread t1 = new EfikaThread(new TratativaInventarioRede(getInfo(), ec));
-                EfikaThread t5 = new EfikaThread(new TratativaInventarioRadius(getInfo(), ec));
+//                EfikaThread t5 = new EfikaThread(new TratativaInventarioRadius(getInfo(), ec));
                 t3.join();
                 t1.join();
                 t1.possuiException();
-                t5.join();
-                ec.setAsserts(new AssertFacadeFulltestCRMVivo2(getInfo()).assertThese());
+//                t5.join();
+//                ec.setAsserts(new AssertFacadeFulltestCRMVivo2(getInfo()).assertThese());
             } else {
                 EfikaThread t4 = new EfikaThread(() -> {
                     try {
@@ -95,17 +87,17 @@ public class EfikaCustomerServiceOldImpl implements EfikaCustomerServiceOld {
                     }
                 });
                 t4.join();
-                EfikaThread t6 = new EfikaThread(() -> {
-                    try {
-                        EventosMassivosDAO instance0 = new EventosMassivosDAOImpl();
-                        List<EventoMassivo> lEm = instance0.consultar(ec);
-                        ec.setEventos(lEm);
-                    } catch (Exception ex) {
-                        Logger.getLogger(EfikaCustomerServiceOldImpl.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                });
-                t6.join();
-                ec.setAsserts(new AssertFacadeFulltestCRMVivo1(ec).assertThese());
+//                EfikaThread t6 = new EfikaThread(() -> {
+//                    try {
+//                        EventosMassivosDAO instance0 = new EventosMassivosDAOImpl();
+//                        List<EventoMassivo> lEm = instance0.consultar(ec);
+//                        ec.setEventos(lEm);
+//                    } catch (Exception ex) {
+//                        Logger.getLogger(EfikaCustomerServiceOldImpl.class.getName()).log(Level.SEVERE, null, ex);
+//                    }
+//                });
+//                t6.join();
+//                ec.setAsserts(new AssertFacadeFulltestCRMVivo1(ec).assertThese());
             }
 
         } catch (Exception e) {
@@ -162,7 +154,8 @@ public class EfikaCustomerServiceOldImpl implements EfikaCustomerServiceOld {
 
     @Override
     public ConsultInfoGponOut getInfoGpon(String instancia) throws Exception {
-        return getDao().getInfoGpon(instancia);
+        throw new UnsupportedOperationException("Pendente refatoração");
+//        return getDao().getInfoGpon(instancia);
     }
 
     public OSSGenericDAO getDao() {

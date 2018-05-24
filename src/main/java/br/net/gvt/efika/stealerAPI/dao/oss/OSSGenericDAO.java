@@ -61,9 +61,9 @@ public class OSSGenericDAO {
         return oss().getAuthenticationByIPorMac(mac);
     }
 
-    public ConsultInfoGponOut getInfoGpon(String instancia) throws Exception {
-        ConsultInfoGponIn gponIn = new ConsultInfoGponIn(oss().getAccessDesignator(instancia));
-        return oss().consultInfoGpon(gponIn);
-    }
+//    public ConsultInfoGponOut getInfoGpon(String instancia) throws Exception {
+//        ConsultInfoGponIn gponIn = new ConsultInfoGponIn(oss().getAccessDesignator(instancia));
+//        return oss().consultInfoGpon(gponIn);
+//    }
 
 }
