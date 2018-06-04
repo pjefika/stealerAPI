@@ -29,9 +29,9 @@ public class FactoryDAO {
         return new WorkOrderDAO();
     }
 
-    public static OssTurbonetDAOInterface createOssDAO() {
-        return new CadastroDAO();
-    }
+//    public static OssTurbonetDAOInterface createOssDAO() {
+//        return new CadastroDAO();
+//    }
 
     public static OSSGenericDAO createOSS() {
         return new OSSGenericDAO();

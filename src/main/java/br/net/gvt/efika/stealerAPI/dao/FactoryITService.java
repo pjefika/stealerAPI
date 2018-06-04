@@ -17,7 +17,7 @@ import com.gvt.www.ws.eai.oss.ossturbonet.OSSTurbonetProxy;
 public class FactoryITService {
 
     public static InventoryService createInvServ() {
-        return new InventoryService();
+        return new InventoryServiceLocator();
     }
 
     public static OSSTurbonet createOss() {

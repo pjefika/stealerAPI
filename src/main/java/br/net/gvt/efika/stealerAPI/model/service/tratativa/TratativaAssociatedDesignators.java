@@ -8,8 +8,8 @@ package br.net.gvt.efika.stealerAPI.model.service.tratativa;
 import br.net.gvt.efika.efika_customer.model.customer.EfikaCustomer;
 import br.net.gvt.efika.stealerAPI.dao.exception.ClienteSemBandaException;
 import br.net.gvt.efika.stealerAPI.dao.exception.InstanciaInvalidaException;
-import com.gvt.ws.eai.oss.inventory.api.InventoryAccountResponse;
-import com.gvt.ws.eai.oss.inventory.api.InventoryDesignatorsResponse;
+import com.gvt.www.ws.eai.oss.inventory.api.InventoryAccountResponse;
+import com.gvt.www.ws.eai.oss.inventory.api.InventoryDesignatorsResponse;
 
 /**
  *
@@ -30,13 +30,13 @@ public class TratativaAssociatedDesignators extends TratativaEfikaCustomer {
     @Override
     public void tratar() throws Exception {
 
-        if (r.getDesignator().isEmpty() && a.getAccounts().isEmpty()) {
+        if (r.getDesignator().length < 1 && a.getAccounts().length < 1) {
             throw new InstanciaInvalidaException();
         }
 
 //        new TratativaAssociatedDesignators(r, getC(), a).getC();
         EfikaCustomer cust;
-        if (r.getDesignator().size() > 2) {
+        if (r.getDesignator().length > 2) {
             cust = TratativasGetDesignadores.tratativaDesignatorResponse(r, getC());
             getC().setDesignador(cust.getDesignador());
             getC().setInstancia(cust.getInstancia());

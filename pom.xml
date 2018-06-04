@@ -43,6 +43,8 @@
                 
                 <configuration>
                     <properties>
+                        <java.net.preferIPv4Addresses>true</java.net.preferIPv4Addresses>
+                        <java.net.preferIPv4Stack>true</java.net.preferIPv4Stack>
                         <swarm.http.port>7173</swarm.http.port>
                     </properties>
                 </configuration>
@@ -126,7 +128,7 @@
         <dependency>
             <groupId>com.gvt.www.ws.eai.oss</groupId>
             <artifactId>ossturbonet</artifactId>
-            <version>1.1.1</version>
+            <version>1.1.0</version>
         </dependency>
         
         <dependency>
@@ -139,7 +141,7 @@
         <dependency>
             <groupId>br.com.gvt.oss</groupId>
             <artifactId>inventory</artifactId>
-            <version>1.0.1</version>
+            <version>1.1.0</version>
         </dependency>
         
         

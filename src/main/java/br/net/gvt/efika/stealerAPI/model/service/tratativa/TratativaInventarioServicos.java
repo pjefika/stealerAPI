@@ -10,11 +10,11 @@ import br.net.gvt.efika.efika_customer.model.customer.InventarioServico;
 import br.net.gvt.efika.efika_customer.model.customer.enums.OrigemPlanta;
 import br.net.gvt.efika.efika_customer.model.customer.enums.TecnologiaLinha;
 import br.net.gvt.efika.efika_customer.model.customer.enums.TecnologiaTv;
-import com.gvt.ws.eai.oss.inventory.api.Account;
-import com.gvt.ws.eai.oss.inventory.api.Address;
-import com.gvt.ws.eai.oss.inventory.api.InventoryAccountResponse;
-import com.gvt.ws.eai.oss.inventory.api.Item;
-import com.gvt.ws.eai.oss.inventory.api.Param;
+import com.gvt.www.ws.eai.oss.inventory.api.Account;
+import com.gvt.www.ws.eai.oss.inventory.api.Address;
+import com.gvt.www.ws.eai.oss.inventory.api.InventoryAccountResponse;
+import com.gvt.www.ws.eai.oss.inventory.api.Item;
+import com.gvt.www.ws.eai.oss.inventory.api.Param;
 
 /**
  *
@@ -109,7 +109,7 @@ public class TratativaInventarioServicos extends TratativaEfikaCustomer {
                         for (Item item1 : item.getItems()) {
                             if ((item1.getStatusName().equalsIgnoreCase("ACTIVE") || item1.getStatusName().equalsIgnoreCase("PENDING"))
                                     && item1.getDesignator().getValue().equalsIgnoreCase(getC().getDesignador())) {
-                                for (com.gvt.ws.eai.oss.inventory.api.Param param : item1.getParam()) {
+                                for (com.gvt.www.ws.eai.oss.inventory.api.Param param : item1.getParam()) {
 //                            System.out.println(itn.getStatusName() + "->" + itn.getModifiedDate().getValue());
                                     System.out.println(param.getName() + "->" + param.getValue());
                                     if (param.getName().equalsIgnoreCase("Downstream")) {
@@ -142,8 +142,8 @@ public class TratativaInventarioServicos extends TratativaEfikaCustomer {
 //                        if (item1.getStatusName().equalsIgnoreCase("ACTIVE") || item1.getStatusName().equalsIgnoreCase("PENDING")) {
                             System.out.println("item1->" + item1.getDesignator().getValue() + "status->" + item1.getStatusName());
                             if (item1.getDesignator().getValue().equalsIgnoreCase(getC().getInstancia())) {
-                                for (com.gvt.ws.eai.oss.inventory.api.Param param : item1.getParam()) {
-                                    System.out.println("param->" + param.getName() + "_val->" + param.getValue() + "_modDate->" + param.getModifiedDate().getValue().normalize());
+                                for (com.gvt.www.ws.eai.oss.inventory.api.Param param : item1.getParam()) {
+                                    System.out.println("param->" + param.getName() + "_val->" + param.getValue() + "_modDate->" + param.getModifiedDate().toString());
                                     if (param.getName().equalsIgnoreCase("TecnologiaVoz")) {
                                         if (param.getValue().toUpperCase().contains("SIP")) {
                                             i.setTipoLinha(TecnologiaLinha.SIP);
@@ -187,7 +187,7 @@ public class TratativaInventarioServicos extends TratativaEfikaCustomer {
 //                        System.out.println("paramTV->" + item1.getDesignator().getValue() + "status->" + item1.getStatusName());
                             if (item1.getStatusName().equalsIgnoreCase("ACTIVE") || item1.getStatusName().equalsIgnoreCase("PENDING")) {
 
-                                for (com.gvt.ws.eai.oss.inventory.api.Param param : item1.getParam()) {
+                                for (com.gvt.www.ws.eai.oss.inventory.api.Param param : item1.getParam()) {
 //                                System.out.println("paramTV->" + param.getName());
                                     if (param.getName().equalsIgnoreCase("TecnologiaTV")) {
                                         if (getC().getDesignadorTv() == null) {

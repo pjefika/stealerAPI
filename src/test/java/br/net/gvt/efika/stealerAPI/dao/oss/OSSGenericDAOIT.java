@@ -15,8 +15,8 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import br.net.gvt.efika.util.json.JacksonMapper;
-import com.gvt.ws.eai.oss.inventory.api.InventoryAccountResponse;
-import com.gvt.ws.eai.oss.inventory.api.InventoryDesignatorsResponse;
+import com.gvt.www.ws.eai.oss.inventory.api.InventoryAccountResponse;
+import com.gvt.www.ws.eai.oss.inventory.api.InventoryDesignatorsResponse;
 
 /**
  *

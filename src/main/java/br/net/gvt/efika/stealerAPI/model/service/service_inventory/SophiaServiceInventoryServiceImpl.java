@@ -8,13 +8,12 @@ package br.net.gvt.efika.stealerAPI.model.service.service_inventory;
 import br.net.gvt.efika.efika_customer.model.customer.EfikaCustomer;
 import br.net.gvt.efika.efika_customer.model.customer.enums.OrigemInventarioServico;
 import br.net.gvt.efika.stealerAPI.dao.FactoryDAO;
-import com.gvt.ws.eai.oss.inventory.api.InventoryAccountResponse;
-import com.gvt.ws.eai.oss.inventory.api.InventoryDesignatorsResponse;
 import br.net.gvt.efika.stealerAPI.dao.exception.InstanciaInvalidaException;
 import br.net.gvt.efika.stealerAPI.model.service.tratativa.TratativaAssociatedDesignators;
 import br.net.gvt.efika.stealerAPI.model.service.tratativa.TratativaInventarioServicos;
-import br.net.gvt.efika.stealerAPI.dao.exception.ImpossivelIdentificarDesignadoresException;
 import br.net.gvt.efika.stealerAPI.dao.oss.OSSGenericDAO;
+import com.gvt.www.ws.eai.oss.inventory.api.InventoryAccountResponse;
+import com.gvt.www.ws.eai.oss.inventory.api.InventoryDesignatorsResponse;
 
 public class SophiaServiceInventoryServiceImpl implements ServiceInventoryService {
 

@@ -7,12 +7,12 @@ package br.net.gvt.efika.stealerAPI.model.service.tratativa;
 
 import br.net.gvt.efika.efika_customer.model.customer.EfikaCustomer;
 import br.net.gvt.efika.stealerAPI.dao.exception.ImpossivelIdentificarDesignadoresException;
-import com.gvt.ws.eai.oss.inventory.api.Account;
-import com.gvt.ws.eai.oss.inventory.api.Address;
-import com.gvt.ws.eai.oss.inventory.api.Designator;
-import com.gvt.ws.eai.oss.inventory.api.InventoryAccountResponse;
-import com.gvt.ws.eai.oss.inventory.api.InventoryDesignatorsResponse;
-import com.gvt.ws.eai.oss.inventory.api.Item;
+import com.gvt.www.ws.eai.oss.inventory.api.Account;
+import com.gvt.www.ws.eai.oss.inventory.api.Address;
+import com.gvt.www.ws.eai.oss.inventory.api.Designator;
+import com.gvt.www.ws.eai.oss.inventory.api.InventoryAccountResponse;
+import com.gvt.www.ws.eai.oss.inventory.api.InventoryDesignatorsResponse;
+import com.gvt.www.ws.eai.oss.inventory.api.Item;
 
 /**
  *
@@ -26,15 +26,15 @@ public class TratativasGetDesignadores {
     public static EfikaCustomer tratativaDesignatorResponse(InventoryDesignatorsResponse desigResp, EfikaCustomer cust) {
         EfikaCustomer customer = cust;
         for (Designator designator : desigResp.getDesignator()) {
-            System.out.println("type->" + designator.getDesignatorType().getValue() + "_val->" + designator.getValue());
+            System.out.println("type->" + designator.getDesignatorType() + "_val->" + designator.getValue());
 
             // Designador de Acesso
-            if (designator.getDesignatorType().getValue().equals(1)) {
+            if (designator.getDesignatorType().equals(1)) {
                 customer.setDesignadorAcesso(designator.getValue());
             }
 
             // Instancia
-            if (designator.getDesignatorType().getValue().equals(2)) {
+            if (designator.getDesignatorType().equals(2)) {
 //                    System.out.println("instancia->"+designator.getValue());
                 if (customer.getInstancia() == null) {
                     customer.setInstancia(designator.getValue());
@@ -42,12 +42,12 @@ public class TratativasGetDesignadores {
 
             }
             // Designador de TV
-            if (designator.getDesignatorType().getValue().equals(4)) {
+            if (designator.getDesignatorType().equals(4)) {
                 customer.setDesignadorTv(designator.getValue());
             }
 
             // Designador de Banda
-            if (designator.getDesignatorType().getValue().equals(3)) {
+            if (designator.getDesignatorType().equals(3)) {
                 customer.setDesignador(designator.getValue());
             }
 
@@ -57,8 +57,8 @@ public class TratativasGetDesignadores {
 
     public static EfikaCustomer tratativaInventoryResponse(InventoryAccountResponse invResp, EfikaCustomer cust) throws Exception {
         EfikaCustomer customer = cust;
-        if (invResp.getAccounts().size() > 0) {
-            if (invResp.getAccounts().size() > 1) {
+        if (invResp.getAccounts().length > 0) {
+            if (invResp.getAccounts().length > 1) {
                 throw new ImpossivelIdentificarDesignadoresException();
             }
         }
@@ -72,8 +72,8 @@ public class TratativasGetDesignadores {
                     for (Item item1 : item.getItems()) {
                         if (item1.getStatusName().equalsIgnoreCase("ACTIVE") || item1.getStatusName().equalsIgnoreCase("PENDING")) {
 //                                System.out.println("letype->" + item1.getDesignator().getDesignatorType().getValue() + "_des->" + item1.getDesignator().getValue());
-                            if (null != item1.getDesignator().getDesignatorType().getValue()) {
-                                switch (item1.getDesignator().getDesignatorType().getValue()) {
+                            if (null != item1.getDesignator().getDesignatorType()) {
+                                switch (item1.getDesignator().getDesignatorType()) {
                                     case 2:
                                         customer.setInstancia(item1.getDesignator().getValue());
                                         break;

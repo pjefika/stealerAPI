@@ -9,7 +9,6 @@ import bean.ossturbonet.oss.gvt.com.GetInfoOut;
 import br.net.gvt.efika.efika_customer.model.customer.EfikaCustomer;
 import br.net.gvt.efika.efika_customer.model.customer.enums.OrigemPlanta;
 import br.net.gvt.efika.efika_customer.model.customer.enums.OrigemRede;
-import com.gvt.ws.eai.oss.inventory.api.InventoryAccountResponse;
 import com.gvt.www.ws.eai.oss.OSSTurbonetStatusConexao.OSSTurbonetStatusConexaoOut;
 import com.gvt.www.ws.eai.oss.gpon.ConsultInfoGponOut;
 import br.net.gvt.efika.stealerAPI.dao.FactoryDAO;
@@ -28,7 +27,8 @@ import br.net.gvt.efika.stealerAPI.dao.NetworkInventoryDAOImpl;
 import br.net.gvt.efika.stealerAPI.dao.exception.ImpossivelIdentificarDesignadoresException;
 import br.net.gvt.efika.stealerAPI.model.service.tratativa.TratativaConsultaPorOrdem;
 import br.net.gvt.efika.util.thread.EfikaThread;
-import com.gvt.ws.eai.oss.inventory.api.InventoryDesignatorsResponse;
+import com.gvt.www.ws.eai.oss.inventory.api.InventoryAccountResponse;
+import com.gvt.www.ws.eai.oss.inventory.api.InventoryDesignatorsResponse;
 
 public class EfikaCustomerServiceOldImpl implements EfikaCustomerServiceOld {
 
@@ -48,13 +48,13 @@ public class EfikaCustomerServiceOldImpl implements EfikaCustomerServiceOld {
         try {
             InventoryAccountResponse accountItems = dao.getAccountItems(designador);
             InventoryDesignatorsResponse associatedDesignators = dao.getAssociatedDesignators(designador);
-            if (accountItems.getAccounts().isEmpty() || associatedDesignators.getDesignator().isEmpty()) {
-                if (designador.contains("8-")) {
-                    TratativaConsultaPorOrdem trat = new TratativaConsultaPorOrdem(designador, ec);
-                    trat.run();
-                    return trat.getC();
-                }
-            }
+//            if (accountItems.getAccounts().length < 1 || associatedDesignators.getDesignator().length < 1) {
+//                if (designador.contains("8-")) {
+//                    TratativaConsultaPorOrdem trat = new TratativaConsultaPorOrdem(designador, ec);
+//                    trat.run();
+//                    return trat.getC();
+//                }
+//            }
 
             EfikaThread t0 = new EfikaThread(new TratativaAssociatedDesignators(associatedDesignators, ec, accountItems));
             t0.join();
@@ -66,10 +66,10 @@ public class EfikaCustomerServiceOldImpl implements EfikaCustomerServiceOld {
              * Refatorar!
              */
             if (ec.getRede().getPlanta() != OrigemPlanta.VIVO1) {
-                EfikaThread t3 = new EfikaThread(new TratativaInventarioLinha(linha().consultar(ec.getInstancia()), ec));
+//                EfikaThread t3 = new EfikaThread(new TratativaInventarioLinha(linha().consultar(ec.getInstancia()), ec));
                 EfikaThread t1 = new EfikaThread(new TratativaInventarioRede(getInfo(), ec));
 //                EfikaThread t5 = new EfikaThread(new TratativaInventarioRadius(getInfo(), ec));
-                t3.join();
+//                t3.join();
                 t1.join();
                 t1.possuiException();
 //                t5.join();
@@ -107,9 +107,9 @@ public class EfikaCustomerServiceOldImpl implements EfikaCustomerServiceOld {
             }
             if (e.getCause() instanceof ClienteSemBandaException) {
                 EfikaThread t2 = new EfikaThread(new TratativaInventarioServicos(dao.getAccountItems(ec.getDesignador()), ec));
-                EfikaThread t3 = new EfikaThread(new TratativaInventarioLinha(linha().consultar(ec.getInstancia()), ec));
+//                EfikaThread t3 = new EfikaThread(new TratativaInventarioLinha(linha().consultar(ec.getInstancia()), ec));
                 t2.join();
-                t3.join();
+//                t3.join();
             }
         }
 
