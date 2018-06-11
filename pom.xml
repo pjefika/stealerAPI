@@ -139,7 +139,7 @@
         
         
         <dependency>
-            <groupId>br.com.gvt.oss</groupId>
+            <groupId>br.com.gvt.www.eai</groupId>
             <artifactId>inventory</artifactId>
             <version>1.2.0</version>
         </dependency>
