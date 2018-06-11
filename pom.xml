@@ -128,7 +128,7 @@
         <dependency>
             <groupId>com.gvt.www.ws.eai.oss</groupId>
             <artifactId>ossturbonet</artifactId>
-            <version>1.1.0</version>
+            <version>1.2.0</version>
         </dependency>
         
         <dependency>
@@ -141,7 +141,7 @@
         <dependency>
             <groupId>br.com.gvt.oss</groupId>
             <artifactId>inventory</artifactId>
-            <version>1.1.0</version>
+            <version>1.2.0</version>
         </dependency>
         
         
