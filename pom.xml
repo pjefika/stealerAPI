@@ -114,12 +114,6 @@
         </dependency>
         
         <dependency>
-            <groupId>br.net.gvt.efika</groupId>
-            <artifactId>network_inventory</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-        
-        <dependency>
             <groupId>br.com.gvt.www</groupId>
             <artifactId>workforce</artifactId>
             <version>1.0.0</version>
@@ -139,7 +133,7 @@
         
         
         <dependency>
-            <groupId>br.com.gvt.www.eai</groupId>
+            <groupId>br.com.gvt.oss</groupId>
             <artifactId>inventory</artifactId>
             <version>1.2.0</version>
         </dependency>
