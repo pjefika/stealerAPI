@@ -22,7 +22,7 @@ public class TratativasGetDesignadores {
 
     public TratativasGetDesignadores() {
     }
-    
+
     public static EfikaCustomer tratativaDesignatorResponse(InventoryDesignatorsResponse desigResp, EfikaCustomer cust) {
         EfikaCustomer customer = cust;
         for (Designator designator : desigResp.getDesignator()) {
@@ -75,13 +75,19 @@ public class TratativasGetDesignadores {
                             if (null != item1.getDesignator().getDesignatorType().getValue()) {
                                 switch (item1.getDesignator().getDesignatorType().getValue()) {
                                     case 2:
-                                        customer.setInstancia(item1.getDesignator().getValue());
+                                        if (customer.getInstancia() == null) {
+                                            customer.setInstancia(item1.getDesignator().getValue());
+                                        }
                                         break;
                                     case 3:
-                                        customer.setDesignador(item1.getDesignator().getValue());
+                                        if (customer.getDesignador() == null) {
+                                            customer.setDesignador(item1.getDesignator().getValue());
+                                        }
                                         break;
                                     case 4:
-                                        customer.setDesignadorTv(item1.getDesignator().getValue());
+                                        if (customer.getDesignadorTv() == null) {
+                                            customer.setDesignadorTv(item1.getDesignator().getValue());
+                                        }
                                         break;
                                     default:
                                         break;
