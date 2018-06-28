@@ -108,9 +108,9 @@ public class TratativaInventarioServicos extends TratativaEfikaCustomer {
                                 if (param.getName().equalsIgnoreCase("NetworkOwnerId")) {
                                     getC().setInstancia(param.getValue());
                                 }
-                                if (planta != null) {
-                                    break;
-                                }
+//                                if (planta != null) {
+//                                    break;
+//                                }
                             }
                         }
                     }
