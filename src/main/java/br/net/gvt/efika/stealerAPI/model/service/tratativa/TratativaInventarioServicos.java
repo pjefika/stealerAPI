@@ -52,20 +52,57 @@ public class TratativaInventarioServicos extends TratativaEfikaCustomer {
             for (Address addres : account1.getAddress()) {
                 for (Item item : addres.getItems()) {
                     if (item.getStatusName().equalsIgnoreCase("ACTIVE") || item.getStatusName().equalsIgnoreCase("PENDING")) {
-                        if (getC().getDesignadorAcesso().equalsIgnoreCase(item.getDesignator().getValue())
-                                || getC().getInstancia().equalsIgnoreCase(item.getDesignator().getValue())) {
+
+                        if (getC().getDesignadorAcesso() != null && getC().getDesignadorAcesso().equalsIgnoreCase(item.getDesignator().getValue())) {
                             address = addres.getExternalId();
+                        } else if (getC().getDesignador() != null && getC().getDesignador().equalsIgnoreCase(item.getDesignator().getValue())) {
+                            address = addres.getExternalId();
+                        } else if (getC().getInstancia() != null && getC().getInstancia().equalsIgnoreCase(item.getDesignator().getValue())) {
+                            address = addres.getExternalId();
+                        } else {
+                            for (Item item1 : item.getItems()) {
+                                if (getC().getDesignadorAcesso() != null && getC().getDesignadorAcesso().equalsIgnoreCase(item1.getDesignator().getValue())) {
+                                    address = addres.getExternalId();
+                                } else if (getC().getDesignador() != null && getC().getDesignador().equalsIgnoreCase(item1.getDesignator().getValue())) {
+                                    address = addres.getExternalId();
+                                } else if (getC().getInstancia() != null && getC().getInstancia().equalsIgnoreCase(item1.getDesignator().getValue())) {
+                                    address = addres.getExternalId();
+                                }
+                            }
                         }
                     }
                 }
+//                if (address == null) {
+//                    for (Item item : addres.getItems()) {
+//                        for    {
+//                            if (item.getStatusName().equalsIgnoreCase("ACTIVE") || item.getStatusName().equalsIgnoreCase("PENDING")) {
+//
+//                                if (getC().getDesignadorAcesso() != null && getC().getDesignadorAcesso().equalsIgnoreCase(item.getDesignator().getValue())
+//                                        || getC().getInstancia().equalsIgnoreCase(item.getDesignator().getValue())) {
+//                                    address = addres.getExternalId();
+//                                } else if (getC().getDesignador() != null && getC().getDesignador().equalsIgnoreCase(item.getDesignator().getValue())) {
+//                                    address = addres.getExternalId();
+//                                } else if (getC().getInstancia() != null && getC().getDesignador().equalsIgnoreCase(item.getDesignator().getValue())) {
+//                                    address = addres.getExternalId();
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+
             }
 
             if (address == null) {
                 for (Address addres : account1.getAddress()) {
                     for (Item item : addres.getItems()) {
                         if (item.getStatusName().equalsIgnoreCase("INACTIVATING")) {
-                            if (getC().getDesignadorAcesso().equalsIgnoreCase(item.getDesignator().getValue())
+                            if (getC().getDesignadorAcesso() != null && getC().getDesignadorAcesso().equalsIgnoreCase(item.getDesignator().getValue())
                                     || getC().getInstancia().equalsIgnoreCase(item.getDesignator().getValue())) {
+                                address = addres.getExternalId();
+                            } else if (getC().getDesignador() != null && getC().getDesignador().equalsIgnoreCase(item.getDesignator().getValue())
+                                    || getC().getInstancia().equalsIgnoreCase(item.getDesignator().getValue())) {
+                                address = addres.getExternalId();
+                            } else if (getC().getInstancia() != null && getC().getInstancia().equalsIgnoreCase(item.getDesignator().getValue())) {
                                 address = addres.getExternalId();
                             }
                         }

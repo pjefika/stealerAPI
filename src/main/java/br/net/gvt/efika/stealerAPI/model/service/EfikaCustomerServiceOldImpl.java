@@ -63,7 +63,7 @@ public class EfikaCustomerServiceOldImpl implements EfikaCustomerServiceOld {
             /**
              * Refatorar!
              */
-            if (ec.getRede().getPlanta() != OrigemPlanta.VIVO1) {
+            if (ec.getRede().getPlanta() == OrigemPlanta.VIVO2) {
 //                EfikaThread t3 = new EfikaThread(new TratativaInventarioLinha(linha().consultar(ec.getInstancia()), ec));
                 EfikaThread t1 = new EfikaThread(new TratativaInventarioRede(getInfo(), ec));
 //                EfikaThread t5 = new EfikaThread(new TratativaInventarioRadius(getInfo(), ec));

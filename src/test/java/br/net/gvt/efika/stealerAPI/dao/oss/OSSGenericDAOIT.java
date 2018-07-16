@@ -86,7 +86,7 @@ public class OSSGenericDAOIT {
     @Test
     public void testGetAccountItems() throws Exception {
         System.out.println("getAccountItems");
-        String designator = "4130776101";
+        String designator = "4130157784";
         OSSGenericDAO instance = new OSSGenericDAO();
         InventoryAccountResponse result = instance.getAccountItems(designator);
 

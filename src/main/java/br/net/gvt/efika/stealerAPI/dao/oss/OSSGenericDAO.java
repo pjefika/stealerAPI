@@ -51,7 +51,10 @@ public class OSSGenericDAO {
     }
 
     public InventoryAccountResponse getAccountItems(String designator) throws RemoteException, ServiceException {
-        return inventory().getAccountItems(null, null, designator, null, true);
+        System.out.println("");
+        
+        InventoryAccountResponse i = inventory().getAccountItems(null, null, designator, null, true);
+        return i;
     }
 
     public OSSTurbonetStatusConexaoOut getAuth(String mac) throws Exception {
@@ -63,5 +66,4 @@ public class OSSGenericDAO {
 //        ConsultInfoGponIn gponIn = new ConsultInfoGponIn(oss().getAccessDesignator(instancia));
 //        return oss().consultInfoGpon(gponIn);
 //    }
-
 }
