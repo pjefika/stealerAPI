@@ -22,19 +22,23 @@ public class TratativasGetDesignadores {
 
     public TratativasGetDesignadores() {
     }
-    
+
     public static EfikaCustomer tratativaDesignatorResponse(InventoryDesignatorsResponse desigResp, EfikaCustomer cust) {
         EfikaCustomer customer = cust;
         for (Designator designator : desigResp.getDesignator()) {
             System.out.println("type->" + designator.getDesignatorType() + "_val->" + designator.getValue());
 
             // Designador de Acesso
-            if (designator.getDesignatorType().equals(1)) {
+            if (designator.getDesignatorType().equals(1)
+                    && (designator.getStatusName().equalsIgnoreCase("ACTIVE")
+                    || designator.getStatusName().equalsIgnoreCase("PENDING"))) {
                 customer.setDesignadorAcesso(designator.getValue());
             }
 
             // Instancia
-            if (designator.getDesignatorType().equals(2)) {
+            if (designator.getDesignatorType().equals(2)
+                    && (designator.getStatusName().equalsIgnoreCase("ACTIVE")
+                    || designator.getStatusName().equalsIgnoreCase("PENDING"))) {
 //                    System.out.println("instancia->"+designator.getValue());
                 if (customer.getInstancia() == null) {
                     customer.setInstancia(designator.getValue());
@@ -42,12 +46,16 @@ public class TratativasGetDesignadores {
 
             }
             // Designador de TV
-            if (designator.getDesignatorType().equals(4)) {
+            if (designator.getDesignatorType().equals(4)
+                    && (designator.getStatusName().equalsIgnoreCase("ACTIVE")
+                    || designator.getStatusName().equalsIgnoreCase("PENDING"))) {
                 customer.setDesignadorTv(designator.getValue());
             }
 
             // Designador de Banda
-            if (designator.getDesignatorType().equals(3)) {
+            if (designator.getDesignatorType().equals(3)
+                    && (designator.getStatusName().equalsIgnoreCase("ACTIVE")
+                    || designator.getStatusName().equalsIgnoreCase("PENDING"))) {
                 customer.setDesignador(designator.getValue());
             }
 
