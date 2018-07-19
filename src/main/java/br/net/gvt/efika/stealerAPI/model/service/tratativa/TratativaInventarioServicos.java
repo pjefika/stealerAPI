@@ -50,29 +50,31 @@ public class TratativaInventarioServicos extends TratativaEfikaCustomer {
     private void setAddress() {
         for (Account account1 : account.getAccounts()) {
             for (Address addres : account1.getAddress()) {
-                for (Item item : addres.getItems()) {
-                    if (item.getStatusName().equalsIgnoreCase("ACTIVE") || item.getStatusName().equalsIgnoreCase("PENDING")) {
-
-                        if (getC().getDesignadorAcesso() != null && getC().getDesignadorAcesso().equalsIgnoreCase(item.getDesignator().getValue())) {
-                            address = addres.getExternalId();
-                        } else if (getC().getDesignador() != null && getC().getDesignador().equalsIgnoreCase(item.getDesignator().getValue())) {
-                            address = addres.getExternalId();
-                        } else if (getC().getInstancia() != null && getC().getInstancia().equalsIgnoreCase(item.getDesignator().getValue())) {
-                            address = addres.getExternalId();
-                        } else if (item.getItems() != null) {
-
-                            for (Item item1 : item.getItems()) {
-                                if (getC().getDesignadorAcesso() != null && getC().getDesignadorAcesso().equalsIgnoreCase(item1.getDesignator().getValue())) {
-                                    address = addres.getExternalId();
-                                } else if (getC().getDesignador() != null && getC().getDesignador().equalsIgnoreCase(item1.getDesignator().getValue())) {
-                                    address = addres.getExternalId();
-                                } else if (getC().getInstancia() != null && getC().getInstancia().equalsIgnoreCase(item1.getDesignator().getValue())) {
-                                    address = addres.getExternalId();
+                if (!addres.getExternalId().contains("OLD")) {
+                    for (Item item : addres.getItems()) {
+                        if (item.getStatusName().equalsIgnoreCase("ACTIVE") || item.getStatusName().equalsIgnoreCase("PENDING")) {
+                            if (getC().getDesignadorAcesso() != null && getC().getDesignadorAcesso().equalsIgnoreCase(item.getDesignator().getValue())) {
+                                address = addres.getExternalId();
+                            } else if (getC().getDesignador() != null && getC().getDesignador().equalsIgnoreCase(item.getDesignator().getValue())) {
+                                address = addres.getExternalId();
+                            } else if (getC().getInstancia() != null && getC().getInstancia().equalsIgnoreCase(item.getDesignator().getValue())) {
+                                address = addres.getExternalId();
+                            } else if (item.getItems() != null) {
+                                for (Item item1 : item.getItems()) {
+                                    if (getC().getDesignadorAcesso() != null && getC().getDesignadorAcesso().equalsIgnoreCase(item1.getDesignator().getValue())) {
+                                        address = addres.getExternalId();
+                                    } else if (getC().getDesignador() != null && getC().getDesignador().equalsIgnoreCase(item1.getDesignator().getValue())) {
+                                        address = addres.getExternalId();
+                                        System.out.println("");
+                                    } else if (getC().getInstancia() != null && getC().getInstancia().equalsIgnoreCase(item1.getDesignator().getValue())) {
+                                        address = addres.getExternalId();
+                                    }
                                 }
                             }
                         }
                     }
                 }
+
 //                if (address == null) {
 //                    for (Item item : addres.getItems()) {
 //                        for    {
@@ -90,7 +92,6 @@ public class TratativaInventarioServicos extends TratativaEfikaCustomer {
 //                        }
 //                    }
 //                }
-
             }
 
             if (address == null) {
