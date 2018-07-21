@@ -65,14 +65,67 @@ public class TratativasGetDesignadores {
 
     public static EfikaCustomer tratativaInventoryResponse(InventoryAccountResponse invResp, EfikaCustomer cust) throws Exception {
         EfikaCustomer customer = cust;
+        
         if (invResp.getAccounts().length > 0) {
             if (invResp.getAccounts().length > 1) {
                 throw new ImpossivelIdentificarDesignadoresException();
             }
         }
+        /**
+         * Find the right address first
+         */
+        String address=null;
         for (Account account1 : invResp.getAccounts()) {
             for (Address addres : account1.getAddress()) {
                 if (!addres.getExternalId().contains("OLD")) {
+                    for (Item item : addres.getItems()) {
+                        if (item.getStatusName().equalsIgnoreCase("ACTIVE") || item.getStatusName().equalsIgnoreCase("PENDING")) {
+                            if (customer.getDesignadorAcesso() != null && customer.getDesignadorAcesso().equalsIgnoreCase(item.getDesignator().getValue())) {
+                                address = addres.getExternalId();
+                            } else if (customer.getDesignador() != null && customer.getDesignador().equalsIgnoreCase(item.getDesignator().getValue())) {
+                                address = addres.getExternalId();
+                            } else if (customer.getInstancia() != null && customer.getInstancia().equalsIgnoreCase(item.getDesignator().getValue())) {
+                                address = addres.getExternalId();
+                            } else if (item.getItems() != null) {
+                                for (Item item1 : item.getItems()) {
+                                    if (customer.getDesignadorAcesso() != null && customer.getDesignadorAcesso().equalsIgnoreCase(item1.getDesignator().getValue())) {
+                                        address = addres.getExternalId();
+                                    } else if (customer.getDesignador() != null && customer.getDesignador().equalsIgnoreCase(item1.getDesignator().getValue())) {
+                                        address = addres.getExternalId();
+                                    } else if (customer.getInstancia() != null && customer.getInstancia().equalsIgnoreCase(item1.getDesignator().getValue())) {
+                                        address = addres.getExternalId();
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (address == null) {
+                for (Address addres : account1.getAddress()) {
+                    for (Item item : addres.getItems()) {
+                        if (item.getStatusName().equalsIgnoreCase("INACTIVATING")) {
+                            if (customer.getDesignadorAcesso() != null && customer.getDesignadorAcesso().equalsIgnoreCase(item.getDesignator().getValue())
+                                    || customer.getInstancia().equalsIgnoreCase(item.getDesignator().getValue())) {
+                                address = addres.getExternalId();
+                            } else if (customer.getDesignador() != null && customer.getDesignador().equalsIgnoreCase(item.getDesignator().getValue())
+                                    || customer.getInstancia().equalsIgnoreCase(item.getDesignator().getValue())) {
+                                address = addres.getExternalId();
+                            } else if (customer.getInstancia() != null && customer.getInstancia().equalsIgnoreCase(item.getDesignator().getValue())) {
+                                address = addres.getExternalId();
+                            }
+                        }
+                    }
+                }
+
+            }
+
+        }
+        
+        for (Account account1 : invResp.getAccounts()) {
+            for (Address addres : account1.getAddress()) {
+                if (addres.getExternalId().equalsIgnoreCase(address)) {
                     for (Item item : addres.getItems()) {
                         if ((item.getStatusName().equalsIgnoreCase("ACTIVE") || item.getStatusName().equalsIgnoreCase("PENDING"))
                                 && item.getSpecId() == 6 && customer.getDesignadorAcesso() == null) {
