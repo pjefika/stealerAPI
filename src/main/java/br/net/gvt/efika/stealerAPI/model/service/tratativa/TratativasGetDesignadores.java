@@ -72,27 +72,35 @@ public class TratativasGetDesignadores {
         }
         for (Account account1 : invResp.getAccounts()) {
             for (Address addres : account1.getAddress()) {
-                for (Item item : addres.getItems()) {
-                    if ((item.getStatusName().equalsIgnoreCase("ACTIVE") || item.getStatusName().equalsIgnoreCase("PENDING"))
-                            && item.getSpecId() == 6) {
-                        customer.setDesignadorAcesso(item.getDesignator().getValue());
-                    }
-                    for (Item item1 : item.getItems()) {
-                        if (item1.getStatusName().equalsIgnoreCase("ACTIVE") || item1.getStatusName().equalsIgnoreCase("PENDING")) {
+                if (!addres.getExternalId().contains("OLD")) {
+                    for (Item item : addres.getItems()) {
+                        if ((item.getStatusName().equalsIgnoreCase("ACTIVE") || item.getStatusName().equalsIgnoreCase("PENDING"))
+                                && item.getSpecId() == 6 && customer.getDesignadorAcesso()==null) {
+                            customer.setDesignadorAcesso(item.getDesignator().getValue());
+                        }
+                        for (Item item1 : item.getItems()) {
+                            if (item1.getStatusName().equalsIgnoreCase("ACTIVE") || item1.getStatusName().equalsIgnoreCase("PENDING")) {
 //                                System.out.println("letype->" + item1.getDesignator().getDesignatorType().getValue() + "_des->" + item1.getDesignator().getValue());
-                            if (null != item1.getDesignator().getDesignatorType()) {
-                                switch (item1.getDesignator().getDesignatorType()) {
-                                    case 2:
-                                        customer.setInstancia(item1.getDesignator().getValue());
-                                        break;
-                                    case 3:
-                                        customer.setDesignador(item1.getDesignator().getValue());
-                                        break;
-                                    case 4:
-                                        customer.setDesignadorTv(item1.getDesignator().getValue());
-                                        break;
-                                    default:
-                                        break;
+                                if (null != item1.getDesignator().getDesignatorType()) {
+                                    switch (item1.getDesignator().getDesignatorType()) {
+                                        case 2:
+                                            if (customer.getInstancia() == null) {
+                                                customer.setInstancia(item1.getDesignator().getValue());
+                                            }
+                                            break;
+                                        case 3:
+                                            if (customer.getDesignador() == null) {
+                                                customer.setDesignador(item1.getDesignator().getValue());
+                                            }
+                                            break;
+                                        case 4:
+                                            if (customer.getDesignadorTv() == null) {
+                                                customer.setDesignadorTv(item1.getDesignator().getValue());
+                                            }
+                                            break;
+                                        default:
+                                            break;
+                                    }
                                 }
                             }
                         }

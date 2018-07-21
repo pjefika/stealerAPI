@@ -37,6 +37,10 @@ public class TratativaInventarioServicos extends TratativaEfikaCustomer {
 
     protected InventarioServico consultarInventarioServico() throws Exception {
 
+        if(getC().getDesignador()==null){
+            TratativasGetDesignadores.tratativaInventoryResponse(account, getC());
+        }
+        
         InventarioServico serv = new InventarioServico();
         this.setAddress();
 
