@@ -75,7 +75,7 @@ public class TratativasGetDesignadores {
                 if (!addres.getExternalId().contains("OLD")) {
                     for (Item item : addres.getItems()) {
                         if ((item.getStatusName().equalsIgnoreCase("ACTIVE") || item.getStatusName().equalsIgnoreCase("PENDING"))
-                                && item.getSpecId() == 6 && customer.getDesignadorAcesso()==null) {
+                                && item.getSpecId() == 6 && customer.getDesignadorAcesso() == null) {
                             customer.setDesignadorAcesso(item.getDesignator().getValue());
                         }
                         for (Item item1 : item.getItems()) {
@@ -86,6 +86,9 @@ public class TratativasGetDesignadores {
                                         case 2:
                                             if (customer.getInstancia() == null) {
                                                 customer.setInstancia(item1.getDesignator().getValue());
+                                            } else if (customer.getInstancia().equalsIgnoreCase(item1.getDesignator().getValue())
+                                                    && customer.getDesignadorAcesso() == null) {
+                                                customer.setDesignadorAcesso(item.getDesignator().getValue());
                                             }
                                             break;
                                         case 3:
