@@ -135,10 +135,21 @@
             <version>1.0.0</version>
         </dependency>
         
-        
         <dependency>
             <groupId>br.com.gvt.oss</groupId>
             <artifactId>inventory</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>assia</groupId>
+            <artifactId>clearview</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>assia</groupId>
+            <artifactId>authentication</artifactId>
             <version>1.0.0</version>
         </dependency>
         
