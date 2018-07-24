@@ -55,7 +55,37 @@ public class ClearViewRealTimeDAOImpl extends AbstractAssiaSoapDAO implements Cl
 
     @Override
     public ResponseDataBean posDefeito(String designadorBanda) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ParameterBean p0 = new ParameterBean();
+        ParameterBean p1 = new ParameterBean();
+        com.assia.dslo.realtime.api.xsd.ObjectFactory objFactoryRealTime = new com.assia.dslo.realtime.api.xsd.ObjectFactory();
+        com.assia.dslo.napi.model.xsd.ObjectFactory objFactoryModel = new com.assia.dslo.napi.model.xsd.ObjectFactory();
+        JAXBElement<String> jaxbType = objFactoryModel.createParameterBeanType("REQUEST_TYPE");
+        JAXBElement<String> jaxbVal = objFactoryModel.createParameterBeanValue("REAL_TIME_DIAGNOSTICS_WITHOUT_LOCALIZATION");
+        JAXBElement<String> jaxbType1 = objFactoryModel.createParameterBeanType("REAL_TIME_ANALYSIS_AFTER_FIX");
+        JAXBElement<String> jaxbVal1 = objFactoryModel.createParameterBeanValue("true");
+        p0.setType(jaxbType);
+        p0.setValue(jaxbVal);
+        p1.setType(jaxbType1);
+        p1.setValue(jaxbVal1);
+        
+        JAXBElement<String> jaxbEntityID = objFactoryRealTime.createRealtimeRequestEntityID(designadorBanda);
+        JAXBElement<String> jaxbRequestType = objFactoryRealTime.createRealtimeRequestRequestType("PON_LINE_SUMMARY_DATA");
+
+        RealtimeRequest r = new RealtimeRequest();
+        r.getAdditionalParameters().add(p0);
+        r.setEntityID(jaxbEntityID);
+        r.setRequestType(jaxbRequestType);
+        RealtimePortType p = rl.getRealtimeHttpSoap11Endpoint();
+        ((BindingProvider) p).getRequestContext().put(
+                BindingProvider.SESSION_MAINTAIN_PROPERTY, true);
+        Map<String, List<String>> requestHeaders = new HashMap<>();
+        List<String> cookies = new ArrayList<>();
+        cookies.add("JSESSIONID=" + login().getSessionId());
+        requestHeaders.put("cookie", cookies);
+        ((BindingProvider) p).getRequestContext().put(MessageContext.HTTP_REQUEST_HEADERS, requestHeaders);
+        ResponseDataBean ret = p.submitRequest(r, 30000);
+        logout();
+        return ret;
     }
 
 }

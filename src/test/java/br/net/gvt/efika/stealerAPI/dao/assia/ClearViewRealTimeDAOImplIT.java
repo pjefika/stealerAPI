@@ -58,13 +58,10 @@ public class ClearViewRealTimeDAOImplIT {
     @Test
     public void testPosDefeito() throws Exception {
         System.out.println("posDefeito");
-        String designadorBanda = "";
+        String designadorBanda = "CTA-811ZYQTS3-013";
         ClearViewRealTimeDAOImpl instance = new ClearViewRealTimeDAOImpl();
-        ResponseDataBean expResult = null;
         ResponseDataBean result = instance.posDefeito(designadorBanda);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        System.out.println(new JacksonMapper(ResponseDataBean.class).serialize(result));
     }
     
 }
