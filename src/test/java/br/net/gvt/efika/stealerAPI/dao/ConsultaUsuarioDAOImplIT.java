@@ -43,11 +43,11 @@ public class ConsultaUsuarioDAOImplIT {
     @Test
     public void testGetUserArea() throws Exception {
         System.out.println("getUserArea");
-        String usuario = "G0041775";
+        String usuario = "G0058219";
         ConsultaUsuarioDAOImpl instance = new ConsultaUsuarioDAOImpl();
         
         String result = instance.getUserArea(usuario);
-        System.out.println(result);
+        System.out.println("RESULTADO->"+result);
     }
     
 }

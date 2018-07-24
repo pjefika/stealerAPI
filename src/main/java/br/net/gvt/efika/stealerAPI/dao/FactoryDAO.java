@@ -45,4 +45,8 @@ public class FactoryDAO {
         return new EfikaCustomerSigresDAOImpl();
     }
 
+    public static ConsultaUsuarioDAO consultaUsuario() {
+        return new ConsultaUsuarioDAOImpl();
+    }
+
 }
