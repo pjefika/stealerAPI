@@ -5,14 +5,15 @@
  */
 package br.net.gvt.efika.stealerAPI.dao.assia;
 
-import com.assia.dslo.realtime.api.xsd.RealtimeRequest;
+import com.assia.dslo.napi.model.xsd.ResponseDataBean;
 
 /**
  *
  * @author G0041775
  */
-public abstract class AssiaDAO {
+public interface ClearViewRealTimeDAO {
 
-    public abstract void dummy() throws Exception;
+    public ResponseDataBean preDefeito(String designadorBanda) throws Exception;
 
+    public ResponseDataBean posDefeito(String designadorBanda) throws Exception;
 }
