@@ -20,7 +20,7 @@ public class ClearViewRealTimeImpl implements ClearViewRealTime {
     public ResponseDataBean exec(String designador, String usuario) throws Exception {
         String area = consultaUsuario.getUserArea(usuario);
 
-        if (area.equalsIgnoreCase("triagem")) {
+        if (area.contains("checklist")) {
             return clearView.posDefeito(designador);
         } else if (area.isEmpty()) {
             return null;
