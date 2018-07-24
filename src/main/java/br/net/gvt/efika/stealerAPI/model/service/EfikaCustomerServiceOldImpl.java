@@ -42,7 +42,6 @@ public class EfikaCustomerServiceOldImpl implements EfikaCustomerServiceOld {
     public synchronized EfikaCustomer consultar(String designador) throws Exception {
         ec = new EfikaCustomer();
         dao = FactoryDAO.createOSS();
-
         try {
             InventoryAccountResponse accountItems = dao.getAccountItems(designador);
             InventoryDesignatorsResponse associatedDesignators = dao.getAssociatedDesignators(designador);
@@ -57,6 +56,9 @@ public class EfikaCustomerServiceOldImpl implements EfikaCustomerServiceOld {
             EfikaThread t0 = new EfikaThread(new TratativaAssociatedDesignators(associatedDesignators, ec, accountItems));
             t0.join();
 //            t0.possuiException();
+            if(ec.getInstancia()==null){
+                ec.setInstancia(designador);
+            }
             EfikaThread t2 = new EfikaThread(new TratativaInventarioServicos(accountItems, ec));
             t2.join();
             t2.possuiException();
