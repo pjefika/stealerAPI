@@ -29,7 +29,7 @@ public class TratativasGetDesignadores {
             System.out.println("type->" + designator.getDesignatorType() + "_val->" + designator.getValue());
 
             // Designador de Acesso
-            if (designator.getDesignatorType().equals(1)
+            if ((designator.getDesignatorType().equals(1) && designator.getValue().contains("-069"))
                     && (designator.getStatusName().equalsIgnoreCase("ACTIVE")
                     || designator.getStatusName().equalsIgnoreCase("PENDING"))) {
                 customer.setDesignadorAcesso(designator.getValue());
@@ -65,7 +65,7 @@ public class TratativasGetDesignadores {
 
     public static EfikaCustomer tratativaInventoryResponse(InventoryAccountResponse invResp, EfikaCustomer cust) throws Exception {
         EfikaCustomer customer = cust;
-        
+
         if (invResp.getAccounts().length > 0) {
             if (invResp.getAccounts().length > 1) {
                 throw new ImpossivelIdentificarDesignadoresException();
@@ -74,7 +74,7 @@ public class TratativasGetDesignadores {
         /**
          * Find the right address first
          */
-        String address=null;
+        String address = null;
         for (Account account1 : invResp.getAccounts()) {
             for (Address addres : account1.getAddress()) {
                 if (!addres.getExternalId().contains("OLD")) {
@@ -122,7 +122,7 @@ public class TratativasGetDesignadores {
             }
 
         }
-        
+
         for (Account account1 : invResp.getAccounts()) {
             for (Address addres : account1.getAddress()) {
                 if (addres.getExternalId().equalsIgnoreCase(address)) {

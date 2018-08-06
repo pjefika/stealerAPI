@@ -56,7 +56,7 @@ public class EfikaCustomerServiceOldImplIT {
     @Test
     public void testConsultar() throws Exception {
         System.out.println("consultar");
-        String designador = "3131760194";
+        String designador = "6130538413";
         EfikaCustomerServiceOldImpl instance = new EfikaCustomerServiceOldImpl();
 //        EfikaCustomer expResult = null;
         EfikaCustomer result = instance.consultar(designador);
