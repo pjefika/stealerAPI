@@ -62,6 +62,12 @@
     <dependencies>
         <!-- Java EE 7 dependency -->
         <dependency>
+            <groupId>br.net.gvt.efika</groupId>
+            <artifactId>network_inventory</artifactId>
+            <version>1.0.0</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
             <version>7.0</version>
@@ -106,6 +112,12 @@
         </dependency>
         
         <dependency>
+            <groupId>br.net.gvt.efika</groupId>
+            <artifactId>network_inventory</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        
+        <dependency>
             <groupId>br.com.gvt.www</groupId>
             <artifactId>workforce</artifactId>
             <version>1.0.0</version>
@@ -123,10 +135,21 @@
             <version>1.0.0</version>
         </dependency>
         
-        
         <dependency>
             <groupId>br.com.gvt.oss</groupId>
             <artifactId>inventory</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>assia</groupId>
+            <artifactId>clearview</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>assia</groupId>
+            <artifactId>authentication</artifactId>
             <version>1.0.0</version>
         </dependency>
         

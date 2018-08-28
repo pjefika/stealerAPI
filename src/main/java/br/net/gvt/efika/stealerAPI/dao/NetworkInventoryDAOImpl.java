@@ -12,6 +12,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import br.net.gvt.efika.stealerAPI.model.environment.EfikaEnvironment;
 import br.net.gvt.efika.stealerAPI.model.environment.EnvironmentSingleton;
+import br.net.gvt.efika.util.dao.http.Urls;
 import org.apache.http.HttpHeaders;
 import org.apache.http.HttpHost;
 import org.apache.http.client.config.CookieSpecs;
@@ -47,11 +48,12 @@ public class NetworkInventoryDAOImpl implements NetworkInventoryDAO {
                 .setDefaultRequestConfig(globalConfig)
                 .build();
 
-        HttpGet httpget = new HttpGet(environment.getURL() + "/networkInventoryAPI/networkInventory/" + instancia);
+        HttpGet httpget = new HttpGet("http://10.40.198.168:7174/networkInventoryAPI/networkInventory/" + instancia);
         httpget.setHeader(HttpHeaders.CONTENT_TYPE, "application/json");
         CloseableHttpResponse response1 = httpclient.execute(httpget);
 
         if (response1.getStatusLine().getStatusCode() != 200) {
+            System.out.println("lelelellelellelele");
             throw new Exception("Cadastro não encontrado na networkInventory");
         }
 
