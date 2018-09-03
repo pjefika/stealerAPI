@@ -5,7 +5,7 @@
  */
 package br.net.gvt.efika.stealerAPI.dao.col.tv;
 
-import br.net.gvt.efika.stealer.model.entity.DecoderTV;
+import br.net.gvt.efika.stealer.model.tv.DecoderTV;
 import java.util.List;
 
 /**

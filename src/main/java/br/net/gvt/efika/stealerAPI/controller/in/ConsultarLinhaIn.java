@@ -5,7 +5,7 @@
  */
 package br.net.gvt.efika.stealerAPI.controller.in;
 
-import br.net.gvt.efika.stealerAPI.model.entity.LoggerIn;
+import br.net.gvt.efika.stealer.model.entity.LoggerIn;
 
 /**
  *

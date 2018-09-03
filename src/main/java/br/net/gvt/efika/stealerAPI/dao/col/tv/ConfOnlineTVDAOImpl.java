@@ -7,62 +7,61 @@ package br.net.gvt.efika.stealerAPI.dao.col.tv;
 
 import br.com.gvt.www.tv.configuracaoTV.ConsultarEquipamentosTVIn;
 import br.com.gvt.www.tv.configuracaoTV.ConsultarEquipamentosTVOut;
-import br.com.gvt.www.tv.diagnosticoCPE.DiagnosticoParam;
 import br.com.gvt.www.tv.diagnosticoHPNA.ConsultaDiagnosticoHPNAIn;
-import br.com.gvt.www.tv.diagnosticoHPNA.DiagnosticoHPNA;
 import br.com.gvt.www.tv.diagnosticoHPNA.DiagnosticoHPNAIn;
 import br.com.gvt.www.tv.diagnosticoHPNA.DiagnosticoHPNAOut;
 import br.com.gvt.www.tv.diagnosticoHPNA.ExecutarDiagnosticoHPNAOut;
-import br.net.gvt.efika.stealer.model.entity.DecoderTV;
+import br.net.gvt.efika.stealer.model.tv.DecoderTV;
 import br.net.gvt.efika.stealerAPI.dao.exception.ClienteSemTvException;
+import br.net.gvt.efika.stealerAPI.dao.exception.FalhaDiagnosticoHPNAException;
 import br.net.gvt.efika.stealerAPI.model.adapter.DecoderDecorator;
 import com.gvt.services.eai.configuradoronline.ws.ConfiguradorOnlineProxy;
 import com.gvt.www.metaData.smarttool.Credenciais;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ConfOnlineTVDAOImpl implements ConfOnlineTVDAO {
 
     private final ConfiguradorOnlineProxy col = new ConfiguradorOnlineProxy();
     private final Credenciais cred = new Credenciais("wise", "wise", "wise");
+    private List<DecoderTV> basicList;
 
     @Override
     public List<DecoderTV> getStb(String tvDesignator) throws Exception {
-        ConsultarEquipamentosTVOut out = col.consultarEquipamentosDeTV(new ConsultarEquipamentosTVIn(tvDesignator));
-        if (out.getSetTopBox() == null) {
-            throw new ClienteSemTvException();
+        if (basicList == null) {
+            ConsultarEquipamentosTVOut out = col.consultarEquipamentosDeTV(new ConsultarEquipamentosTVIn(tvDesignator));
+            if (out.getSetTopBox() == null) {
+                throw new ClienteSemTvException();
+            }
+            basicList = DecoderDecorator.createFromEqpsTvOut(out);
         }
-        return DecoderDecorator.createFromEqpsTvOut(out);
+        return basicList;
     }
 
     @Override
     public List<DecoderTV> getStbDiagnostics(String designator, String tvDesignator) throws Exception {
-        int ammount = this.getStb(tvDesignator).size() * 150;
+        int ammount;
+        if (basicList == null) {
+            this.getStb(tvDesignator);
+        }
+        ammount = basicList.size() * 150;
         ExecutarDiagnosticoHPNAOut out0 = col.executarDiagnosticoHPNA(new DiagnosticoHPNAIn(designator, false, cred));
         DiagnosticoHPNAOut out = col.consultarDiagnosticoHPNA(new ConsultaDiagnosticoHPNAIn(out0.getIdExecucao(), cred));
+        if (out0.getIdExecucao() == 0) {
+            throw new FalhaDiagnosticoHPNAException(out0.getMensagem());
+        }
         int i = 0;
         int sleep = 30000;
+        System.out.println("idexecucao->" + out0.getIdExecucao());
         while (out.getDiagnosticos() == null && i <= ammount) {
             Thread.sleep(sleep);
             out = col.consultarDiagnosticoHPNA(new ConsultaDiagnosticoHPNAIn(out0.getIdExecucao(), cred));
             i = i + (sleep / 1000);
         }
-        List<DecoderTV> r = new ArrayList<>();
-        out.getDiagnosticos();
-        for (DiagnosticoHPNA diagnostico : out.getDiagnosticos()) {
-            DecoderTV d = new DecoderTV();
-            d.setMac(diagnostico.getMacAddressDestino());
-            d.setAttenuation(new Double(getParamByName(diagnostico.getParametros(), "HPNA-ATTENUATION").getValor()));
+        if (out.getDiagnosticos() == null) {
+            throw new FalhaDiagnosticoHPNAException();
         }
-        return r;
+
+        return DecoderDecorator.createFromDiagnostic(out);
     }
 
-    public DiagnosticoParam getParamByName(DiagnosticoParam[] arr, String nome) {
-        for (DiagnosticoParam diagnosticoParam : arr) {
-            if (diagnosticoParam.getNome().equalsIgnoreCase(nome)) {
-                return diagnosticoParam;
-            }
-        }
-        return null;
-    }
 }

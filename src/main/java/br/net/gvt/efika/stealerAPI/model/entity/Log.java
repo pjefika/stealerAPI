@@ -5,6 +5,7 @@
  */
 package br.net.gvt.efika.stealerAPI.model.entity;
 
+import br.net.gvt.efika.stealer.model.entity.LoggerIn;
 import java.util.Calendar;
 import org.mongodb.morphia.annotations.Entity;
 
