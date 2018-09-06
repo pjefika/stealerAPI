@@ -10,6 +10,7 @@ import br.net.gvt.efika.stealer.model.tv.request.DiagnosticoHpnaIn;
 import br.net.gvt.efika.stealer.model.tv.request.GetStbsIn;
 import br.net.gvt.efika.stealerAPI.dao.FactoryDAO;
 import br.net.gvt.efika.stealerAPI.dao.InterfaceDAO;
+import br.net.gvt.efika.stealerAPI.dao.col.tv.ConfOnlineTVDAOImpl;
 import br.net.gvt.efika.stealerAPI.model.entity.Log;
 import br.net.gvt.efika.stealerAPI.model.service.factory.FactoryService;
 import java.util.List;
@@ -54,8 +55,9 @@ public class ConfOnlineController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response diagnosticoHpna(DiagnosticoHpnaIn in) {
         try {
-            
-            List<DecoderTV> out = FactoryService.colTVService().diagnosticoHpna(in.getEc());
+            ConfOnlineTVDAOImpl instance = new ConfOnlineTVDAOImpl();
+            List<DecoderTV> out = instance.getStbDiagnostics(in.getEc().getDesignador(), in.getEc().getDesignadorTv());
+            //List<DecoderTV> out = FactoryService.colTVService().diagnosticoHpna(in.getEc());
             try {
                 Log l = new Log(in);
                 l.setOuput(out);
