@@ -57,7 +57,7 @@ public class ConfOnlineTVDAOImplIT {
     public void testGetStbDiagnostics() throws Exception {
         System.out.println("getStbDiagnostics");
         ConfOnlineTVDAOImpl instance = new ConfOnlineTVDAOImpl();
-        List<DecoderTV> result = instance.getStbDiagnostics("SPO-814U5QCTJC-013", "TV-SPO-814U5QCTJH-050");
+        List<DecoderTV> result = instance.getStbDiagnostics("SPO-813AEZFX6K-013", "TV-SPO-813AEZFX6P-050");
         System.out.println(new JacksonMapper(List.class).serialize(result));
     }
 

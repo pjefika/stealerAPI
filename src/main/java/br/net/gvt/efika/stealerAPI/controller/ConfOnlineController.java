@@ -55,9 +55,9 @@ public class ConfOnlineController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response diagnosticoHpna(DiagnosticoHpnaIn in) {
         try {
-            ConfOnlineTVDAOImpl instance = new ConfOnlineTVDAOImpl();
-            List<DecoderTV> out = instance.getStbDiagnostics(in.getEc().getDesignador(), in.getEc().getDesignadorTv());
-            //List<DecoderTV> out = FactoryService.colTVService().diagnosticoHpna(in.getEc());
+            //ConfOnlineTVDAOImpl instance = new ConfOnlineTVDAOImpl();
+            //List<DecoderTV> out = instance.getStbDiagnostics(in.getEc().getDesignador(), in.getEc().getDesignadorTv());
+            List<DecoderTV> out = FactoryService.colTVService().diagnosticoHpna(in.getEc());
             try {
                 Log l = new Log(in);
                 l.setOuput(out);
