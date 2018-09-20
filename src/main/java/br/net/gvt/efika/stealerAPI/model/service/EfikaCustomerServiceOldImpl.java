@@ -67,6 +67,7 @@ public class EfikaCustomerServiceOldImpl implements EfikaCustomerServiceOld {
              * Refatorar!
              */
             if (ec.getRede().getPlanta() != OrigemPlanta.VIVO1) {
+                //EH VIVO 2 POHA
                 EfikaThread t3 = new EfikaThread(new TratativaInventarioLinha(linha().consultar(ec.getInstancia()), ec));
                 EfikaThread t1 = new EfikaThread(new TratativaInventarioRede(getInfo(), ec));
                 EfikaThread t5 = new EfikaThread(new TratativaInventarioRadius(getInfo(), ec));
@@ -88,16 +89,16 @@ public class EfikaCustomerServiceOldImpl implements EfikaCustomerServiceOld {
                     }
                 });
                 t4.join();
-                EfikaThread t6 = new EfikaThread(() -> {
-                    try {
-                        EventosMassivosDAO instance0 = new EventosMassivosDAOImpl();
-                        List<EventoMassivo> lEm = instance0.consultar(ec);
-                        ec.setEventos(lEm);
-                    } catch (Exception ex) {
-                        Logger.getLogger(EfikaCustomerServiceOldImpl.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                });
-                t6.join();
+//                EfikaThread t6 = new EfikaThread(() -> {
+//                    try {
+//                        EventosMassivosDAO instance0 = new EventosMassivosDAOImpl();
+//                        List<EventoMassivo> lEm = instance0.consultar(ec);
+//                        ec.setEventos(lEm);
+//                    } catch (Exception ex) {
+//                        Logger.getLogger(EfikaCustomerServiceOldImpl.class.getName()).log(Level.SEVERE, null, ex);
+//                    }
+//                });
+//                t6.join();
                 ec.setAsserts(new AssertFacadeFulltestCRMVivo1(ec).assertThese());
             }
 
