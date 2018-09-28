@@ -6,6 +6,8 @@
 package br.net.gvt.efika.stealerAPI.dao.col.tv;
 
 import br.net.gvt.efika.stealer.model.tv.DecoderTV;
+import br.net.gvt.efika.stealerAPI.model.TesteHpna;
+
 import java.util.List;
 
 /**
@@ -16,6 +18,6 @@ public interface ConfOnlineTVDAO {
 
     public List<DecoderTV> getStb(String tvDesignator) throws Exception;
 
-    public List<DecoderTV> getStbDiagnostics(String designator, String tvDesignator) throws Exception;
+    public TesteHpna getStbDiagnostics(String designator, String tvDesignator) throws Exception;
 
 }

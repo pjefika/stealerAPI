@@ -9,6 +9,8 @@ import br.net.gvt.efika.efika_customer.model.customer.EfikaCustomer;
 import br.net.gvt.efika.stealer.model.tv.DecoderTV;
 import br.net.gvt.efika.stealerAPI.dao.FactoryDAO;
 import br.net.gvt.efika.stealerAPI.dao.col.tv.ConfOnlineTVDAO;
+import br.net.gvt.efika.stealerAPI.model.TesteHpna;
+
 import java.util.List;
 
 public class ColTVServiceImpl implements ColTVService {
@@ -21,29 +23,35 @@ public class ColTVServiceImpl implements ColTVService {
     }
 
     @Override
-    public List<DecoderTV> diagnosticoHpna(EfikaCustomer ec) throws Exception {
+    public TesteHpna diagnosticoHpna(EfikaCustomer ec) throws Exception {
         List<DecoderTV> stbs = listStbs(ec);
-        List<DecoderTV> diag = dao.getStbDiagnostics(ec.getDesignador(), ec.getDesignadorTv());
-        stbs.forEach((tlist) -> {
-            int end = 15;
-            if (tlist.getMac().substring(-1).equalsIgnoreCase("F")) {
-                end = 13;
-            }
-            String leMac = tlist.getMac().substring(0, end);
-            diag.forEach((tdiag) -> {
-                if (tdiag.getMac().contains(leMac)) {
-                    tlist.setAttenuation(tdiag.getAttenuation());
-                    tlist.setBaudRate(tdiag.getBaudRate());
-                    tlist.setCertified(tdiag.getCertified());
-                    tlist.setIsPvr(tdiag.getIsPvr());
-                    tlist.setPacketsLost(tdiag.getPacketsLost());
-                    tlist.setPacketsReceived(tdiag.getPacketsReceived());
-                    tlist.setPhyRate(tdiag.getPhyRate());
-                    tlist.setSnr(tdiag.getSnr());
+        TesteHpna testeHpna = dao.getStbDiagnostics(ec.getDesignador(), ec.getDesignadorTv());
+
+        try {
+            stbs.forEach((tlist) -> {
+                int end = 15;
+                if (tlist.getMac().substring(-1).equalsIgnoreCase("F")) {
+                    end = 13;
                 }
+                String leMac = tlist.getMac().substring(0, end);
+                testeHpna.getStbs().forEach((tdiag) -> {
+                    if (tdiag.getMac().contains(leMac)) {
+                        tlist.setAttenuation(tdiag.getAttenuation());
+                        tlist.setBaudRate(tdiag.getBaudRate());
+                        tlist.setCertified(tdiag.getCertified());
+                        tlist.setIsPvr(tdiag.getIsPvr());
+                        tlist.setPacketsLost(tdiag.getPacketsLost());
+                        tlist.setPacketsReceived(tdiag.getPacketsReceived());
+                        tlist.setPhyRate(tdiag.getPhyRate());
+                        tlist.setSnr(tdiag.getSnr());
+                    }
+                });
             });
-        });
-        return stbs;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        testeHpna.setStbs(stbs);
+        return testeHpna;
     }
 
 }
