@@ -25,7 +25,6 @@ public class WorkOrderController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response asserts(@PathParam("ss") String ss) throws Exception {
         try {
-
             return Response.status(200).entity(FactoryDAO.createWorkOrderDAO().getWorkOrder(ss)).build();
         } catch (Exception e) {
             e.printStackTrace();
