@@ -12,7 +12,7 @@ public class ConsultaEquipamentoImpl extends HttpDAO implements ConsultaEquipame
 
     @Override
     public String consultar(String instancia) throws Exception {
-        String resp = get("http://pnadmin.gvt.com.br/pn/pn.jsp?numero=" + instancia);
+        String resp = getComCookie("http://pnadmin.gvt.com.br/pn/pn.jsp?numero=" + instancia);
 //        System.out.println(resp);
         try {
             Matcher m = Pattern.compile("(?:Registro no Sisnum)(?:.*)(\\d{10})(?:.*)(?!Histórico do Sisnum)").matcher(resp);

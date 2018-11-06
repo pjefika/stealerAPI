@@ -33,7 +33,7 @@ public class EventosMassivosDAOImpl extends HttpDAO implements EventosMassivosDA
         httppost.addHeader("content-type", "application/json");
         httppost.setEntity(param);
 
-        //Execute and get the response.
+        //Execute and getComCookie the response.
         HttpResponse response = httpcliente.execute(httppost);
         HttpEntity entity = response.getEntity();
 

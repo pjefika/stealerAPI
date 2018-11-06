@@ -49,13 +49,33 @@ public abstract class HttpDAO {
                 .build();
     }
 
-    public String get(String url) throws Exception {
+    public String getComCookie(String url) throws Exception {
         HttpGet http = new HttpGet(url);
 
         http.setHeader("Content-Type", "text/html;charset=ISO-8859-1");
         http.setHeader("Accept-Language", "pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7");
         http.setHeader(HttpHeaders.ACCEPT, "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8");
         http.setHeader("Cookie", "PN_PREF=rO0ABXNyABFqYXZhLnV0aWwuSGFzaE1hcAUH2sHDFmDRAwACRgAKbG9hZEZhY3RvckkACXRocmVzaG9sZHhwP0AAAAAAAAx3CAAAABAAAAAHdAAPQkRPcyBjb20gZmFsaGFzdAABRXQAA0JET3EAfgADdAAUQmlsaGV0ZSBkZSBBdGl2aWRhZGVxAH4AA3QADVBvcnRhYmlsaWRhZGVxAH4AA3QAAkNYcQB+AAN0AANUQlNxAH4AA3QAGVByb2Nlc3NvIGRhIFBvcnRhYmlsaWRhZGVxAH4AA3g=; ACEPNADMIN=R2630205373; JSESSIONID=997B592C29AAB987D5533DF8D6F7E773; BACKURL=http://pnadmin.gvt.com.br:80/pn/index.jsp; SID=846218; GVT_USER_LOGIN=G0041775; GVT_AUTH_TYPE=NTLM");
+        HttpEntity response = client(url).execute(http, context()).getEntity();
+        InputStream instream = response.getContent();
+        BufferedReader rd = new BufferedReader(new InputStreamReader(instream));
+        StringBuffer result = new StringBuffer();
+        String line;
+        while ((line = rd.readLine()) != null) {
+            result.append(line);
+        }
+        instream.close();
+//        System.out.println("RESULTTOSTRING->"+result.toString());
+        return result.toString();
+    }
+
+    public String get(String url) throws Exception {
+        HttpGet http = new HttpGet(url);
+
+//        http.setHeader("Content-Type", "text/html;charset=ISO-8859-1");
+//        http.setHeader("Accept-Language", "pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7");
+//        http.setHeader(HttpHeaders.ACCEPT, "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8");
+//        http.setHeader("Cookie", "PN_PREF=rO0ABXNyABFqYXZhLnV0aWwuSGFzaE1hcAUH2sHDFmDRAwACRgAKbG9hZEZhY3RvckkACXRocmVzaG9sZHhwP0AAAAAAAAx3CAAAABAAAAAHdAAPQkRPcyBjb20gZmFsaGFzdAABRXQAA0JET3EAfgADdAAUQmlsaGV0ZSBkZSBBdGl2aWRhZGVxAH4AA3QADVBvcnRhYmlsaWRhZGVxAH4AA3QAAkNYcQB+AAN0AANUQlNxAH4AA3QAGVByb2Nlc3NvIGRhIFBvcnRhYmlsaWRhZGVxAH4AA3g=; ACEPNADMIN=R2630205373; JSESSIONID=997B592C29AAB987D5533DF8D6F7E773; BACKURL=http://pnadmin.gvt.com.br:80/pn/index.jsp; SID=846218; GVT_USER_LOGIN=G0041775; GVT_AUTH_TYPE=NTLM");
         HttpEntity response = client(url).execute(http, context()).getEntity();
         InputStream instream = response.getContent();
         BufferedReader rd = new BufferedReader(new InputStreamReader(instream));
