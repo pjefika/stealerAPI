@@ -6,6 +6,8 @@
 package br.net.gvt.efika.stealerAPI.dao;
 
 import br.net.gvt.efika.efika_customer.model.customer.EfikaCustomer;
+import br.net.gvt.efika.stealerAPI.dao.col.tv.ConfOnlineTVDAO;
+import br.net.gvt.efika.stealerAPI.dao.col.tv.ConfOnlineTVDAOImpl;
 import br.net.gvt.efika.stealerAPI.dao.oss.OSSGenericDAO;
 import br.net.gvt.efika.stealerAPI.dao.sigres.EfikaCustomerSigresDAO;
 import br.net.gvt.efika.stealerAPI.dao.sigres.EfikaCustomerSigresDAOImpl;
@@ -47,6 +49,10 @@ public class FactoryDAO {
 
     public static ConsultaUsuarioDAO consultaUsuario() {
         return new ConsultaUsuarioDAOImpl();
+    }
+
+    public static ConfOnlineTVDAO colTVDAO() {
+        return new ConfOnlineTVDAOImpl();
     }
 
 }

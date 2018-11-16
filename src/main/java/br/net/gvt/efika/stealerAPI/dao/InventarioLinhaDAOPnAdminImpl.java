@@ -24,7 +24,7 @@ public class InventarioLinhaDAOPnAdminImpl extends HttpDAO implements Inventario
         String bundle = "cred";
 
         try {
-            resp = get("http://" + EfikaResourceBundle.getString(bundle, "login")
+            resp = getComCookie("http://" + EfikaResourceBundle.getString(bundle, "login")
                     + ":" + EfikaResourceBundle.getString(bundle, "senha")
                     + "@pnadmin.gvt.com.br/pn/pn.jsp?numero=" + instancia);
 //            System.out.println("PIRACEMA0");

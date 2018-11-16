@@ -47,7 +47,7 @@ public class WorkOrderDAOIT {
     @Test
     public void testGetWorkOrder() throws Exception {
         System.out.println("getWorkOrder");
-        String workOrderId = "8-2Q6NY8OG";
+        String workOrderId = "8-512RQ3DQ";
         WorkOrderDAO instance = new WorkOrderDAO();
         WorkOrder result = instance.getWorkOrder(workOrderId);
         System.out.println(new JacksonMapper(WorkOrder.class).serialize(result));

@@ -31,6 +31,7 @@ public class AssertAutenticacaoAposOrdem implements EfikaAssertable {
         try {
             return new CustomerAssert(AssertsEnum.AUTH_ABERTURA_ORDEM, auth.getDataHoraAutenticacao().after(order.getDateOfSale()));
         } catch (Exception e) {
+            e.printStackTrace();
             return new CustomerAssert(AssertsEnum.AUTH_ABERTURA_ORDEM, Boolean.FALSE);
         }
     }

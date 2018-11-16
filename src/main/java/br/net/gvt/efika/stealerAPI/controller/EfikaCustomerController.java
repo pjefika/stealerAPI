@@ -19,7 +19,9 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import br.net.gvt.efika.stealerAPI.model.entity.Log;
 import javax.ws.rs.POST;
+import javax.ws.rs.GET;
 import br.net.gvt.efika.stealerAPI.model.service.factory.FactoryService;
+import javax.ws.rs.PathParam;
 
 /**
  *
@@ -87,6 +89,17 @@ public class EfikaCustomerController implements EfikaCustomerRestInter {
                 e.printStackTrace();
             }
             return Response.status(200).entity(infoGpon).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e).build();
+        }
+    }
+
+    @GET
+    @Path("/getInfo/{designador}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getInfo(@PathParam("designador") String designador) {
+        try {
+            return Response.status(200).entity(FactoryDAO.createOSS().getInfo(designador, designador)).build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e).build();
         }

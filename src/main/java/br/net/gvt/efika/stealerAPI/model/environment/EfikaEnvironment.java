@@ -11,7 +11,7 @@ package br.net.gvt.efika.stealerAPI.model.environment;
  */
 public enum EfikaEnvironment {
 
-    PROD("10.200.35.67", 80),
+    PROD("localhost", 80),
     QA("10.40.195.81", 8080);
 
     private final String ip;
