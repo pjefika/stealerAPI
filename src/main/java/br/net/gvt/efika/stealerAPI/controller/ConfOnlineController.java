@@ -5,6 +5,7 @@
  */
 package br.net.gvt.efika.stealerAPI.controller;
 
+import br.net.gvt.efika.stealer.model.TesteHpna;
 import br.net.gvt.efika.stealer.model.tv.DecoderTV;
 import br.net.gvt.efika.stealer.model.tv.request.DiagnosticoHpnaIn;
 import br.net.gvt.efika.stealer.model.tv.request.GetStbsIn;
@@ -55,7 +56,8 @@ public class ConfOnlineController {
     public Response diagnosticoHpna(DiagnosticoHpnaIn in) {
         try {
             
-            List<DecoderTV> out = FactoryService.colTVService().diagnosticoHpna(in.getEc());
+//            List<DecoderTV> out = FactoryService.colTVService().diagnosticoHpna(in.getEc());
+            TesteHpna out = FactoryService.colTVService().diagnosticoHpna(in.getEc());
             try {
                 Log l = new Log(in);
                 l.setOuput(out);

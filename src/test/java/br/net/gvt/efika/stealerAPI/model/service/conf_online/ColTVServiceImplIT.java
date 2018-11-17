@@ -67,8 +67,8 @@ public class ColTVServiceImplIT {
     @Test
     public void testDiagnosticoHpna() throws Exception {
         System.out.println("diagnosticoHpna");
-        List<DecoderTV> result = instance.diagnosticoHpna(ec);
-        System.out.println(new JacksonMapper(List.class).serialize(result));
+//        List<DecoderTV> result = instance.diagnosticoHpna(ec);
+//        System.out.println(new JacksonMapper(List.class).serialize(result));
     }
 
 }
