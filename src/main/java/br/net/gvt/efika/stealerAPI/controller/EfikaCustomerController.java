@@ -22,6 +22,8 @@ import javax.ws.rs.POST;
 import javax.ws.rs.GET;
 import br.net.gvt.efika.stealerAPI.model.service.factory.FactoryService;
 import javax.ws.rs.PathParam;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -101,8 +103,11 @@ public class EfikaCustomerController implements EfikaCustomerRestInter {
         try {
             return Response.status(200).entity(FactoryDAO.createOSS().getInfo(designador, designador)).build();
         } catch (Exception e) {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e).build();
+            List<String> res = new ArrayList<>();
+            res.add("404");
+            res.add(e.getMessage());
+            //return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e).build();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(res).build();
         }
     }
-
 }

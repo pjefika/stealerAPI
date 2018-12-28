@@ -48,7 +48,8 @@ public class NetworkInventoryDAOImpl implements NetworkInventoryDAO {
                 .setDefaultRequestConfig(globalConfig)
                 .build();
 
-        HttpGet httpget = new HttpGet("http://10.40.198.168:7174/networkInventoryAPI/networkInventory/" + instancia);
+        //HttpGet httpget = new HttpGet("http://10.40.198.168:7174/networkInventoryAPI/networkInventory/" + instancia);
+        HttpGet httpget = new HttpGet(Urls.NETWORK_INVENTORY_INVENTORY.getUrl() + instancia);
         httpget.setHeader(HttpHeaders.CONTENT_TYPE, "application/json");
         CloseableHttpResponse response1 = httpclient.execute(httpget);
 

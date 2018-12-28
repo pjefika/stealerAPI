@@ -57,26 +57,31 @@ public class EfikaCustomerServiceOldImpl implements EfikaCustomerServiceOld {
         InventoryDesignatorsResponse associatedDesignators = dao.getAssociatedDesignators(designador);
 
         EfikaThread t0 = new EfikaThread(new TratativaAssociatedDesignators(associatedDesignators, ec, accountItems));
+        EfikaThread t1 = null;
+        EfikaThread t2 = null;
+        EfikaThread t3 = null;
+        EfikaThread t4 = null;
+        EfikaThread t5 = null;
         try {
             t0.join();
 //            t0.possuiException();
-            EfikaThread t2 = new EfikaThread(new TratativaInventarioServicos(accountItems, ec));
+            t2 = new EfikaThread(new TratativaInventarioServicos(accountItems, ec));
             t2.join();
             t2.possuiException();
             /**
              * Refatorar!
              */
             if (ec.getRede().getPlanta() != OrigemPlanta.VIVO1) {
-                EfikaThread t3 = new EfikaThread(new TratativaInventarioLinha(linha().consultar(ec.getInstancia()), ec));
-                EfikaThread t1 = new EfikaThread(new TratativaInventarioRede(getInfo(), ec));
-                EfikaThread t5 = new EfikaThread(new TratativaInventarioRadius(getInfo(), ec));
+                t3 = new EfikaThread(new TratativaInventarioLinha(linha().consultar(ec.getInstancia()), ec));
+                t1 = new EfikaThread(new TratativaInventarioRede(getInfo(), ec));
+                t5 = new EfikaThread(new TratativaInventarioRadius(getInfo(), ec));
                 t3.join();
                 t1.join();
                 t1.possuiException();
                 t5.join();
                 ec.setAsserts(new AssertFacadeFulltestCRMVivo2(getInfo()).assertThese());
             } else {
-                EfikaThread t4 = new EfikaThread(() -> {
+                t4 = new EfikaThread(() -> {
                     try {
                         NetworkInventoryDAO instance = new NetworkInventoryDAOImpl();
                         EfikaCustomer cst2 = instance.consultar(ec.getInstancia());
@@ -114,11 +119,18 @@ public class EfikaCustomerServiceOldImpl implements EfikaCustomerServiceOld {
                 }
             }
             if (e.getCause() instanceof ClienteSemBandaException) {
-                EfikaThread t2 = new EfikaThread(new TratativaInventarioServicos(dao.getAccountItems(ec.getDesignador()), ec));
-                EfikaThread t3 = new EfikaThread(new TratativaInventarioLinha(linha().consultar(ec.getInstancia()), ec));
+                t2 = new EfikaThread(new TratativaInventarioServicos(dao.getAccountItems(ec.getDesignador()), ec));
+                t3 = new EfikaThread(new TratativaInventarioLinha(linha().consultar(ec.getInstancia()), ec));
                 t2.join();
                 t3.join();
             }
+        }finally {
+            t0.destroy();
+            t1.destroy();
+            t2.destroy();
+            t3.destroy();
+            t4.destroy();
+            t5.destroy();
         }
 
         return ec;

@@ -3,7 +3,7 @@
     <persistence-unit name="stealerAPIPU" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
         <jta-data-source>java:/co</jta-data-source>
-        <class>model.entity.Log</class>
+        <class>br.net.gvt.efika.stealerAPI.model.entity.Log</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect"/>
@@ -14,7 +14,7 @@
     </persistence-unit>
     <persistence-unit name="cdrPU" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <class>model.entity.ChamadaBilling</class>
+        <class>br.net.gvt.efika.stealerAPI.model.entity.ChamadaBilling</class>
         <properties>
             <property name="javax.persistence.jdbc.driver" value="oracle.jdbc.OracleDriver"/>
             <property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@10.41.7.207:1521/PBI1"/>
