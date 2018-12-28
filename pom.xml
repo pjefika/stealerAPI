@@ -44,13 +44,6 @@
                 <configuration>
                     <properties>
                         <swarm.http.port>7180</swarm.http.port>
-                        <swarm.undertow.servers.KEY.http-listeners.KEY.buffer-pool>
-                            1
-                        </swarm.undertow.servers.KEY.http-listeners.KEY.buffer-pool>
-
-                        <swarm.undertow.servers.KEY.http-listeners.KEY.max-connections>
-                            900
-                        </swarm.undertow.servers.KEY.http-listeners.KEY.max-connections>
                     </properties>
                 </configuration>
             </plugin>
