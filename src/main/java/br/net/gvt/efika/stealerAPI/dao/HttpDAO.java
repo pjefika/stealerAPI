@@ -52,10 +52,13 @@ public abstract class HttpDAO {
     public String getComCookie(String url) throws Exception {
         HttpGet http = new HttpGet(url);
 
+        /*
+        ACEPNADMIN=R2630205373; JSESSIONID=E11E4985431536B6967E3B64D374410E; BACKURL=http://pnadmin.gvt.com.br:80/pn/; SID=454963; GVT_USER_LOGIN=A0079821; GVT_AUTH_TYPE=NTLM
+         */
         http.setHeader("Content-Type", "text/html;charset=ISO-8859-1");
         http.setHeader("Accept-Language", "pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7");
         http.setHeader(HttpHeaders.ACCEPT, "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8");
-        http.setHeader("Cookie", "PN_PREF=rO0ABXNyABFqYXZhLnV0aWwuSGFzaE1hcAUH2sHDFmDRAwACRgAKbG9hZEZhY3RvckkACXRocmVzaG9sZHhwP0AAAAAAAAx3CAAAABAAAAAHdAAPQkRPcyBjb20gZmFsaGFzdAABRXQAA0JET3EAfgADdAAUQmlsaGV0ZSBkZSBBdGl2aWRhZGVxAH4AA3QADVBvcnRhYmlsaWRhZGVxAH4AA3QAAkNYcQB+AAN0AANUQlNxAH4AA3QAGVByb2Nlc3NvIGRhIFBvcnRhYmlsaWRhZGVxAH4AA3g=; ACEPNADMIN=R2630205373; JSESSIONID=997B592C29AAB987D5533DF8D6F7E773; BACKURL=http://pnadmin.gvt.com.br:80/pn/index.jsp; SID=846218; GVT_USER_LOGIN=G0041775; GVT_AUTH_TYPE=NTLM");
+        http.setHeader("Cookie", "PN_PREF=rO0ABXNyABFqYXZhLnV0aWwuSGFzaE1hcAUH2sHDFmDRAwACRgAKbG9hZEZhY3RvckkACXRocmVzaG9sZHhwP0AAAAAAAAx3CAAAABAAAAADdAAUQmlsaGV0ZSBkZSBBdGl2aWRhZGV0AAFFdAANUG9ydGFiaWxpZGFkZXEAfgADdAAZUHJvY2Vzc28gZGEgUG9ydGFiaWxpZGFkZXEAfgADeA==; Expires=Thu, 24-Oct-2019 16:34:01 GMT");
         HttpEntity response = client(url).execute(http, context()).getEntity();
         InputStream instream = response.getContent();
         BufferedReader rd = new BufferedReader(new InputStreamReader(instream));
