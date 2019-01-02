@@ -6,6 +6,7 @@
 package br.net.gvt.efika.stealerAPI.model.service.conf_online;
 
 import br.net.gvt.efika.efika_customer.model.customer.EfikaCustomer;
+import br.net.gvt.efika.stealer.model.TesteHpna;
 import br.net.gvt.efika.stealer.model.tv.DecoderTV;
 import java.util.List;
 
@@ -14,9 +15,9 @@ import java.util.List;
  * @author G0041775
  */
 public interface ColTVService {
-    
+
     public List<DecoderTV> listStbs(EfikaCustomer ec) throws Exception;
-    
-    public List<DecoderTV> diagnosticoHpna(EfikaCustomer ec) throws Exception;
-   
+
+    public TesteHpna diagnosticoHpna(EfikaCustomer ec) throws Exception;
+
 }
